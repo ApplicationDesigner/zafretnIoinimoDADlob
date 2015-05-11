@@ -13,5 +13,6 @@ import Interfaz.IJugador;
  */
 public interface IIngresarAPartida extends IVentana {
     public abstract void setJugador(IJugador j);
+    public abstract IJugador getJugador();
     
 }

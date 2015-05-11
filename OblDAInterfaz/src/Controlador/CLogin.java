@@ -35,11 +35,14 @@ public class CLogin extends Controlador {
             System.out.println("NickName: " + ilogin.getNickName() + " Pass: " + ilogin.getPass());
             
             if(instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {                
-                IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());              
-                System.out.println("Logueando a ventana principal del jugador...");
-                IIngresarAPartida iip = new VPpalJugador(); //TODO pasarle el jugador para que lo setee a su JPanel
-                Controlador c = new CPpalJugador(iip);
-                iip.setControlador(c);                
+                IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());
+                
+                if(j != null) {
+                    System.out.println("Logueando a ventana principal del jugador...");
+                    IIngresarAPartida iip = new VPpalJugador(j);                    
+                    Controlador c = new CPpalJugador(iip);
+                    iip.setControlador(c);    
+                }
             }
             
         }

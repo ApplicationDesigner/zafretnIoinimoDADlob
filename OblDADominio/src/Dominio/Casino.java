@@ -92,6 +92,7 @@ public class Casino implements ICasino {
         
     }
     
+    @Override
     public IJugador buscarJugador(String nick) {
                
         for(IJugador j: Casino.colJugadores) {

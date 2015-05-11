@@ -27,7 +27,7 @@ public class CPpalJugador extends Controlador {
             if(e.getActionCommand().equals("IIngresarAPartida")) {
                 
                 System.out.println("Creando nueva partida...");
-                ITableroPoker itp = new VTableroPoker();
+                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
                 
                 Controlador c = new CTableroPoker(itp);
                 itp.setControlador(c);

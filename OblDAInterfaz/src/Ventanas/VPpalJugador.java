@@ -21,6 +21,12 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     public VPpalJugador() {
         iniciarComponentes();        
     }
+    
+    public VPpalJugador(IJugador j) {
+        
+        this.jugador = j;
+        iniciarComponentes();        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,5 +118,10 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     @Override
     public void setJugador(IJugador j) {
         this.jugador = j;
+    }
+
+    @Override
+    public IJugador getJugador() {
+        return this.jugador;
     }
 }

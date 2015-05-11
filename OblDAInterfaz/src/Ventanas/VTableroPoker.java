@@ -7,6 +7,7 @@ package Ventanas;
 
 import Controlador.Controlador;
 import Interfaces.ITableroPoker;
+import Interfaz.IJugador;
 import javax.swing.JFrame;
 
 /**
@@ -15,11 +16,19 @@ import javax.swing.JFrame;
  */
 public final class VTableroPoker extends javax.swing.JFrame implements ITableroPoker{
     private JPTableroPoker jptp;
+    private IJugador jugador;
 
     /**
      * Creates new form VPartida
      */
     public VTableroPoker() {
+        iniciarComponentes();
+    }
+    
+    public VTableroPoker(IJugador j) {
+        this.jugador = j;
+        
+        System.out.println("NickJugador en TableroPoker: " + j.getNickName());
         iniciarComponentes();
     }
 
@@ -101,6 +110,8 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
+        this.jptp.setJugador(jugador);
+        
         this.jptp.setSize(500, 500);
         this.getContentPane().removeAll();
         this.getContentPane().add(this.jptp);

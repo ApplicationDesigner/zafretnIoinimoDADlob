@@ -16,7 +16,7 @@ public interface ICasino {
     public abstract boolean validarLogin(String nick, String pass);
     public abstract IJuego agregarJuego(String tipoJuego);
     public abstract IPartida agregarPartida(IJuego j, String tipoPartida);
-    public IJugador buscarJugador(String nick);
+    public abstract IJugador buscarJugador(String nick);
     
     @Override
     public abstract String toString();
