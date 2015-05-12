@@ -14,15 +14,19 @@ import java.util.ArrayList;
  * @author Sebastian
  */
 public class PartidaPoker implements IPartida {
-    
+
     private int numero;
     private float pozo;
     ArrayList<Mano> colManos;
     private Mazo mazo;
 
     public PartidaPoker() {
-    }    
-    
+        this.numero = 0;
+        this.pozo = 0;
+        this.colManos = new ArrayList<>();
+        this.mazo = new Mazo();
+    }
+
     public PartidaPoker(int numero, float pozo) {
         this.numero = numero;
         this.pozo = pozo;
@@ -65,39 +69,39 @@ public class PartidaPoker implements IPartida {
     public void setMazo(Mazo mazo) {
         this.mazo = mazo;
     }
-    
+
     public void repartirCartas(Mano mano) {
-        
-        for(int i = 0; i < (5 - mano.getColCartas().size()); i++) {
+
+        for (int i = 0; i < (5 - mano.getColCartas().size()); i++) {
             mano.agregarCarta(this.mazo.Repartir());
         }
     }
-    
-    public void iniciarReparticion() {        
-        for(Mano m:this.colManos) {
+
+    public void iniciarReparticion() {
+        for (Mano m : this.colManos) {
             this.repartirCartas(m);
         }
     }
+
     public String evaluarMano(Mano unaMano) {
-        
+
         String ret = "SINFIGURA";
         EvaluadorManos poker = new EvaluadorManos(new Poker());
         EvaluadorManos pierna = new EvaluadorManos(new Pierna());
         EvaluadorManos par = new EvaluadorManos(new Par());
-        
+
         //Primero tengo que evaluar poker porque si evaluo trio o par tambien evaluaría OK
-        if(poker.evaluarMano(unaMano)) {
+        if (poker.evaluarMano(unaMano)) {
             ret = "POKER";
-        } else if(pierna.evaluarMano(unaMano)) {
+        } else if (pierna.evaluarMano(unaMano)) {
             ret = "PIERNA";
-        } else if(par.evaluarMano(unaMano)) {
+        } else if (par.evaluarMano(unaMano)) {
             ret = "PAR";
         }
-        
+
         return ret;
     }
-       
-    
+
     @Override
     public String toString() {
         return ("PartidaPoker numero: " + this.getNumero());
@@ -107,11 +111,7 @@ public class PartidaPoker implements IPartida {
     public void ingresarJugador(IJugador j) {
         Mano unaMano = new Mano();
         unaMano.setUnJugador(j);
-        this.getColManos().add(unaMano);
+        this.colManos.add(unaMano);
     }
 
-    
-    
-    
-    
 }

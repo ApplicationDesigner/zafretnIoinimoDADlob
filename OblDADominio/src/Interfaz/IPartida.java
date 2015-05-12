@@ -18,6 +18,7 @@ public interface IPartida {
     public abstract float getPozo();
     public abstract void setPozo(float pozo);
     public abstract void ingresarJugador(IJugador j);
+    public abstract void iniciarReparticion();
     
     @Override
     public abstract String toString();    

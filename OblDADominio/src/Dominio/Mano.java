@@ -20,7 +20,7 @@ public class Mano {
     
     public Mano() {
         colCartas       = new ArrayList<>(cantCartas);
-        this.unJugador  = null;
+        //this.unJugador  = null;
     }
     
     public Mano(IJugador unJugador) {
