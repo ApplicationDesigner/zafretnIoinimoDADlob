@@ -86,10 +86,14 @@ public class Casino implements ICasino {
 
     @Override
     public boolean validarLogin(String nick, String pass) {
-        //TODO Implementar
-        
-        return true;
-        
+        boolean retorno = false;
+        IJugador unJugador = this.buscarJugador(nick);
+        if(unJugador != null){
+            if(unJugador.getPassword().equals(pass)){
+                retorno = true;
+            }
+        }
+        return retorno;
     }
     
     @Override
