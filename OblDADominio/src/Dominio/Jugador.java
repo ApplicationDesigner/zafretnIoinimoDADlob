@@ -59,6 +59,16 @@ public class Jugador implements IJugador {
     public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
+
+    @Override
+    public boolean apostar(float monto) {
+        boolean retorno = false;
+        if(this.getSaldo() >= monto){
+            this.saldo -= monto;
+            retorno = true;
+        }
+        return retorno;
+    }
     
     
 }

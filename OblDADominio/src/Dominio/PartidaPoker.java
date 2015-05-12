@@ -5,6 +5,7 @@
  */
 package Dominio;
 
+import Interfaz.IJugador;
 import Interfaz.IPartida;
 import java.util.ArrayList;
 
@@ -65,11 +66,6 @@ public class PartidaPoker implements IPartida {
         this.mazo = mazo;
     }
     
-    public void agregarMano(Mano mano) {
-        //TODO realizar validacion
-        this.colManos.add(mano);
-    }
-    
     public void repartirCartas(Mano mano) {
         
         for(int i = 0; i < (5 - mano.getColCartas().size()); i++) {
@@ -106,6 +102,14 @@ public class PartidaPoker implements IPartida {
     public String toString() {
         return ("PartidaPoker numero: " + this.getNumero());
     }
+
+    @Override
+    public void ingresarJugador(IJugador j) {
+        Mano unaMano = new Mano();
+        unaMano.setUnJugador(j);
+        this.getColManos().add(unaMano);
+    }
+
     
     
     

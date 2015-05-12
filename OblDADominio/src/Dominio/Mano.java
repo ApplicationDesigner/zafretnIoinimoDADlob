@@ -5,6 +5,7 @@
  */
 package Dominio;
 
+import Interfaz.IJugador;
 import java.util.ArrayList;
 
 /**
@@ -15,14 +16,14 @@ public class Mano {
     
     public final static int cantCartas = 5;
     private final ArrayList<Carta> colCartas;
-    private Jugador unJugador;
+    private IJugador unJugador;
     
     public Mano() {
         colCartas       = new ArrayList<>(cantCartas);
         this.unJugador  = null;
     }
     
-    public Mano(Jugador unJugador) {
+    public Mano(IJugador unJugador) {
         this.colCartas = null;
         this.unJugador = unJugador;
     }
@@ -35,11 +36,11 @@ public class Mano {
         return colCartas;
     }
 
-    public Jugador getUnJugador() {
+    public IJugador getUnJugador() {
         return unJugador;
     }
 
-    public void setUnJugador(Jugador unJugador) {
+    public void setUnJugador(IJugador unJugador) {
         this.unJugador = unJugador;
     }
     

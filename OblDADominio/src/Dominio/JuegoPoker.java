@@ -6,6 +6,7 @@
 package Dominio;
 
 import Interfaz.IJuego;
+import Interfaz.IJugador;
 import Interfaz.IPartida;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -87,6 +88,25 @@ public class JuegoPoker extends Observable implements IJuego {
     @Override
     public String toString() {
         return ("Nombre: " + JuegoPoker.nombre + " Numero: " + JuegoPoker.numero);
+    }
+
+    @Override
+    public IPartida buscarPartida(int numero) {
+        IPartida retorno = null;
+        for(IPartida unaPartida : this.getColPartidas()){
+            if(unaPartida.getNumero() == numero){
+                retorno = unaPartida;
+            }
+        }
+        return retorno;
+    }
+
+    @Override
+    public void ingresarJugadorAPartida(int nroPartida, IJugador j) {
+        IPartida unaPartida = this.buscarPartida(nroPartida);
+        if(unaPartida != null){
+            unaPartida.ingresarJugador(j);
+        }
     }
 
 }

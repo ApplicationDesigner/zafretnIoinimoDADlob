@@ -19,4 +19,5 @@ public interface IJugador {
     public abstract void setPassword(String password);
     public abstract float getSaldo();
     public abstract void setSaldo(float saldo);
+    public abstract boolean apostar(float monto);
 }
