@@ -12,6 +12,7 @@ import Interfaz.ICasino;
 import Interfaz.IJugador;
 import Ventanas.VPpalJugador;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
 
 /**
  *
@@ -46,5 +47,10 @@ public class CLogin extends Controlador {
             }
             
         }
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

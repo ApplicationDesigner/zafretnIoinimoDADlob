@@ -6,18 +6,21 @@
 package Dominio;
 
 import Interfaz.IJugador;
+import Interfaz.IMano;
 import Interfaz.IPartida;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Sebastian
  */
-public class PartidaPoker implements IPartida {
+public class PartidaPoker extends Observable implements IPartida {
 
     private int numero;
     private float pozo;
-    ArrayList<Mano> colManos;
+    ArrayList<IMano> colManos;
     private Mazo mazo;
 
     public PartidaPoker() {
@@ -54,11 +57,11 @@ public class PartidaPoker implements IPartida {
         this.pozo = pozo;
     }
 
-    public ArrayList<Mano> getColManos() {
+    public ArrayList<IMano> getColManos() {
         return colManos;
     }
 
-    public void setColManos(ArrayList<Mano> colManos) {
+    public void setColManos(ArrayList<IMano> colManos) {
         this.colManos = colManos;
     }
 
@@ -70,7 +73,7 @@ public class PartidaPoker implements IPartida {
         this.mazo = mazo;
     }
 
-    public void repartirCartas(Mano mano) {
+    public void repartirCartas(IMano mano) {
 
         for (int i = 0; i < (5 - mano.getColCartas().size()); i++) {
             mano.agregarCarta(this.mazo.Repartir());
@@ -78,7 +81,7 @@ public class PartidaPoker implements IPartida {
     }
 
     public void iniciarReparticion() {
-        for (Mano m : this.colManos) {
+        for (IMano m : this.colManos) {
             this.repartirCartas(m);
         }
     }
@@ -109,9 +112,32 @@ public class PartidaPoker implements IPartida {
 
     @Override
     public void ingresarJugador(IJugador j) {
-        Mano unaMano = new Mano();
+        IMano unaMano = new Mano();
         unaMano.setUnJugador(j);
         this.colManos.add(unaMano);
+    }
+
+    @Override
+    public void agregarObserver(Observer CTableroPoker) {
+        this.addObserver(CTableroPoker);
+        System.out.println("Observer agregad...");
+        if(this.countObservers() == 2){
+            System.out.println("Count observers " + this.countObservers());
+            this.iniciarReparticion();
+            for(IMano unaMano : this.colManos){
+                System.out.println("Mano: " + unaMano.toString());
+                this.notificarAccion("REPARTIR", unaMano);
+                System.out.println("Notificar Repartir");
+            }
+        }
+    }
+    
+    private void notificarAccion(String accion, Object obj){
+        Mensaje unMensaje = new Mensaje();
+        unMensaje.setAccion(accion);
+        unMensaje.setValor(obj);
+        this.setChanged();
+        this.notifyObservers(unMensaje);
     }
 
 }

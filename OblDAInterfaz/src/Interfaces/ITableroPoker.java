@@ -5,10 +5,12 @@
  */
 package Interfaces;
 
+import Interfaz.IJugador;
+
 /**
  *
  * @author Sebastian
  */
 public interface ITableroPoker extends IVentana {
-    
+    public abstract IJugador getJugador();
 }

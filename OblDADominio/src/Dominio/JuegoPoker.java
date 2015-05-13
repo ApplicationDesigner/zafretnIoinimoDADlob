@@ -15,7 +15,7 @@ import java.util.Observable;
  *
  * @author Sebastian
  */
-public class JuegoPoker extends Observable implements IJuego {
+public class JuegoPoker implements IJuego {
     
     
     private static JuegoPoker instance = null;
@@ -27,7 +27,7 @@ public class JuegoPoker extends Observable implements IJuego {
     
     
     private JuegoPoker() {
-        JuegoPoker.colPartidas      = new ArrayList<>();
+        JuegoPoker.colPartidas      = new ArrayList<>();       
         JuegoPoker.nombre           = "JuegoPoker";        
         JuegoPoker.minimoJugadores  = 4;
     }

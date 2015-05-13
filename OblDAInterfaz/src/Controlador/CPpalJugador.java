@@ -5,10 +5,14 @@
  */
 package Controlador;
 
+import Dominio.JuegoPoker;
 import Interfaces.IIngresarAPartida;
 import Interfaces.ITableroPoker;
+import Interfaz.IJuego;
+import Interfaz.IPartida;
 import Ventanas.VTableroPoker;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
 
 /**
  *
@@ -31,6 +35,17 @@ public class CPpalJugador extends Controlador {
                 
                 Controlador c = new CTableroPoker(itp);
                 itp.setControlador(c);
+                
+                IJuego ij = JuegoPoker.getInstance();
+                IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id
+                
+                ip.agregarObserver(c);
+                
             }
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

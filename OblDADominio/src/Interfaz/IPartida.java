@@ -1,5 +1,7 @@
 package Interfaz;
 
+import java.util.Observer;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +21,7 @@ public interface IPartida {
     public abstract void setPozo(float pozo);
     public abstract void ingresarJugador(IJugador j);
     public abstract void iniciarReparticion();
+    public abstract void agregarObserver(Observer CTableroPoker);
     
     @Override
     public abstract String toString();    

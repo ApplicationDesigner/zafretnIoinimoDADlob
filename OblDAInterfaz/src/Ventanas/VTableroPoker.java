@@ -118,4 +118,9 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
     }
+
+    @Override
+    public IJugador getJugador() {
+        return this.jptp.getJugador();
+    }
 }

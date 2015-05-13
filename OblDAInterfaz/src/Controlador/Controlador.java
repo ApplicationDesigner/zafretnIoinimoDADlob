@@ -7,13 +7,14 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
+import java.util.Observer;
+
 
 /**
  *
  * @author Sebastian
  */
-public abstract class Controlador extends Observable implements ActionListener {
+public abstract class Controlador implements Observer, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {

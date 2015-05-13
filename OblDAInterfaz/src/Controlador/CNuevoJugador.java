@@ -9,6 +9,7 @@ import Interfaces.ILogin;
 import Interfaces.INuevoJugador;
 import Ventanas.VLogin;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
 
 /**
  *
@@ -31,6 +32,11 @@ public class CNuevoJugador extends Controlador {
                 Controlador c = new CLogin(vlogin);
                 vlogin.setControlador(c);
             }
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -5,11 +5,13 @@
  */
 package Dominio;
 
+import Interfaz.ICarta;
+
 /**
  *
  * @author Marcelo
  */
-public final class Carta implements Comparable<Carta> {
+public final class Carta implements Comparable<Carta>, ICarta {
 
     private final Valor valor;
     private final Palo palo;

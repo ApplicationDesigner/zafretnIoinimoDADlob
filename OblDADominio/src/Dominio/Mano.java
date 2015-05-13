@@ -6,13 +6,14 @@
 package Dominio;
 
 import Interfaz.IJugador;
+import Interfaz.IMano;
 import java.util.ArrayList;
 
 /**
  *
  * @author Sebastian
  */
-public class Mano {
+public class Mano implements IMano {
     
     public final static int cantCartas = 5;
     private final ArrayList<Carta> colCartas;
