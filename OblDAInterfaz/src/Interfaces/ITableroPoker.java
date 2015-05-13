@@ -5,7 +5,10 @@
  */
 package Interfaces;
 
+import Dominio.Carta;
 import Interfaz.IJugador;
+import Interfaz.IMano;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,4 +16,5 @@ import Interfaz.IJugador;
  */
 public interface ITableroPoker extends IVentana {
     public abstract IJugador getJugador();
+    public abstract void mostrarMano(IMano mano);
 }

@@ -16,19 +16,77 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
-              <Component id="btnApostar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="218" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="lblJugador" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblNickName" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnApostar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="btnPagar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="btnRetirarme" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtMonto" min="-2" pref="71" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnCarta1" min="-2" pref="75" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnCarta2" min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnCarta3" min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnCarta4" min="-2" pref="75" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnCarta5" min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblFigura" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblFiguraReal" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="79" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="230" max="32767" attributes="0"/>
-              <Component id="btnApostar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblNickName" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblJugador" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblFigura" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblFiguraReal" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnCarta1" min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="btnCarta2" min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="btnCarta3" min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="btnCarta4" min="-2" pref="109" max="-2" attributes="0"/>
+                  <Component id="btnCarta5" min="-2" pref="109" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnApostar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnPagar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnRetirarme" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -38,6 +96,57 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Apostar"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarta1">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="Carta1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarta2">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="Carta2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarta3">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="Carta3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarta4">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="Carta4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCarta5">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="Carta5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPagar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pagar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRetirarme">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Retirarme"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMonto">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNickName">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblJugador">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jugador:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFigura">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Figura:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFiguraReal">
     </Component>
   </SubComponents>
 </Form>

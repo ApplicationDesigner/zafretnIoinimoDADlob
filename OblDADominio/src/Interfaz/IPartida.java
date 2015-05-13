@@ -1,5 +1,6 @@
 package Interfaz;
 
+import Dominio.Mano;
 import java.util.Observer;
 
 /*
@@ -22,6 +23,7 @@ public interface IPartida {
     public abstract void ingresarJugador(IJugador j);
     public abstract void iniciarReparticion();
     public abstract void agregarObserver(Observer CTableroPoker);
+    public abstract String evaluarMano(IMano unaMano);
     
     @Override
     public abstract String toString();    

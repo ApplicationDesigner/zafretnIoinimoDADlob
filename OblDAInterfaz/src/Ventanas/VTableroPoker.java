@@ -6,8 +6,11 @@
 package Ventanas;
 
 import Controlador.Controlador;
+import Dominio.Carta;
 import Interfaces.ITableroPoker;
 import Interfaz.IJugador;
+import Interfaz.IMano;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -122,5 +125,10 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public IJugador getJugador() {
         return this.jptp.getJugador();
+    }
+
+    @Override
+    public void mostrarMano(IMano unaMano) {
+        this.jptp.mostrarMano(unaMano);
     }
 }

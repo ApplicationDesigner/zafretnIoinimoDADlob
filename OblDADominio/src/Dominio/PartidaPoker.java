@@ -82,12 +82,13 @@ public class PartidaPoker extends Observable implements IPartida {
     }
 
     public void iniciarReparticion() {
+        this.mazo.Barajar();
         for (IMano m : this.colManos) {
             this.repartirCartas(m);
         }
     }
 
-    public String evaluarMano(Mano unaMano) {
+    public String evaluarMano(IMano unaMano) {
 
         String ret = "SINFIGURA";
         EvaluadorManos poker = new EvaluadorManos(new Poker());
@@ -95,11 +96,11 @@ public class PartidaPoker extends Observable implements IPartida {
         EvaluadorManos par = new EvaluadorManos(new Par());
 
         //Primero tengo que evaluar poker porque si evaluo trio o par tambien evaluaría OK
-        if (poker.evaluarMano(unaMano)) {
+        if (poker.evaluarMano((Mano)unaMano)) {
             ret = "POKER";
-        } else if (pierna.evaluarMano(unaMano)) {
+        } else if (pierna.evaluarMano((Mano)unaMano)) {
             ret = "PIERNA";
-        } else if (par.evaluarMano(unaMano)) {
+        } else if (par.evaluarMano((Mano)unaMano)) {
             ret = "PAR";
         }
 
