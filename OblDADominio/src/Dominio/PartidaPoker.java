@@ -162,4 +162,11 @@ public class PartidaPoker extends Observable implements IPartida {
         return null;
     }
 
+    @Override
+    public float modificarPozo(float monto) {
+        this.pozo += monto;
+        
+        return this.pozo;
+    }
+
 }

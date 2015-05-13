@@ -44,8 +44,11 @@ public class CTableroPoker extends Controlador {
                     if(aposto) {
                         System.out.println("Voy a setear el pozo");
                         System.out.println("Pozo anterior: " + itp.getPartida().getPozo());
-                        itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
+                        //itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
+                        itp.getPartida().modificarPozo(montoApostado);
                         System.out.println("Pozo posterior: " + itp.getPartida().getPozo());
+                        
+                        itp.getPartida().jugadorAposto(itp.getJugador());
                     } else {
                         //TODO mensaje de error en lblMensaje
                     }
