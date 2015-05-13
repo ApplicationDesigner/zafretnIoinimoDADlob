@@ -75,7 +75,8 @@ public class PartidaPoker extends Observable implements IPartida {
 
     public void repartirCartas(IMano mano) {
 
-        for (int i = 0; i < (5 - mano.getColCartas().size()); i++) {
+        int cartasFaltantes = 5 - mano.getColCartas().size();
+        for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir());
         }
     }

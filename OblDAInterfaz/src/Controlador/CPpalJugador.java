@@ -37,7 +37,8 @@ public class CPpalJugador extends Controlador {
                 itp.setControlador(c);
                 
                 IJuego ij = JuegoPoker.getInstance();
-                IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id
+                IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id                
+                ij.ingresarJugadorAPartida(1, this.iip.getJugador());
                 
                 ip.agregarObserver(c);
                 
