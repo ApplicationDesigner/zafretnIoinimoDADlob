@@ -8,9 +8,12 @@ package Controlador;
 import Dominio.Carta;
 import Dominio.Mano;
 import Dominio.Mensaje;
+import Interfaces.ILogin;
 import Interfaces.ITableroPoker;
 import Interfaz.ICarta;
 import Interfaz.IMano;
+import Ventanas.VLogin;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -24,6 +27,22 @@ public class CTableroPoker extends Controlador {
     CTableroPoker(ITableroPoker itp) {
         this.itp = itp;
     }   
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String opcion = e.getActionCommand();
+        switch (opcion){
+            case "Apostar":
+                float saldoJugador = itp.getJugador().getSaldo();
+                
+            break;
+            case "Pagar":
+            break;
+            case "Retirarme":
+            break;
+        }
+    }
+    
 
     @Override
     public void update(Observable o, Object o1) {
