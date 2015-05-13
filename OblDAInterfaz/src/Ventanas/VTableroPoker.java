@@ -6,11 +6,10 @@
 package Ventanas;
 
 import Controlador.Controlador;
-import Dominio.Carta;
 import Interfaces.ITableroPoker;
 import Interfaz.IJugador;
 import Interfaz.IMano;
-import java.util.ArrayList;
+import Interfaz.IPartida;
 import javax.swing.JFrame;
 
 /**
@@ -20,6 +19,7 @@ import javax.swing.JFrame;
 public final class VTableroPoker extends javax.swing.JFrame implements ITableroPoker{
     private JPTableroPoker jptp;
     private IJugador jugador;
+    private IPartida partida;
 
     /**
      * Creates new form VPartida
@@ -109,13 +109,14 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(500, 500);
+        this.setSize(600, 600);
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
         this.jptp.setJugador(jugador);
+        this.jptp.setPartida(partida);
         
-        this.jptp.setSize(500, 500);
+        this.jptp.setSize(600, 600);
         this.getContentPane().removeAll();
         this.getContentPane().add(this.jptp);
         this.getContentPane().revalidate();
@@ -130,5 +131,25 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public void mostrarMano(IMano unaMano) {
         this.jptp.mostrarMano(unaMano);
+    }
+
+    @Override
+    public void mostarSaldoJugador(IMano unaMano) {
+        this.jptp.mostarSaldoJugador(unaMano);
+    }
+
+    @Override
+    public IPartida getPartida() {
+        return this.jptp.getPartida();
+    }
+
+    @Override
+    public void setPartida(IPartida partida) {
+        this.jptp.setPartida(partida);
+    }
+
+    @Override
+    public float getMontoApostado() {
+        return this.jptp.getMontoApostado();
     }
 }

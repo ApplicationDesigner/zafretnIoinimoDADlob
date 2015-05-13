@@ -122,7 +122,7 @@ public class PartidaPoker extends Observable implements IPartida {
     @Override
     public void agregarObserver(Observer CTableroPoker) {
         this.addObserver(CTableroPoker);
-        System.out.println("Observer agregad...");
+        System.out.println("Observer agregado...");
         if(this.countObservers() == 2){
             System.out.println("Count observers " + this.countObservers());
             this.iniciarReparticion();
@@ -140,6 +140,26 @@ public class PartidaPoker extends Observable implements IPartida {
         unMensaje.setValor(obj);
         this.setChanged();
         this.notifyObservers(unMensaje);
+    }
+
+    @Override
+    public void jugadorAposto(IJugador unJugador) {
+        IMano m = this.buscarMano(unJugador);
+        this.notificarAccion("APOSTAR", m);
+        System.out.println("Jugador Aposto");
+    }
+
+    @Override
+    public IMano buscarMano(IJugador unJugador) {
+        
+        for(IMano m: this.colManos){
+            
+            if(m.getUnJugador().getNickName() == unJugador.getNickName()) {
+                return m;
+            }
+        }
+        
+        return null;
     }
 
 }

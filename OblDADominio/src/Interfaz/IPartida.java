@@ -24,6 +24,8 @@ public interface IPartida {
     public abstract void iniciarReparticion();
     public abstract void agregarObserver(Observer CTableroPoker);
     public abstract String evaluarMano(IMano unaMano);
+    public abstract void jugadorAposto(IJugador unJugador);
+    public abstract IMano buscarMano(IJugador unJugador);
     
     @Override
     public abstract String toString();    

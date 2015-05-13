@@ -19,7 +19,7 @@ import java.util.Observable;
  * @author Sebastian
  */
 public class CPpalJugador extends Controlador {
-    private IIngresarAPartida iip;
+    private final IIngresarAPartida iip;
     
     public CPpalJugador(IIngresarAPartida iip) {
         this.iip = iip;
@@ -31,14 +31,16 @@ public class CPpalJugador extends Controlador {
             if(e.getActionCommand().equals("IIngresarAPartida")) {
                 
                 System.out.println("Creando nueva partida...");
-                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
-                
-                Controlador c = new CTableroPoker(itp);
-                itp.setControlador(c);
-                
+             
                 IJuego ij = JuegoPoker.getInstance();
                 IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id                
                 ij.ingresarJugadorAPartida(1, this.iip.getJugador());
+                
+                
+                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
+                itp.setPartida(ip);
+                Controlador c = new CTableroPoker(itp);
+                itp.setControlador(c);
                 
                 ip.agregarObserver(c);
                 

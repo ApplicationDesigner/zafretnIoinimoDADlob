@@ -65,6 +65,7 @@ public class Jugador implements IJugador {
         boolean retorno = false;
         if(this.getSaldo() >= monto){
             this.saldo -= monto;
+            System.out.println("Jugador " + this.getNickName() + "Aposto.");
             retorno = true;
         }
         return retorno;

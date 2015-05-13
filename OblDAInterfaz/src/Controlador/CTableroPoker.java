@@ -5,17 +5,13 @@
  */
 package Controlador;
 
-import Dominio.Carta;
 import Dominio.Mano;
 import Dominio.Mensaje;
-import Interfaces.ILogin;
 import Interfaces.ITableroPoker;
-import Interfaz.ICarta;
 import Interfaz.IMano;
-import Ventanas.VLogin;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Observable;
+
 
 /**
  *
@@ -35,6 +31,30 @@ public class CTableroPoker extends Controlador {
             case "Apostar":
                 float saldoJugador = itp.getJugador().getSaldo();
                 
+                System.out.println("saldoJugador: " + saldoJugador);                 
+                
+                float montoApostado = this.itp.getMontoApostado();
+                System.out.println("montoApostado: " + montoApostado);
+                
+                if(saldoJugador > montoApostado) {
+                    
+                    System.out.println("saldoJugador > montoApostado");
+                    
+                    boolean aposto  = itp.getJugador().apostar(montoApostado);
+                    if(aposto) {
+                        System.out.println("Voy a setear el pozo");
+                        System.out.println("Pozo anterior: " + itp.getPartida().getPozo());
+                        itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
+                        System.out.println("Pozo posterior: " + itp.getPartida().getPozo());
+                    } else {
+                        //TODO mensaje de error en lblMensaje
+                    }
+                    
+                } else {
+                    //TODO mensaje de error en lblMensaje
+                }
+                        
+                
             break;
             case "Pagar":
             break;
@@ -47,14 +67,46 @@ public class CTableroPoker extends Controlador {
     @Override
     public void update(Observable o, Object o1) {
         System.out.println("Inicio Update");
-        if (((Mensaje) o1).getAccion().equals("REPARTIR")) {
-            if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
-//                System.out.println("Recibi mano");
-//                System.out.println(itp.getJugador().getNickName());
-                IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
-                itp.mostrarMano(unaMano);
-            }
-
+        
+        String accion = ((Mensaje) o1).getAccion();
+        
+        switch(accion) {
+            case "REPARTIR":
+                if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
+                    System.out.println("Recibi mano");
+                    System.out.println(itp.getJugador().getNickName());
+                    IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
+                    itp.mostrarMano(unaMano);
+                    itp.mostarSaldoJugador(unaMano);
+                }
+            break;
+            
+            case "APOSTAR":               
+                if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
+                    //Deshabilito todos los botones
+                    
+                    System.out.println("Deshabilito todos los botones");
+                    
+                } else {
+                    //Deshabilito botón apostar
+                    System.out.println("Deshabilito el boton apostar");
+                    
+                }
+            break;
+                
+            case "PAGAR":
+            break;
+                
+            case "RETIRARSE":
+            break;
+                
+            
+                
+            default:
+            break;
         }
+        
+//
     }
+
 }

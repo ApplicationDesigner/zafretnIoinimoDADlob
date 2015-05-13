@@ -7,6 +7,7 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.Observer;
 
 
@@ -20,5 +21,7 @@ public abstract class Controlador implements Observer, ActionListener {
     public void actionPerformed(ActionEvent e) {
         
     }
+    
+
     
 }

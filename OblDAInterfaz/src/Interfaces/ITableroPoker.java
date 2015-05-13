@@ -5,10 +5,10 @@
  */
 package Interfaces;
 
-import Dominio.Carta;
 import Interfaz.IJugador;
 import Interfaz.IMano;
-import java.util.ArrayList;
+import Interfaz.IPartida;
+
 
 /**
  *
@@ -16,5 +16,10 @@ import java.util.ArrayList;
  */
 public interface ITableroPoker extends IVentana {
     public abstract IJugador getJugador();
+    public abstract IPartida getPartida();
+    public abstract void setPartida(IPartida partida);    
     public abstract void mostrarMano(IMano mano);
+    public abstract void mostarSaldoJugador(IMano unaMano);
+    public abstract float getMontoApostado();
+    
 }

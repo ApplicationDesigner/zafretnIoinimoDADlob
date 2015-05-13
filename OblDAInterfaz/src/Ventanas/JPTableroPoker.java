@@ -6,24 +6,20 @@
 package Ventanas;
 
 import Controlador.Controlador;
-import Dominio.Carta;
 import Dominio.JuegoPoker;
 import Interfaces.ITableroPoker;
 import Interfaz.IJuego;
 import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.JButton;
 
 /**
  *
  * @author Sebastian
  */
-public final class JPTableroPoker extends javax.swing.JPanel implements Observer, ITableroPoker {
+public final class JPTableroPoker extends javax.swing.JPanel implements ITableroPoker {
     private IJugador jugador;
+    private IPartida partida;
     /**
      * Creates new form JPPartida
      */
@@ -38,6 +34,15 @@ public final class JPTableroPoker extends javax.swing.JPanel implements Observer
     public void setJugador(IJugador jugador) {
         this.jugador = jugador;
     }
+
+    public IPartida getPartida() {
+        return partida;
+    }
+
+    public void setPartida(IPartida partida) {
+        this.partida = partida;
+    }
+    
     
     
 
@@ -69,6 +74,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements Observer
         lblSaldoReal = new javax.swing.JLabel();
         lblPozo = new javax.swing.JLabel();
         lblPozoReal = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(0, 51, 0));
 
         btnApostar.setText("Apostar");
 
@@ -223,11 +230,6 @@ public final class JPTableroPoker extends javax.swing.JPanel implements Observer
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void mostrarMano(IMano unaMano) {
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
@@ -242,5 +244,15 @@ public final class JPTableroPoker extends javax.swing.JPanel implements Observer
     
     private void mostrarNickName(){
         this.lblNickName.setText(jugador.getNickName());
+    }
+
+    @Override
+    public void mostarSaldoJugador(IMano unaMano) {
+        this.lblSaldoReal.setText(Float.toString(unaMano.getUnJugador().getSaldo()));
+    }
+
+    @Override
+    public float getMontoApostado() {
+        return Float.parseFloat(this.txtMonto.getText());
     }
 }
