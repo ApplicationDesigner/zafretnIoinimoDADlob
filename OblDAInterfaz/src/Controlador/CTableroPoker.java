@@ -40,18 +40,19 @@ public class CTableroPoker extends Controlador {
                     
                     System.out.println("saldoJugador > montoApostado");
                     
-                    boolean aposto  = itp.getJugador().apostar(montoApostado);
-                    if(aposto) {
-                        System.out.println("Voy a setear el pozo");
-                        System.out.println("Pozo anterior: " + itp.getPartida().getPozo());
-                        //itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
-                        itp.getPartida().modificarPozo(montoApostado);
-                        System.out.println("Pozo posterior: " + itp.getPartida().getPozo());
-                        
-                        itp.getPartida().jugadorAposto(itp.getJugador());
-                    } else {
-                        //TODO mensaje de error en lblMensaje
-                    }
+                    itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
+//                    boolean aposto  = itp.getJugador().apostar(montoApostado);
+//                    if(aposto) {
+//                        System.out.println("Voy a setear el pozo");
+//                        System.out.println("Pozo anterior: " + itp.getPartida().getPozo());
+//                        //itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
+//                        itp.getPartida().modificarPozo(montoApostado);
+//                        System.out.println("Pozo posterior: " + itp.getPartida().getPozo());
+//                        
+//                        itp.getPartida().jugadorAposto(itp.getJugador());
+//                    } else {
+//                        //TODO mensaje de error en lblMensaje
+//                    }
                     
                 } else {
                     //TODO mensaje de error en lblMensaje
@@ -74,6 +75,7 @@ public class CTableroPoker extends Controlador {
         String accion = ((Mensaje) o1).getAccion();
         
         switch(accion) {
+            
             case "REPARTIR":
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
                     System.out.println("Recibi mano");
@@ -83,8 +85,9 @@ public class CTableroPoker extends Controlador {
                     itp.mostarSaldoJugador(unaMano);
                 }
             break;
-            
-            case "APOSTAR":               
+                            
+            case "APOSTAR":
+                
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
                     //Deshabilito todos los botones
                     
@@ -95,19 +98,31 @@ public class CTableroPoker extends Controlador {
                     System.out.println("Deshabilito el boton apostar");
                     
                 }
+                
             break;
                 
             case "PAGAR":
+                //TODO Implementar
+               
             break;
                 
-            case "RETIRARSE":
+            case "PASAR":                
+                //TODO Implementar
             break;
                 
-            
+            case "RETIRARSE":                
+                //TODO Implementar
+            break;
+                
+            case "ABANDONARMESA":
+                //TODO No da el tiempo, quedara para el infinito......
+            break;
                 
             default:
+                
             break;
-        }
+                
+        }        
         
 //
     }

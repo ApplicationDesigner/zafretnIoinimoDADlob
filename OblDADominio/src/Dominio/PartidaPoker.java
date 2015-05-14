@@ -81,6 +81,7 @@ public class PartidaPoker extends Observable implements IPartida {
         }
     }
 
+    @Override
     public void iniciarReparticion() {
         this.mazo.Barajar();
         for (IMano m : this.colManos) {
@@ -88,6 +89,7 @@ public class PartidaPoker extends Observable implements IPartida {
         }
     }
 
+    @Override
     public String evaluarMano(IMano unaMano) {
 
         String ret = "SINFIGURA";
@@ -130,6 +132,9 @@ public class PartidaPoker extends Observable implements IPartida {
                 System.out.println("Mano: " + unaMano.toString());
                 this.notificarAccion("REPARTIR", unaMano);
                 System.out.println("Notificar Repartir");
+                
+                //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
+                this.accionJugador(unaMano.getUnJugador(), "APOSTAR", 50f);
             }
         }
     }
@@ -142,12 +147,12 @@ public class PartidaPoker extends Observable implements IPartida {
         this.notifyObservers(unMensaje);
     }
 
-    @Override
-    public void jugadorAposto(IJugador unJugador) {
-        IMano m = this.buscarMano(unJugador);
-        this.notificarAccion("APOSTAR", m);
-        System.out.println("Jugador Aposto");
-    }
+//    @Override
+//    public void jugadorAposto(IJugador unJugador) {
+//        IMano m = this.buscarMano(unJugador);
+//        this.notificarAccion("APOSTAR", m);
+//        System.out.println("Jugador Aposto");
+//    }
 
     @Override
     public IMano buscarMano(IJugador unJugador) {
@@ -167,6 +172,59 @@ public class PartidaPoker extends Observable implements IPartida {
         this.pozo += monto;
         
         return this.pozo;
+    }
+
+    @Override
+    public void accionJugador(IJugador unJugador, String accion, Float monto) {
+        IMano m = this.buscarMano(unJugador);
+        boolean puedeApostar;
+        
+        switch(accion) {
+            case "APOSTAR":
+                
+                puedeApostar = unJugador.apostar(monto);
+                
+                if(puedeApostar) {
+                    this.modificarPozo(monto);                    
+                } else {
+                    accion = "NOPUEDEAPOSTAR";
+                }
+                
+                this.notificarAccion(accion, m);
+                
+            break;
+                
+            case "PAGAR":
+                
+                puedeApostar = unJugador.apostar(monto);
+                
+                if(puedeApostar) {
+                    this.modificarPozo(monto);                    
+                } else {
+                    accion = "NOPUEDEAPOSTAR";
+                }
+                
+                this.notificarAccion(accion, m);
+               
+            break;
+                
+            case "PASAR":                
+                this.notificarAccion(accion, m);                
+            break;
+                
+            case "RETIRARSE":                
+                this.notificarAccion(accion, m);                
+            break;
+                
+            case "ABANDONARMESA":
+                //TODO No da el tiempo, quedara para el infinito......
+            break;
+                
+            default:
+                
+            break;
+                
+        }
     }
 
 }
