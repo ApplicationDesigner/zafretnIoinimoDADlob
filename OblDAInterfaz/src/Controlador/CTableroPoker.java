@@ -5,11 +5,14 @@
  */
 package Controlador;
 
+import Dominio.Carta;
 import Dominio.Mano;
 import Dominio.Mensaje;
 import Interfaces.ITableroPoker;
 import Interfaz.IMano;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
 
@@ -64,6 +67,30 @@ public class CTableroPoker extends Controlador {
             break;
             case "Retirarme":
             break;
+                
+            case "Pedir_Cartas":
+                IMano unaMano = itp.getPartida().buscarMano(itp.getJugador());
+                ArrayList<String> listaCartas = itp.getPathImagenCartasSeleccionadas();
+                
+                Iterator<Carta> i = null;
+                
+                for(String path : listaCartas){
+                    i = unaMano.getColCartas().iterator();
+                   while(i.hasNext()){
+                        Carta c = i.next();
+                        if(c.getPathImagen() == path){
+                            i.remove();
+                        }
+                    }
+                }
+                //TODO: Ver de repartirle al jugador que corresponde
+                itp.getPartida().iniciarReparticion();
+                
+            break;
+                
+            default:
+                
+            break;
         }
     }
     
@@ -83,6 +110,7 @@ public class CTableroPoker extends Controlador {
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
                     itp.mostarSaldoJugador(unaMano);
+                    itp.mostrarPozo(itp.getPartida().getPozo());
                 }
             break;
                             

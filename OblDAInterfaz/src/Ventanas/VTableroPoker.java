@@ -10,6 +10,7 @@ import Interfaces.ITableroPoker;
 import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -109,7 +110,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(600, 600);
+        this.setSize(600, 400);
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
@@ -151,5 +152,15 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public float getMontoApostado() {
         return this.jptp.getMontoApostado();
+    }
+
+    @Override
+    public void mostrarPozo(Float pozo) {
+        this.jptp.mostrarPozo(pozo);
+    }
+
+    @Override
+    public ArrayList<String> getPathImagenCartasSeleccionadas() {
+        return this.jptp.getPathImagenCartasSeleccionadas();
     }
 }

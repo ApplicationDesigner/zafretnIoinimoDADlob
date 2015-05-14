@@ -12,14 +12,17 @@ import Interfaz.IJuego;
 import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
+import java.util.ArrayList;
 
 /**
  *
  * @author Sebastian
  */
 public final class JPTableroPoker extends javax.swing.JPanel implements ITableroPoker {
+
     private IJugador jugador;
     private IPartida partida;
+
     /**
      * Creates new form JPPartida
      */
@@ -42,9 +45,6 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void setPartida(IPartida partida) {
         this.partida = partida;
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,61 +74,105 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         lblSaldoReal = new javax.swing.JLabel();
         lblPozo = new javax.swing.JLabel();
         lblPozoReal = new javax.swing.JLabel();
+        lblListaJugadores = new javax.swing.JLabel();
+        lblListaJugadoresReal = new javax.swing.JLabel();
+        btnPedirCartas = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 51, 0));
 
         btnApostar.setText("Apostar");
 
         btnCarta1.setActionCommand("Carta1");
+        btnCarta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarta1ActionPerformed(evt);
+            }
+        });
 
         btnCarta2.setActionCommand("Carta2");
+        btnCarta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarta2ActionPerformed(evt);
+            }
+        });
 
         btnCarta3.setActionCommand("Carta3");
+        btnCarta3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarta3ActionPerformed(evt);
+            }
+        });
 
         btnCarta4.setActionCommand("Carta4");
+        btnCarta4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarta4ActionPerformed(evt);
+            }
+        });
 
         btnCarta5.setActionCommand("Carta5");
+        btnCarta5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarta5ActionPerformed(evt);
+            }
+        });
 
         btnPagar.setText("Pagar");
 
         btnRetirarme.setText("Retirarme");
 
+        lblNickName.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblJugador.setForeground(new java.awt.Color(255, 255, 255));
         lblJugador.setText("Jugador:");
 
+        lblFigura.setForeground(new java.awt.Color(255, 255, 255));
         lblFigura.setText("Figura:");
 
+        lblFiguraReal.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblNroJuego.setForeground(new java.awt.Color(255, 255, 255));
         lblNroJuego.setText("Juego Nro:");
 
+        lblNroJuegoReal.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblSaldo.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo.setText("Saldo Jugador:");
 
+        lblSaldoReal.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblPozo.setForeground(new java.awt.Color(255, 255, 255));
         lblPozo.setText("Pozo:");
+
+        lblPozoReal.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblListaJugadores.setForeground(new java.awt.Color(255, 255, 255));
+        lblListaJugadores.setText("Jugadores:");
+
+        lblListaJugadoresReal.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnPedirCartas.setText("Pedir Cartas");
+        btnPedirCartas.setActionCommand("Pedir_Cartas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblNickName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnApostar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRetirarme, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNickName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -140,32 +184,36 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                                 .addComponent(lblFigura, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblFiguraReal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnPedirCartas)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblSaldoReal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNroJuego)
-                    .addComponent(lblPozo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPozoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnApostar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRetirarme, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(28, 28, 28)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblSaldoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblPozo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblNroJuego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblListaJugadores, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPozoReal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNroJuego)
-                    .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPozo)
-                    .addComponent(lblPozoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,21 +226,57 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                     .addComponent(btnCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPedirCartas)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnApostar)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnApostar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPagar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRetirarme))
-                    .addComponent(lblSaldoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblSaldoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNroJuego)
+                            .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPozo)
+                            .addComponent(lblPozoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblListaJugadores)
+                            .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
+        btnCarta1.setEnabled(false);
+    }//GEN-LAST:event_btnCarta1ActionPerformed
+
+    private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
+        btnCarta2.setEnabled(false);
+    }//GEN-LAST:event_btnCarta2ActionPerformed
+
+    private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
+        btnCarta3.setEnabled(false);
+    }//GEN-LAST:event_btnCarta3ActionPerformed
+
+    private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
+        btnCarta4.setEnabled(false);
+    }//GEN-LAST:event_btnCarta4ActionPerformed
+
+    private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
+        btnCarta5.setEnabled(false);
+    }//GEN-LAST:event_btnCarta5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -203,10 +287,13 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     private javax.swing.JButton btnCarta4;
     private javax.swing.JButton btnCarta5;
     private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnPedirCartas;
     private javax.swing.JButton btnRetirarme;
     private javax.swing.JLabel lblFigura;
     private javax.swing.JLabel lblFiguraReal;
     private javax.swing.JLabel lblJugador;
+    private javax.swing.JLabel lblListaJugadores;
+    private javax.swing.JLabel lblListaJugadoresReal;
     private javax.swing.JLabel lblNickName;
     private javax.swing.JLabel lblNroJuego;
     private javax.swing.JLabel lblNroJuegoReal;
@@ -220,12 +307,13 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     @Override
     public void setControlador(Controlador c) {
         this.btnApostar.addActionListener(c);
+        this.btnPedirCartas.addActionListener(c);
     }
 
     @Override
     public void iniciarComponentes() {
         this.setVisible(true);
-        this.setSize(500, 500);
+        this.setSize(600, 400);
         initComponents();
     }
 
@@ -233,16 +321,26 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void mostrarMano(IMano unaMano) {
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
+        btnCarta1.setActionCommand(unaMano.getColCartas().get(0).getPathImagen());
+
         btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(1).getPathImagen())));
+        btnCarta2.setActionCommand(unaMano.getColCartas().get(1).getPathImagen());
+
         btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(2).getPathImagen())));
+        btnCarta3.setActionCommand(unaMano.getColCartas().get(2).getPathImagen());
+        
         btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(3).getPathImagen())));
+        btnCarta4.setActionCommand(unaMano.getColCartas().get(3).getPathImagen());
+        
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
+        btnCarta5.setActionCommand(unaMano.getColCartas().get(4).getPathImagen());
+        
         IJuego ij = JuegoPoker.getInstance();
         IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id    
         lblFiguraReal.setText(ip.evaluarMano(unaMano));
     }
-    
-    private void mostrarNickName(){
+
+    private void mostrarNickName() {
         this.lblNickName.setText(jugador.getNickName());
     }
 
@@ -254,5 +352,31 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     @Override
     public float getMontoApostado() {
         return Float.parseFloat(this.txtMonto.getText());
+    }
+
+    @Override
+    public void mostrarPozo(Float pozo) {
+        this.lblPozoReal.setText(Float.toString(pozo));
+    }
+
+    @Override
+    public ArrayList<String> getPathImagenCartasSeleccionadas() {
+        ArrayList<String> listaCartas = new ArrayList<>();
+        if (this.btnCarta1.isEnabled() == false) {
+            listaCartas.add(btnCarta1.getActionCommand());
+        }
+        if (this.btnCarta2.isEnabled() == false) {
+            listaCartas.add(btnCarta2.getActionCommand());
+        }
+        if (this.btnCarta3.isEnabled() == false) {
+            listaCartas.add(btnCarta3.getActionCommand());
+        }
+        if (this.btnCarta4.isEnabled() == false) {
+            listaCartas.add(btnCarta4.getActionCommand());
+        }
+        if (this.btnCarta5.isEnabled() == false) {
+            listaCartas.add(btnCarta5.getActionCommand());
+        }
+        return listaCartas;
     }
 }

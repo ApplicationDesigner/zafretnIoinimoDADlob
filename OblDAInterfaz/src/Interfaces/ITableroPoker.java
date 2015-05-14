@@ -8,6 +8,7 @@ package Interfaces;
 import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
+import java.util.ArrayList;
 
 
 /**
@@ -21,5 +22,7 @@ public interface ITableroPoker extends IVentana {
     public abstract void mostrarMano(IMano mano);
     public abstract void mostarSaldoJugador(IMano unaMano);
     public abstract float getMontoApostado();
+    public abstract void mostrarPozo(Float pozo);
+    public abstract ArrayList<String> getPathImagenCartasSeleccionadas();
     
 }
