@@ -47,6 +47,9 @@ public class CTableroPoker extends Controlador {
                     System.out.println("saldoJugador > montoApostado");
                     this.montoApostado = montoApostado;
                     itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
+                    
+                    itp.habilitarBotonApostar(false);
+
                 } else {
                     //TODO mensaje de error en lblMensaje
                 }
@@ -111,24 +114,34 @@ public class CTableroPoker extends Controlador {
                     //TODO: Refrescar el saldo del jugador en pantalla
                     itp.mostarSaldoJugador(unaMano);
                     System.out.println((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
-
+                    
+                    
                 }
                 //TODO: Refrescar el pozo total en pantalla
                 itp.mostrarPozo(itp.getPartida().getPozo());
+                
+                
                 break;
 
             case "APOSTAR":
 
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
                     //Deshabilito todos los botones
+                    //TODO: Si lo pongo aca a la linea de abajo, deshabilita de entrada al iniciar la partida
+//                    itp.habilitarBotonApostar(false);
+//                    itp.habilitarBotonPagar(false);
+//                    itp.habilitarBotonPedirCartas(false);
+//                    itp.habilitarBotonRetirarme(false);
 
-                    System.out.println("Deshabilito todos los botones");
+                    //System.out.println("Deshabilito todos los botones");
 
                 } else {
                     //Deshabilito botón apostar
-                    System.out.println("Deshabilito el boton apostar");
-
+                    itp.habilitarBotonApostar(false);
+                    //System.out.println("Deshabilito el boton apostar");
                 }
+                
+                
 
                 break;
 

@@ -12,4 +12,5 @@ package Interfaces;
 public interface ILogin extends IVentana {
     String getNickName();
     String getPass();
+    public abstract void setLblMensaje(String mensaje);
 }

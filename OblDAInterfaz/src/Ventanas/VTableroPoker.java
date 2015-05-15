@@ -110,7 +110,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(600, 400);
+        this.setSize(700, 400);
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
@@ -162,5 +162,25 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public ArrayList<String> getBotonesDeCartasSeleccionadas() {
         return this.jptp.getBotonesDeCartasSeleccionadas();
+    }
+
+    @Override
+    public void habilitarBotonApostar(boolean estado) {
+        this.jptp.habilitarBotonApostar(estado);
+    }
+
+    @Override
+    public void habilitarBotonPedirCartas(boolean estado) {
+        this.jptp.habilitarBotonPedirCartas(estado);
+    }
+
+    @Override
+    public void habilitarBotonPagar(boolean estado) {
+        this.jptp.habilitarBotonPagar(estado);
+    }
+
+    @Override
+    public void habilitarBotonRetirarme(boolean estado) {
+        this.jptp.habilitarBotonRetirarme(estado);
     }
 }

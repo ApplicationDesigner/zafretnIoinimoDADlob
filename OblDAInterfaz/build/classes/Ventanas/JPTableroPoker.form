@@ -54,21 +54,25 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="btnPedirCartas" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnApostar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                          <Component id="btnPagar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                          <Component id="btnRetirarme" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnApostar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="btnPagar" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="btnRetirarme" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="txtMonto" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnPedirCartas" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="txtMonto" min="-2" pref="71" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblSaldo" min="-2" pref="101" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="lblSaldoReal" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Component id="lblSaldo" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblSaldoReal" min="-2" pref="118" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -78,15 +82,26 @@
                               </Group>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblNroJuegoReal" alignment="0" min="-2" pref="126" max="-2" attributes="0"/>
-                                  <Component id="lblPozoReal" alignment="1" min="-2" pref="126" max="-2" attributes="0"/>
-                                  <Component id="lblListaJugadoresReal" min="-2" pref="126" max="-2" attributes="0"/>
+                                  <Component id="lblListaJugadoresReal" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblPozoReal" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="lblNroJuegoReal" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
+                          <Component id="lblMensaje" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="281" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblEventos" min="-2" pref="108" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="97" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -99,50 +114,59 @@
                   <Component id="lblJugador" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="lblFigura" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="lblFiguraReal" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lblEventos" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnCarta1" min="-2" pref="109" max="-2" attributes="0"/>
-                  <Component id="btnCarta2" min="-2" pref="109" max="-2" attributes="0"/>
-                  <Component id="btnCarta3" min="-2" pref="109" max="-2" attributes="0"/>
-                  <Component id="btnCarta4" min="-2" pref="109" max="-2" attributes="0"/>
-                  <Component id="btnCarta5" min="-2" pref="109" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnPedirCartas" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnApostar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnPagar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnRetirarme" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblSaldo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="btnCarta1" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="btnCarta2" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="btnCarta3" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="btnCarta4" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="btnCarta5" min="-2" pref="109" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnPedirCartas" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblMensaje" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnApostar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnPagar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnRetirarme" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblSaldoReal" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblNroJuego" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNroJuegoReal" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblPozo" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPozoReal" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblListaJugadores" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblListaJugadoresReal" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="txtMonto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblSaldo" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblSaldoReal" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblNroJuego" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNroJuegoReal" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblPozo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPozoReal" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblListaJugadores" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblListaJugadoresReal" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
@@ -301,6 +325,36 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Pedir Cartas"/>
         <Property name="actionCommand" type="java.lang.String" value="Pedir_Cartas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMensaje">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="lblEventos">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Eventos del Juego"/>
       </Properties>
     </Component>
   </SubComponents>

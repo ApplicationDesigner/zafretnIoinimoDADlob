@@ -256,4 +256,13 @@ public class PartidaPoker extends Observable implements IPartida {
         return null;
     }
 
+    @Override
+    public ArrayList<String> getListaNombresJugadores() {
+        ArrayList<String> listaNombres = new ArrayList<>();
+        for(IMano unaMano : this.getColManos()){
+            listaNombres.add(unaMano.getUnJugador().getNickName());
+        }
+        return listaNombres;
+    }
+
 }

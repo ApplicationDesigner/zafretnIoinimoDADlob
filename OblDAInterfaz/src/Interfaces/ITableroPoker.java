@@ -24,5 +24,11 @@ public interface ITableroPoker extends IVentana {
     public abstract float getMontoApostado();
     public abstract void mostrarPozo(Float pozo);
     public abstract ArrayList<String> getBotonesDeCartasSeleccionadas();
+    public abstract void habilitarBotonPedirCartas(boolean estado);
+    public abstract void habilitarBotonApostar(boolean estado);
+    public abstract void habilitarBotonPagar(boolean estado);
+    public abstract void habilitarBotonRetirarme(boolean estado);
+        
+
     
 }

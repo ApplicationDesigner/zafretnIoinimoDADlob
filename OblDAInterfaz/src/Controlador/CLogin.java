@@ -21,31 +21,32 @@ import java.util.Observable;
 public class CLogin extends Controlador {
 
     private final ILogin ilogin;
-    
+
     public CLogin(ILogin ilogin) {
-        this.ilogin = ilogin;                
+        this.ilogin = ilogin;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         ICasino instanceCasino = Casino.getInstance();
-        
-        
-        if(e.getActionCommand().equals("LoginAceptar")) {
+
+        if (e.getActionCommand().equals("LoginAceptar")) {
             System.out.println("NickName: " + ilogin.getNickName() + " Pass: " + ilogin.getPass());
-            
-            if(instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {                
+
+            if (instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {
                 IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());
-                
-                if(j != null) {
+
+                if (j != null) {
                     System.out.println("Logueando a ventana principal del jugador...");
-                    IIngresarAPartida iip = new VPpalJugador(j);                    
+                    IIngresarAPartida iip = new VPpalJugador(j);
                     Controlador c = new CPpalJugador(iip);
-                    iip.setControlador(c);    
+                    iip.setControlador(c);
                 }
+            } else {
+                ilogin.setLblMensaje("Usuario y/o password incorrectos");
             }
-            
+
         }
     }
 

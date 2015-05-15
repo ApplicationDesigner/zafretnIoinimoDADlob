@@ -121,4 +121,9 @@ public final class VLogin extends javax.swing.JFrame implements ILogin {
     public String getPass() {
         return this.jpl.getPass();
     }
+
+    @Override
+    public void setLblMensaje(String mensaje) {
+        this.jpl.setLblMensaje(mensaje);
+    }
 }

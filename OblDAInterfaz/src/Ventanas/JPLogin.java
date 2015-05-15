@@ -35,6 +35,7 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
         txtNickName = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
 
         btnAceptar.setText("Aceptar");
         btnAceptar.setActionCommand("LoginAceptar");
@@ -44,20 +45,24 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
             }
         });
 
+        lblMensaje.setForeground(new java.awt.Color(204, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNickName, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(txtPass)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtNickName, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                .addComponent(txtPass)))))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -67,9 +72,11 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
                 .addComponent(txtNickName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAceptar)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -80,6 +87,7 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JTextField txtNickName;
     private javax.swing.JTextField txtPass;
     // End of variables declaration//GEN-END:variables
@@ -88,6 +96,8 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
     public String getNickName() {
         return this.txtNickName.getText();
     }
+    
+    
 
     @Override
     public String getPass() {
@@ -105,6 +115,11 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
         this.setVisible(true);
         this.setSize(500, 500);
         initComponents();
+    }
+
+    @Override
+    public void setLblMensaje(String mensaje) {
+        this.lblMensaje.setText(mensaje);
     }
 
 }
