@@ -17,5 +17,7 @@ public interface ICarta {
     public abstract Valor getValor();
     public Palo getPalo();
     public String getPathImagen();
+    public boolean getActiva();
+    public void setActiva(boolean estado);
     
 }

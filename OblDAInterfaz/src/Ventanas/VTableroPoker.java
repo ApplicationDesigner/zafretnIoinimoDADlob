@@ -160,7 +160,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public ArrayList<String> getPathImagenCartasSeleccionadas() {
-        return this.jptp.getPathImagenCartasSeleccionadas();
+    public ArrayList<String> getBotonesDeCartasSeleccionadas() {
+        return this.jptp.getBotonesDeCartasSeleccionadas();
     }
 }

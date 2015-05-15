@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public interface IMano {
     
     public abstract void agregarCarta(Carta unaCarta);
+    public abstract void agregarCarta(Carta unaCarta, int posicion);
     public abstract ArrayList<Carta> getColCartas();
     public abstract IJugador getUnJugador();
     public abstract void setUnJugador(IJugador unJugador);

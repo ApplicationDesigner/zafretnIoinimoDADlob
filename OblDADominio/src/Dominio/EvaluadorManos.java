@@ -5,6 +5,8 @@
  */
 package Dominio;
 
+import Configuraciones.enumFigura;
+
 /**
  *
  * @author Sebastian
@@ -13,11 +15,13 @@ public class EvaluadorManos {
     
     private Figura figura;
     
+
+    
     public EvaluadorManos(Figura unaFigura) {
         this.figura = unaFigura;
     }
     
-    public boolean evaluarMano(Mano unaMano) {
+    public enumFigura evaluarMano(Mano unaMano) {
         return this.figura.evaluarMano(unaMano);
     }
     

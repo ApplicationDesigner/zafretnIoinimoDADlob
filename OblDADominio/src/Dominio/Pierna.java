@@ -5,6 +5,7 @@
  */
 package Dominio;
 
+import Configuraciones.enumFigura;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,9 +16,9 @@ import java.util.Collections;
 public class Pierna implements Figura{
 
     @Override
-    public boolean evaluarMano(Mano unaMano) {
+    public enumFigura evaluarMano(Mano unaMano) {
         
-        boolean ret = false;
+        enumFigura ret = enumFigura.NINGUNA;
         ArrayList<Carta.Valor> valores = new ArrayList<>();
 
         for (Carta unaCarta : unaMano.getColCartas()) {
@@ -26,17 +27,17 @@ public class Pierna implements Figura{
 
         int cant = Collections.frequency(valores, valores.get(0));
         if (cant == 3) {
-            ret = true;
+            ret = enumFigura.PIERNA;
         } else {
             cant = Collections.frequency(valores, valores.get(1));
 
             if (cant == 3) {
-                ret = true;
+                ret = enumFigura.PIERNA;
             } else {
                 cant = Collections.frequency(valores, valores.get(2));
 
                 if (cant == 3) {
-                    ret = true;
+                    ret = enumFigura.PIERNA;
                 }
             }
         }

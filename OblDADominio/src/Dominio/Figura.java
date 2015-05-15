@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Dominio;
+import Configuraciones.enumFigura;
 
 /**
  *
@@ -11,5 +12,5 @@ package Dominio;
  */
 public interface Figura {
     
-    public boolean evaluarMano(Mano unaMano);
+    public enumFigura evaluarMano(Mano unaMano);
 }

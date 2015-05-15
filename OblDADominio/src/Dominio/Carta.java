@@ -16,16 +16,18 @@ public final class Carta implements Comparable<Carta>, ICarta {
     private final Valor valor;
     private final Palo palo;
     private final String pathImagen;
-    private final boolean activa; 
+    private boolean activa; 
     private static final String pathBase = "/_img/";
 
     public Carta(Valor valor, Palo palo) {
         this.valor = valor;
         this.palo = palo;
-        activa = true;
+        this.activa = true;
         this.pathImagen = pathBase + valor.toString() + palo.toString()+ ".png";
     }
 
+    
+    
     public Valor getValor() {
         return valor;
     }
@@ -64,6 +66,14 @@ public final class Carta implements Comparable<Carta>, ICarta {
 
     public String getPathImagen() {
         return pathImagen;
+    }
+
+    public boolean getActiva() {
+        return activa;
+    }
+        
+    public void setActiva(boolean estado){
+        this.activa = estado;
     }
     
     

@@ -7,7 +7,7 @@ package Dominio;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+import Configuraciones.enumFigura;
 /**
  *
  * @author Marcelo
@@ -15,9 +15,9 @@ import java.util.Collections;
 public class Escalera implements Figura {
 
     @Override
-    public boolean evaluarMano(Mano unaMano) {
+    public enumFigura evaluarMano(Mano unaMano) {
         
-        boolean ret = false;
+        enumFigura ret = enumFigura.NINGUNA;
         ArrayList<Carta.Valor> valores = new ArrayList<>();
 
         for (Carta unaCarta : unaMano.getColCartas()) {
@@ -31,7 +31,7 @@ public class Escalera implements Figura {
             &&  valores.get(2).getSiguiente() == valores.get(3)
             &&  valores.get(3).getSiguiente() == valores.get(4)
           ) {
-            ret = true;
+            ret = enumFigura.ESCALERA;
         }
         
 

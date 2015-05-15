@@ -15,143 +15,146 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
-
 /**
  *
  * @author Sebastian
  */
 public class CTableroPoker extends Controlador {
+
     private final ITableroPoker itp;
-    
+    private float montoApostado;
+
     CTableroPoker(ITableroPoker itp) {
         this.itp = itp;
-    }   
-    
+        this.montoApostado = 0;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String opcion = e.getActionCommand();
-        switch (opcion){
+        float saldoJugador = itp.getJugador().getSaldo();
+        switch (opcion) {
             case "Apostar":
-                float saldoJugador = itp.getJugador().getSaldo();
                 
-                System.out.println("saldoJugador: " + saldoJugador);                 
-                
+
+                System.out.println("saldoJugador: " + saldoJugador);
+
                 float montoApostado = this.itp.getMontoApostado();
                 System.out.println("montoApostado: " + montoApostado);
-                
-                if(saldoJugador > montoApostado) {
-                    
+
+                if (saldoJugador > montoApostado) {
+
                     System.out.println("saldoJugador > montoApostado");
-                    
+                    this.montoApostado = montoApostado;
                     itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
-//                    boolean aposto  = itp.getJugador().apostar(montoApostado);
-//                    if(aposto) {
-//                        System.out.println("Voy a setear el pozo");
-//                        System.out.println("Pozo anterior: " + itp.getPartida().getPozo());
-//                        //itp.getPartida().setPozo(itp.getPartida().getPozo() + montoApostado);
-//                        itp.getPartida().modificarPozo(montoApostado);
-//                        System.out.println("Pozo posterior: " + itp.getPartida().getPozo());
-//                        
-//                        itp.getPartida().jugadorAposto(itp.getJugador());
-//                    } else {
-//                        //TODO mensaje de error en lblMensaje
-//                    }
-                    
                 } else {
                     //TODO mensaje de error en lblMensaje
                 }
-                        
-                
-            break;
+
+                break;
             case "Pagar":
-            break;
+                System.out.println("saldoJugador: " + saldoJugador);
+                if (saldoJugador > this.montoApostado) {
+                    System.out.println("saldoJugador > montoApostado");
+                    itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
+                } else {
+                    //TODO mensaje de error en lblMensaje
+                }
+                break;
             case "Retirarme":
-            break;
-                
+                itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0F);
+                break;
+
             case "Pedir_Cartas":
                 IMano unaMano = itp.getPartida().buscarMano(itp.getJugador());
-                ArrayList<String> listaCartas = itp.getPathImagenCartasSeleccionadas();
-                
-                Iterator<Carta> i = null;
-                
-                for(String path : listaCartas){
-                    i = unaMano.getColCartas().iterator();
-                   while(i.hasNext()){
-                        Carta c = i.next();
-                        if(c.getPathImagen() == path){
-                            i.remove();
-                        }
+                ArrayList<String> ubicacionEnMesa = itp.getBotonesDeCartasSeleccionadas();
+                ArrayList indices = new ArrayList<>();
+
+                for (Carta unaCarta : unaMano.getColCartas()) {
+                    if (unaCarta.getActiva() == false) {
+                        indices.add(unaMano.getColCartas().indexOf(unaCarta));
                     }
                 }
-                //TODO: Ver de repartirle al jugador que corresponde
-                itp.getPartida().iniciarReparticion();
-                
-            break;
-                
+                Iterator<Carta> i = unaMano.getColCartas().iterator();
+                while (i.hasNext()) {
+                    Carta c = i.next();
+                    if (c.getActiva() == false) {
+                        i.remove();
+                    }
+                }
+
+                itp.getPartida().reponerCartas(unaMano, indices);
+                itp.mostrarMano(unaMano);
+
+                break;
+
             default:
-                
-            break;
+
+                break;
         }
     }
-    
 
     @Override
     public void update(Observable o, Object o1) {
         System.out.println("Inicio Update");
-        
+
         String accion = ((Mensaje) o1).getAccion();
-        
-        switch(accion) {
-            
+
+        switch (accion) {
+
             case "REPARTIR":
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
                     System.out.println("Recibi mano");
                     System.out.println(itp.getJugador().getNickName());
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
+                    //TODO: Refrescar el saldo del jugador en pantalla
                     itp.mostarSaldoJugador(unaMano);
-                    itp.mostrarPozo(itp.getPartida().getPozo());
+                    System.out.println((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
+
                 }
-            break;
-                            
+                //TODO: Refrescar el pozo total en pantalla
+                itp.mostrarPozo(itp.getPartida().getPozo());
+                break;
+
             case "APOSTAR":
-                
+
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
                     //Deshabilito todos los botones
-                    
+
                     System.out.println("Deshabilito todos los botones");
-                    
+
                 } else {
                     //Deshabilito botón apostar
                     System.out.println("Deshabilito el boton apostar");
-                    
+
                 }
-                
-            break;
-                
+
+                break;
+
             case "PAGAR":
                 //TODO Implementar
-               
-            break;
-                
-            case "PASAR":                
+
+                break;
+
+            case "PASAR":
                 //TODO Implementar
-            break;
-                
-            case "RETIRARSE":                
-                //TODO Implementar
-            break;
-                
+                break;
+
+            case "RETIRARSE":
+                //TODO Deshabilitar Botones
+                break;
+
             case "ABANDONARMESA":
                 //TODO No da el tiempo, quedara para el infinito......
-            break;
-                
+                break;
+
             default:
-                
-            break;
-                
-        }        
-        
+
+                break;
+
+        }
+
 //
     }
 

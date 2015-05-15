@@ -53,4 +53,9 @@ public class Mano implements IMano {
             System.out.println(unaCarta.toString());
         }   
     }
+
+    @Override
+    public void agregarCarta(Carta unaCarta, int posicion) {
+        this.colCartas.add(posicion, unaCarta);
+    }
 }

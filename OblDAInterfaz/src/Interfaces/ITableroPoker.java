@@ -23,6 +23,6 @@ public interface ITableroPoker extends IVentana {
     public abstract void mostarSaldoJugador(IMano unaMano);
     public abstract float getMontoApostado();
     public abstract void mostrarPozo(Float pozo);
-    public abstract ArrayList<String> getPathImagenCartasSeleccionadas();
+    public abstract ArrayList<String> getBotonesDeCartasSeleccionadas();
     
 }

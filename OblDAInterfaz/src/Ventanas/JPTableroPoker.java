@@ -260,22 +260,27 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
         btnCarta1.setEnabled(false);
+        this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
     private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
         btnCarta2.setEnabled(false);
+        this.partida.buscarMano(jugador).getColCartas().get(1).setActiva(false);
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
         btnCarta3.setEnabled(false);
+        this.partida.buscarMano(jugador).getColCartas().get(2).setActiva(false);
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
         btnCarta4.setEnabled(false);
+        this.partida.buscarMano(jugador).getColCartas().get(3).setActiva(false);
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
         btnCarta5.setEnabled(false);
+        this.partida.buscarMano(jugador).getColCartas().get(4).setActiva(false);
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
 
@@ -321,27 +326,38 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void mostrarMano(IMano unaMano) {
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
-        btnCarta1.setActionCommand(unaMano.getColCartas().get(0).getPathImagen());
+        btnCarta1.setActionCommand("btnCarta1");
+        if(this.btnCarta1.isEnabled() == false){
+            btnCarta1.setEnabled(true);
+        }
 
         btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(1).getPathImagen())));
-        btnCarta2.setActionCommand(unaMano.getColCartas().get(1).getPathImagen());
+        btnCarta2.setActionCommand("btnCarta2");
+        if(this.btnCarta2.isEnabled() == false){
+            btnCarta2.setEnabled(true);
+        }
 
         btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(2).getPathImagen())));
-        btnCarta3.setActionCommand(unaMano.getColCartas().get(2).getPathImagen());
-        
+        btnCarta3.setActionCommand("btnCarta3");
+        if(this.btnCarta3.isEnabled() == false){
+            btnCarta3.setEnabled(true);
+        }
+
         btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(3).getPathImagen())));
-        btnCarta4.setActionCommand(unaMano.getColCartas().get(3).getPathImagen());
+        btnCarta4.setActionCommand("btnCarta4");
+        if(this.btnCarta4.isEnabled() == false){
+            btnCarta4.setEnabled(true);
+        }
         
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
-        btnCarta5.setActionCommand(unaMano.getColCartas().get(4).getPathImagen());
-        
+        btnCarta5.setActionCommand("btnCarta5");
+        if(this.btnCarta5.isEnabled() == false){
+            btnCarta5.setEnabled(true);
+        }
+
         IJuego ij = JuegoPoker.getInstance();
         IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id    
         lblFiguraReal.setText(ip.evaluarMano(unaMano));
-    }
-
-    private void mostrarNickName() {
-        this.lblNickName.setText(jugador.getNickName());
     }
 
     @Override
@@ -360,7 +376,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }
 
     @Override
-    public ArrayList<String> getPathImagenCartasSeleccionadas() {
+    public ArrayList<String> getBotonesDeCartasSeleccionadas() {
         ArrayList<String> listaCartas = new ArrayList<>();
         if (this.btnCarta1.isEnabled() == false) {
             listaCartas.add(btnCarta1.getActionCommand());
@@ -379,4 +395,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         }
         return listaCartas;
     }
+
+    private void mostrarNickName() {
+        this.lblNickName.setText(jugador.getNickName());
+    }
+
 }
