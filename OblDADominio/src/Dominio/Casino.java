@@ -31,23 +31,16 @@ public class Casino implements ICasino {
         Casino.colJuegos = new ArrayList<>();
         Casino.colPartidas = new ArrayList<>();
         Casino.colJugadores = new ArrayList<>();
-        datosPrecargados();
+        
     }
 
     public static Casino getInstance() {
 
         if (Casino.instance == null) {
             Casino.instance = new Casino();
-            IJuego j1;
-            j1 = Casino.instance.agregarJuego("POKER");
-            System.out.println(j1.toString());
-
-            IPartida p1;
-            p1 = Casino.instance.agregarPartida(j1, "POKER");
-            System.out.println(p1.toString());
-
-            j1.agregarPartida(p1);
         }
+        
+        datosPrecargados();
 
         return Casino.instance;
     }
@@ -116,7 +109,7 @@ public class Casino implements ICasino {
         return null;
     }
 
-    private void datosPrecargados() {
+    private static void datosPrecargados() {
 
         for (int i = 0; i < 10; i++) {
             IJugador j = new Jugador();
@@ -126,6 +119,16 @@ public class Casino implements ICasino {
             j.setSaldo(500);
             Casino.colJugadores.add(j);
         }
+
+        IJuego j1;
+        j1 = Casino.instance.agregarJuego("POKER");
+        System.out.println(j1.toString());
+
+        IPartida p1;
+        p1 = Casino.instance.agregarPartida(j1, "POKER");
+        System.out.println(p1.toString());
+
+        j1.agregarPartida(p1);
     }
 
 }

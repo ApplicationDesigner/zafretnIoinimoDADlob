@@ -21,8 +21,6 @@ public interface IJuego {
     public abstract void setNombre(String nombre);
     public abstract int getNumero();
     public abstract void setNumero(int numero);
-    public abstract int getMinimoJugadores();
-    public abstract void setMinimoJugadores(int minimoJugadores);
     public abstract IPartida buscarPartida(int numero);
     public abstract void agregarPartida(IPartida p);
     public abstract void ingresarJugadorAPartida(int nroPartida, IJugador j);
