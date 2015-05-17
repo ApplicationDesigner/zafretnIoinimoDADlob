@@ -183,4 +183,9 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     public void habilitarBotonRetirarme(boolean estado) {
         this.jptp.habilitarBotonRetirarme(estado);
     }
+
+    @Override
+    public void escribirLog(String log) {
+        this.jptp.escribirLog(log);
+    }
 }

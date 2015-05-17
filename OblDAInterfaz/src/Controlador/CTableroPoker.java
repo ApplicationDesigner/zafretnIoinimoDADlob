@@ -87,7 +87,11 @@ public class CTableroPoker extends Controlador {
 
                 itp.getPartida().reponerCartas(unaMano, indices);
                 itp.mostrarMano(unaMano);
-
+                itp.habilitarBotonPedirCartas(false);
+                
+                
+                String log = itp.getJugador().getNickName() + " descarto " + indices.size() + " cartas \n";
+                itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 break;
 
             default:
@@ -155,10 +159,10 @@ public class CTableroPoker extends Controlador {
             case "ABANDONARMESA":
                 //TODO No da el tiempo, quedara para el infinito......
                 break;
-
+                
             default:
-
-                break;
+                itp.escribirLog(accion);
+            break;
 
         }
 

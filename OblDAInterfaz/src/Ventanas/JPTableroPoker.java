@@ -79,7 +79,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnPedirCartas = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaLogs = new javax.swing.JTextArea();
         lblEventos = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 51, 0));
@@ -160,9 +160,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
         lblMensaje.setForeground(new java.awt.Color(255, 255, 0));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaLogs.setColumns(20);
+        jtaLogs.setRows(5);
+        jScrollPane1.setViewportView(jtaLogs);
 
         lblEventos.setForeground(new java.awt.Color(255, 255, 255));
         lblEventos.setText("Eventos del Juego");
@@ -290,28 +290,38 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
-        btnCarta1.setEnabled(false);
-        this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
+        if (btnPedirCartas.isEnabled() == true) {
+            btnCarta1.setEnabled(false);
+            this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
+        }
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
     private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
-        btnCarta2.setEnabled(false);
-        this.partida.buscarMano(jugador).getColCartas().get(1).setActiva(false);
+        if (btnPedirCartas.isEnabled() == true) {
+            btnCarta2.setEnabled(false);
+            this.partida.buscarMano(jugador).getColCartas().get(1).setActiva(false);
+        }
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
-        btnCarta3.setEnabled(false);
-        this.partida.buscarMano(jugador).getColCartas().get(2).setActiva(false);
+        if (btnPedirCartas.isEnabled() == true) {
+            btnCarta3.setEnabled(false);
+            this.partida.buscarMano(jugador).getColCartas().get(2).setActiva(false);
+        }
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
-        btnCarta4.setEnabled(false);
-        this.partida.buscarMano(jugador).getColCartas().get(3).setActiva(false);
+        if (btnPedirCartas.isEnabled() == true) {
+            btnCarta4.setEnabled(false);
+            this.partida.buscarMano(jugador).getColCartas().get(3).setActiva(false);
+        }
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
-        btnCarta5.setEnabled(false);
-        this.partida.buscarMano(jugador).getColCartas().get(4).setActiva(false);
+        if (btnPedirCartas.isEnabled() == true) {
+            btnCarta5.setEnabled(false);
+            this.partida.buscarMano(jugador).getColCartas().get(4).setActiva(false);
+        }
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
 
@@ -326,7 +336,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     private javax.swing.JButton btnPedirCartas;
     private javax.swing.JButton btnRetirarme;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jtaLogs;
     private javax.swing.JLabel lblEventos;
     private javax.swing.JLabel lblFigura;
     private javax.swing.JLabel lblFiguraReal;
@@ -362,38 +372,38 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
         btnCarta1.setActionCommand("btnCarta1");
-        if(this.btnCarta1.isEnabled() == false){
+        if (this.btnCarta1.isEnabled() == false) {
             btnCarta1.setEnabled(true);
         }
 
         btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(1).getPathImagen())));
         btnCarta2.setActionCommand("btnCarta2");
-        if(this.btnCarta2.isEnabled() == false){
+        if (this.btnCarta2.isEnabled() == false) {
             btnCarta2.setEnabled(true);
         }
 
         btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(2).getPathImagen())));
         btnCarta3.setActionCommand("btnCarta3");
-        if(this.btnCarta3.isEnabled() == false){
+        if (this.btnCarta3.isEnabled() == false) {
             btnCarta3.setEnabled(true);
         }
 
         btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(3).getPathImagen())));
         btnCarta4.setActionCommand("btnCarta4");
-        if(this.btnCarta4.isEnabled() == false){
+        if (this.btnCarta4.isEnabled() == false) {
             btnCarta4.setEnabled(true);
         }
-        
+
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
         btnCarta5.setActionCommand("btnCarta5");
-        if(this.btnCarta5.isEnabled() == false){
+        if (this.btnCarta5.isEnabled() == false) {
             btnCarta5.setEnabled(true);
         }
 
         IJuego ij = JuegoPoker.getInstance();
         IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id    
         this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
-        this.lblNroJuegoReal.setText(""+this.partida.getNumero());
+        this.lblNroJuegoReal.setText("" + this.partida.getNumero());
         this.lblListaJugadoresReal.setText(ip.getListaNombresJugadores().toString());
     }
 
@@ -455,6 +465,11 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     @Override
     public void habilitarBotonRetirarme(boolean estado) {
         this.btnRetirarme.setEnabled(estado);
+    }
+
+    @Override
+    public void escribirLog(String log) {
+        this.jtaLogs.append(log);
     }
 
 }

@@ -228,10 +228,13 @@ public class PartidaPoker extends Observable implements IPartida {
 
             case "ABANDONARMESA":
                 //TODO No da el tiempo, quedara para el infinito......
-                break;
+            break;
+                
+            
+
 
             default:
-
+                this.notificarAccion(accion, m);
             break;
 
         }
