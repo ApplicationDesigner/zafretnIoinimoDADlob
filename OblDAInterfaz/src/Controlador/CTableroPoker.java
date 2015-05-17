@@ -35,6 +35,7 @@ public class CTableroPoker extends Controlador {
         float saldoJugador = itp.getJugador().getSaldo();
         switch (opcion) {
             case "Apostar":
+                
 
                 System.out.println("saldoJugador: " + saldoJugador);
 
@@ -46,7 +47,7 @@ public class CTableroPoker extends Controlador {
                     System.out.println("saldoJugador > montoApostado");
                     this.montoApostado = montoApostado;
                     itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
-
+                    
                     itp.habilitarBotonApostar(false);
 
                 } else {
@@ -113,11 +114,13 @@ public class CTableroPoker extends Controlador {
                     //TODO: Refrescar el saldo del jugador en pantalla
                     itp.mostarSaldoJugador(unaMano);
                     System.out.println((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
-
+                    
+                    
                 }
                 //TODO: Refrescar el pozo total en pantalla
                 itp.mostrarPozo(itp.getPartida().getPozo());
-
+                
+                
                 break;
 
             case "APOSTAR":
@@ -131,11 +134,14 @@ public class CTableroPoker extends Controlador {
 //                    itp.habilitarBotonRetirarme(false);
 
                     //System.out.println("Deshabilito todos los botones");
+
                 } else {
                     //Deshabilito botón apostar
                     itp.habilitarBotonApostar(false);
                     //System.out.println("Deshabilito el boton apostar");
                 }
+                
+                
 
                 break;
 

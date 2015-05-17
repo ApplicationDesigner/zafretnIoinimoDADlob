@@ -10,10 +10,8 @@ import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
-import Configuraciones.Constantes;
 
 /**
  *
@@ -82,7 +80,7 @@ public class PartidaPoker extends Observable implements IPartida {
     @Override
     public void repartirCartas(IMano mano) {
 
-        int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
+        int cartasFaltantes = 5 - mano.getColCartas().size();
         for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir());
         }
@@ -91,7 +89,7 @@ public class PartidaPoker extends Observable implements IPartida {
     @Override
     public void reponerCartas(IMano mano, ArrayList indices) {
 
-        int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
+        int cartasFaltantes = 5 - mano.getColCartas().size();
         for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir(), (int) indices.get(i));
         }
@@ -107,14 +105,22 @@ public class PartidaPoker extends Observable implements IPartida {
 
     @Override
     public enumFigura evaluarMano(IMano unaMano) {
-        return EvaluadorManosContext.evaluarMano(unaMano);
-    }
-    
-    @Override
-    public IMano getManoGanadora() {       
-        
-        Collections.sort(this.colManos, new OrdenarManos());        
-        return this.colManos.get(this.colManos.size() - 1);
+
+        enumFigura ret = enumFigura.NINGUNA;
+        EvaluadorManos poker = new EvaluadorManos(new Poker());
+        EvaluadorManos pierna = new EvaluadorManos(new Pierna());
+        EvaluadorManos par = new EvaluadorManos(new Par());
+
+        //Primero tengo que evaluar poker porque si evaluo trio o par tambien evaluaría OK
+        if ((poker.evaluarMano((Mano) unaMano)) == enumFigura.POKER)  {
+            ret = enumFigura.POKER;
+        } else if ((pierna.evaluarMano((Mano) unaMano)) == enumFigura.PIERNA) {
+            ret = enumFigura.PIERNA;
+        } else if ((par.evaluarMano((Mano) unaMano)) == enumFigura.PAR) {
+            ret = enumFigura.PAR;
+        }
+
+        return ret;
     }
 
     @Override
@@ -133,7 +139,7 @@ public class PartidaPoker extends Observable implements IPartida {
     public void agregarObserver(Observer CTableroPoker) {
         this.addObserver(CTableroPoker);
         System.out.println("Observer agregado...");
-        if (this.countObservers() == Constantes.getCantMinimoJugadoresPorMesa()) {
+        if (this.countObservers() == 2) {
             System.out.println("Count observers " + this.countObservers());
             this.iniciarRonda();
         }
@@ -169,16 +175,19 @@ public class PartidaPoker extends Observable implements IPartida {
     public IMano buscarMano(IJugador unJugador) {
 
         for (IMano m : this.colManos) {
+
             if (m.getUnJugador().getNickName() == unJugador.getNickName()) {
                 return m;
             }
         }
+
         return null;
     }
 
     @Override
     public float modificarPozo(float monto) {
         this.pozo += monto;
+
         return this.pozo;
     }
 
@@ -238,7 +247,6 @@ public class PartidaPoker extends Observable implements IPartida {
         
         if(this.contadorAcciones == this.countObservers()){
             //TODO: Iniciar nueva ronda
-            
         }
         
     }

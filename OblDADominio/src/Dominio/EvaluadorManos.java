@@ -13,8 +13,8 @@ import Configuraciones.enumFigura;
  */
 public class EvaluadorManos {
     
-      
-    private final Figura figura;  
+    private Figura figura;
+    
 
     
     public EvaluadorManos(Figura unaFigura) {
@@ -23,7 +23,8 @@ public class EvaluadorManos {
     
     public enumFigura evaluarMano(Mano unaMano) {
         return this.figura.evaluarMano(unaMano);
-    }  
+    }
+    
     
 
 }

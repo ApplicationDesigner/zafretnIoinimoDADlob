@@ -34,7 +34,6 @@ public interface IPartida {
     public abstract void reponerCartas(IMano mano, ArrayList indices);
     public abstract IMano evaluarGanador(ArrayList<IMano> colManos);
     public abstract ArrayList<String> getListaNombresJugadores();
-    public abstract IMano getManoGanadora();
     
     @Override
     public abstract String toString();    

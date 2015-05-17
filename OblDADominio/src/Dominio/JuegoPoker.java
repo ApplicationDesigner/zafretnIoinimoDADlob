@@ -22,12 +22,14 @@ public class JuegoPoker implements IJuego {
     private static ArrayList<IPartida> colPartidas;
     
     private static String nombre;
-    private static int numero;    
+    private static int numero;
+    private static int minimoJugadores;   
     
     
     private JuegoPoker() {
         JuegoPoker.colPartidas      = new ArrayList<>();       
-        JuegoPoker.nombre           = "JuegoPoker";      
+        JuegoPoker.nombre           = "JuegoPoker";        
+        JuegoPoker.minimoJugadores  = 4;
     }
     
     public static JuegoPoker getInstance() {
@@ -66,6 +68,16 @@ public class JuegoPoker implements IJuego {
     @Override
     public void setNumero(int numero) {
         JuegoPoker.numero = numero;
+    }
+
+    @Override
+    public int getMinimoJugadores() {
+        return minimoJugadores;
+    }
+
+    @Override
+    public void setMinimoJugadores(int minimoJugadores) {
+        JuegoPoker.minimoJugadores = minimoJugadores;
     }
     
     @Override

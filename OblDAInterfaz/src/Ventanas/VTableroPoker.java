@@ -110,14 +110,14 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(900, 500);
+        this.setSize(700, 400);
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
         this.jptp.setJugador(jugador);
         this.jptp.setPartida(partida);
         
-        this.jptp.setSize(900, 500);
+        this.jptp.setSize(600, 600);
         this.getContentPane().removeAll();
         this.getContentPane().add(this.jptp);
         this.getContentPane().revalidate();

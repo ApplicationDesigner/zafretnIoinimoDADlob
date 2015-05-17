@@ -7,28 +7,36 @@ package Dominio;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import Configuraciones.Constantes;
+
 /**
  *
  * @author Sebastian
  */
 public final class Mazo {
-    
+
+    private static final int tamanio = 52;
     private final ArrayList<Carta> colCartas;
 
+    public static int getTamanio() {
+        return tamanio;
+    }
 
     public ArrayList<Carta> getColCartas() {
         return colCartas;
-    }    
+    }
+    
+    
 
     public Mazo() {
-        this.colCartas = new ArrayList<>(Constantes.getCantCartasEnMazo());
+        this.colCartas = new ArrayList<>(tamanio);
 
         for (Carta.Valor unValor : Carta.Valor.values()) {
             for (Carta.Palo unPalo : Carta.Palo.values()) {
+
                 colCartas.add(new Carta(unValor, unPalo));
             }
         }
+
     }
 
     public void Barajar() {
@@ -37,7 +45,9 @@ public final class Mazo {
 
     public Carta Repartir() {
         Carta cartaAux = new Carta(colCartas.get(0).getValor(), colCartas.get(0).getPalo());
+
         colCartas.remove(colCartas.get(0));
+
         return cartaAux;
     }
 
