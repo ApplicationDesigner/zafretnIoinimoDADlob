@@ -178,6 +178,11 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     public void habilitarBotonPagar(boolean estado) {
         this.jptp.habilitarBotonPagar(estado);
     }
+    
+    @Override
+    public void habilitarBotonPasar(boolean estado) {
+        this.jptp.habilitarBotonPasar(estado);
+    }
 
     @Override
     public void habilitarBotonRetirarme(boolean estado) {
@@ -187,5 +192,15 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public void escribirLog(String log) {
         this.jptp.escribirLog(log);
+    }
+
+    @Override
+    public void mostrarNickName() {
+        this.jptp.mostrarNickName();
+    }
+
+    @Override
+    public void mostrarMensaje(String texto) {
+        this.jptp.mostrarMensaje(texto);
     }
 }

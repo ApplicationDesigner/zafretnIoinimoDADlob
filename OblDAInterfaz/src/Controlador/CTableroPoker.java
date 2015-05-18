@@ -33,8 +33,10 @@ public class CTableroPoker extends Controlador {
     public void actionPerformed(ActionEvent e) {
         String opcion = e.getActionCommand();
         float saldoJugador = itp.getJugador().getSaldo();
+        
+        System.out.println("Hubo una accion " + opcion);
         switch (opcion) {
-            case "Apostar":
+            case "btnApostar":
 
                 System.out.println("saldoJugador: " + saldoJugador);
 
@@ -54,7 +56,7 @@ public class CTableroPoker extends Controlador {
                 }
 
                 break;
-            case "Pagar":
+            case "btnPagar":
                 System.out.println("saldoJugador: " + saldoJugador);
                 if (saldoJugador > this.montoApostado) {
                     System.out.println("saldoJugador > montoApostado");
@@ -63,8 +65,16 @@ public class CTableroPoker extends Controlador {
                     //TODO mensaje de error en lblMensaje
                 }
                 break;
-            case "Retirarme":
-                itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0F);
+                
+            case "btnPasar":
+                
+                System.out.println("El jugador " + itp.getJugador().getNickName() + " pasa");
+                itp.getPartida().accionJugador(itp.getJugador(), "PASAR", 0f);
+ 
+                break;
+
+            case "btnRetirarme":
+                itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0f);
                 break;
 
             case "Pedir_Cartas":
@@ -122,6 +132,7 @@ public class CTableroPoker extends Controlador {
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
                 itp.habilitarBotonApostar(true);
+                itp.habilitarBotonPasar(true);
                 itp.escribirLog("El jugador " + nickJugador + " pone la apuesta base.\n");
 
                 break;
@@ -133,16 +144,16 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
-
-                    //Muestro la mano
+                    
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
-                   
+                  
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-                
+
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
                 itp.habilitarBotonApostar(true);
+                itp.habilitarBotonPasar(true);
                 itp.escribirLog("El jugador " + nickJugador + " recibio sus cartas.\n");
 
                 break;
@@ -172,7 +183,21 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "PASAR":
-                //TODO Implementar
+                
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    //Deshabilito los botones
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
+                    itp.habilitarBotonApostar(false);
+                    itp.habilitarBotonPasar(false);
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                }
+
+                itp.escribirLog("El jugador " + nickJugador + " pasa.\n");
+
                 break;
 
             case "RETIRARSE":
