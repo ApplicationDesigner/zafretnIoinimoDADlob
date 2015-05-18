@@ -20,4 +20,8 @@ public interface IJugador {
     public abstract float getSaldo();
     public abstract void setSaldo(float saldo);
     public abstract boolean apostar(float monto);
+    public abstract float getSaldoInicial();
+    public abstract void setSaldoInicial(float saldoInicial);
+    public abstract float getMontoApostado();
+    public abstract void setMontoApostado(float montoApostado);
 }

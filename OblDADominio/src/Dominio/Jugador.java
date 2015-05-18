@@ -15,9 +15,17 @@ public class Jugador implements IJugador {
     private String nickName;
     private String nombre;
     private String password;
+    private float saldoInicial;
     private float saldo;
+    private float montoApostado;
 
     public Jugador() {
+        this.nickName       = "";
+        this.nombre         = "";
+        this.password       = "";
+        this.saldoInicial   = 0f;
+        this.saldo          = 0f;
+        this.montoApostado  = 0f;
     }
 
     @Override
@@ -51,6 +59,16 @@ public class Jugador implements IJugador {
     }
 
     @Override
+    public float getMontoApostado() {
+        return montoApostado;
+    }
+
+    @Override
+    public void setMontoApostado(float montoApostado) {
+        this.montoApostado = montoApostado;
+    }   
+
+    @Override
     public float getSaldo() {
         return saldo;
     }
@@ -61,12 +79,21 @@ public class Jugador implements IJugador {
     }
 
     @Override
+    public float getSaldoInicial() {
+        return saldoInicial;
+    }
+
+    @Override
+    public void setSaldoInicial(float saldoInicial) {
+        this.saldoInicial = saldoInicial;
+    }   
+
+    @Override
     public boolean apostar(float monto) {
         boolean retorno = false;
         if(this.getSaldo() >= monto){
             this.saldo -= monto;
-            System.out.println("Jugador " + this.getNickName() + "Aposto: " + monto);
-            System.out.println("Su saldo es: " + this.saldo);
+            this.montoApostado = monto;
             retorno = true;
         }
         return retorno;

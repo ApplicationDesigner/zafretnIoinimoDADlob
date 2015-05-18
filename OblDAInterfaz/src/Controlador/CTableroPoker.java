@@ -33,7 +33,7 @@ public class CTableroPoker extends Controlador {
     public void actionPerformed(ActionEvent e) {
         String opcion = e.getActionCommand();
         float saldoJugador = itp.getJugador().getSaldo();
-        
+
         System.out.println("Hubo una accion " + opcion);
         switch (opcion) {
             case "btnApostar":
@@ -41,18 +41,21 @@ public class CTableroPoker extends Controlador {
                 System.out.println("saldoJugador: " + saldoJugador);
 
                 float montoApostado = this.itp.getMontoApostado();
-                System.out.println("montoApostado: " + montoApostado);
 
-                if (saldoJugador > montoApostado) {
+                //Si montoApostado es 0 es porque hubo un error
+                if (montoApostado != 0) {
 
-                    System.out.println("saldoJugador > montoApostado");
-                    this.montoApostado = montoApostado;
-                    itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
+                    if (saldoJugador > montoApostado) {
 
-                    itp.habilitarBotonApostar(false);
+                        System.out.println("saldoJugador > montoApostado");
+                        this.montoApostado = montoApostado;
+                        itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
 
-                } else {
-                    //TODO mensaje de error en lblMensaje
+                        itp.habilitarBotonApostar(false);
+
+                    } else {
+                        itp.mostrarMensaje("El monto es incorrecto.");
+                    }
                 }
 
                 break;
@@ -65,12 +68,12 @@ public class CTableroPoker extends Controlador {
                     //TODO mensaje de error en lblMensaje
                 }
                 break;
-                
+
             case "btnPasar":
-                
+
                 System.out.println("El jugador " + itp.getJugador().getNickName() + " pasa");
                 itp.getPartida().accionJugador(itp.getJugador(), "PASAR", 0f);
- 
+
                 break;
 
             case "btnRetirarme":
@@ -144,10 +147,10 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
-                    
+
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
-                  
+
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
 
@@ -160,20 +163,29 @@ public class CTableroPoker extends Controlador {
 
             case "APOSTAR":
 
-                if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
-                    //Deshabilito todos los botones
-                    //TODO: Si lo pongo aca a la linea de abajo, deshabilita de entrada al iniciar la partida
-//                    itp.habilitarBotonApostar(false);
-//                    itp.habilitarBotonPagar(false);
-//                    itp.habilitarBotonPedirCartas(false);
-//                    itp.habilitarBotonRetirarme(false);
+                this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
+                
+                if (nickJugador == itp.getJugador().getNickName()) {
 
-                    //System.out.println("Deshabilito todos los botones");
-                } else {
-                    //Deshabilito botón apostar
+                    //Deshabilito los botones
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
                     itp.habilitarBotonApostar(false);
-                    //System.out.println("Deshabilito el boton apostar");
+                    itp.habilitarBotonPasar(false);
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                } else {
+                    //El resto solo puede pagar o retirarse
+                    itp.habilitarBotonPagar(true);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(true);
+                    itp.habilitarBotonApostar(false);
+                    itp.habilitarBotonPasar(false);
                 }
+
+                mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+                itp.escribirLog("El jugador " + nickJugador + " aposto: " + Float.toString(this.montoApostado) +"\n");
 
                 break;
 
@@ -183,7 +195,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "PASAR":
-                
+
                 if (nickJugador == itp.getJugador().getNickName()) {
 
                     //Deshabilito los botones

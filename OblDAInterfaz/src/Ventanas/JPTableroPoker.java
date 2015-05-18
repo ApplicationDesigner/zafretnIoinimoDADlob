@@ -418,7 +418,20 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public float getMontoApostado() {
-        return Float.parseFloat(this.txtMonto.getText());
+        
+        float monto = 0f;
+        
+        if(this.txtMonto.getText().equals("")) {
+            this.mostrarMensaje("El monto apostado no debe ser vacio.");
+        } else {
+            try {
+                monto = Float.parseFloat(this.txtMonto.getText());            
+            } catch (Exception ex) {
+                this.mostrarMensaje("El monto es incorrecto.");
+            }
+        }
+        
+        return monto;        
     }
 
     @Override
