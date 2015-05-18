@@ -37,20 +37,15 @@ public class CTableroPoker extends Controlador {
         System.out.println("Hubo una accion " + opcion);
         switch (opcion) {
             case "btnApostar":
-
-                System.out.println("saldoJugador: " + saldoJugador);
-
+          
                 float montoApostado = this.itp.getMontoApostado();
 
                 //Si montoApostado es 0 es porque hubo un error
                 if (montoApostado != 0) {
 
-                    if (saldoJugador > montoApostado) {
-
-                        System.out.println("saldoJugador > montoApostado");
+                    if (saldoJugador > montoApostado) {                        
                         this.montoApostado = montoApostado;
                         itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
-
                         itp.habilitarBotonApostar(false);
 
                     } else {
@@ -60,9 +55,9 @@ public class CTableroPoker extends Controlador {
 
                 break;
             case "btnPagar":
-                
+
                 if (saldoJugador > this.montoApostado) {
-                    
+
                     itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
                 } else {
                     //TODO mensaje de error en lblMensaje
@@ -102,8 +97,10 @@ public class CTableroPoker extends Controlador {
                 itp.mostrarMano(unaMano);
                 itp.habilitarBotonPedirCartas(false);
 
-                String log = itp.getJugador().getNickName() + " descarto " + indices.size() + " cartas \n";
-                itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
+                String log = itp.getJugador().getNickName() + " descarto " + indices.size() + "cartas\n";
+                itp.escribirLog(log);
+                itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
+                //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 break;
 
             default:
@@ -190,7 +187,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "PAGAR":
-              this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
+                this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
 
                 if (nickJugador == itp.getJugador().getNickName()) {
 
@@ -222,7 +219,7 @@ public class CTableroPoker extends Controlador {
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-                
+
                 itp.escribirLog("El jugador " + nickJugador + " pasa.\n");
 
                 break;
@@ -239,18 +236,35 @@ public class CTableroPoker extends Controlador {
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-                
+
                 itp.escribirLog("El jugador " + nickJugador + " se retira.\n");
 
                 break;
- 
+            case "DESCARTAR":
+                if (nickJugador == itp.getJugador().getNickName()) {
+                    
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(true);
+                    itp.habilitarBotonRetirarme(false);
+                    itp.habilitarBotonApostar(false);
+                    itp.habilitarBotonPasar(false);
+                    
+                    itp.escribirLog("Puedes descartar.\n");
+                }
+
+                break;
+                
+            case "DESCARTO":               
+                itp.escribirLog("El jugador: " + nickJugador + " descarto.\n");
+
+                break;                
 
             case "GANADOR":
                 if (nickJugador == itp.getJugador().getNickName()) {
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-                
+
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
 
                 itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) o1).getValor())) + "\n");

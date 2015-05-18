@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import Configuraciones.Constantes;
+import java.util.Iterator;
 
 /**
  *
@@ -37,12 +38,26 @@ public class OrdenarManos implements Comparator<IMano> {
                 ret = colCartasMano1.get(Constantes.getCantCartasEnMano() - 1).compareTo(colCartasMano2.get(Constantes.getCantCartasEnMano() - 1));
 
             } else {
-                //Remuevo las cartas cuyo valor no se repite, ordeno
-                //y me quedo con la mayor.
-                Carta mayor1 = getCartaMayor(o1.getColCartas());
-                Carta mayor2 = getCartaMayor(o2.getColCartas());
 
-                ret = mayor1.compareTo(mayor2);
+                if (EvaluadorManosContext.evaluarMano(o1) == enumFigura.NINGUNA) {
+                    //Me quedo con la mayor de las dos manos
+
+                    //Ordeno
+                    Collections.sort(o1.getColCartas());
+                    Collections.sort(o2.getColCartas());
+                    //Me quedo con la mayor
+                    Carta mayor1 = o1.getColCartas().get(o1.getColCartas().size() - 1);
+                    Carta mayor2 = o2.getColCartas().get(o2.getColCartas().size() - 1);
+
+                    ret = mayor1.compareTo(mayor2);
+                } else {
+                    //Remuevo las cartas cuyo valor no se repite, ordeno
+                    //y me quedo con la mayor.
+                    Carta mayor1 = getCartaMayor(o1.getColCartas());
+                    Carta mayor2 = getCartaMayor(o2.getColCartas());
+                    ret = mayor1.compareTo(mayor2);
+                }
+
             }
         }
         return ret;
@@ -59,15 +74,26 @@ public class OrdenarManos implements Comparator<IMano> {
             valores.add(unaCarta.getValor());
         }
 
-        //Remuevo las que no se repiten
-        for (int i = 0; i < Constantes.getCantCartasEnMano(); i++) {
+        //Remuevo NO repetidas
+        for (int i = 0; i < valores.size(); i++) {
             cant = Collections.frequency(valores, valores.get(i));
 
             if (cant == 1) {
-                colCartas.remove(i);
+                for(Carta c: colCartas) {
+                    if(c.getValor() == valores.get(i)) {
+                        colCartas.remove(c);
+                    }
+                } 
             }
         }
 
+//        for (int i = 0; i < Constantes.getCantCartasEnMano() - 1; i++) {
+//            cant = Collections.frequency(valores, valores.get(i));
+//
+//            if (cant == 1) {
+//                colCartas.remove(i);
+//            }
+//        }
         //Ordeno
         Collections.sort(colCartas);
         //Me quedo con la mayor
