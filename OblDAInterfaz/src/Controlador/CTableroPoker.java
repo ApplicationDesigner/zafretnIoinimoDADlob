@@ -60,9 +60,9 @@ public class CTableroPoker extends Controlador {
 
                 break;
             case "btnPagar":
-                System.out.println("saldoJugador: " + saldoJugador);
+                
                 if (saldoJugador > this.montoApostado) {
-                    System.out.println("saldoJugador > montoApostado");
+                    
                     itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
                 } else {
                     //TODO mensaje de error en lblMensaje
@@ -190,7 +190,22 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "PAGAR":
-                //TODO Implementar
+              this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
+
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    //Deshabilito los botones
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
+                    itp.habilitarBotonApostar(false);
+                    itp.habilitarBotonPasar(false);
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                }
+
+                mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+                itp.escribirLog("El jugador " + nickJugador + " pago: " + Float.toString(this.montoApostado) + "\n");
 
                 break;
 
@@ -213,8 +228,22 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "RETIRARSE":
-                //TODO Deshabilitar Botones
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    //Deshabilito los botones
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
+                    itp.habilitarBotonApostar(false);
+                    itp.habilitarBotonPasar(false);
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                }
+                
+                itp.escribirLog("El jugador " + nickJugador + " se retira.\n");
+
                 break;
+ 
 
             case "GANADOR":
                 if (nickJugador == itp.getJugador().getNickName()) {

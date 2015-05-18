@@ -239,6 +239,9 @@ public class PartidaPoker extends Observable implements IPartida {
 
             case "RETIRARSE":
                 contadorAcciones++;
+                
+                this.colManos.remove(this.buscarMano(unJugador));
+                
                 this.notificarAccion(accion, m);
                 break;
 
@@ -252,9 +255,7 @@ public class PartidaPoker extends Observable implements IPartida {
 
         }
 
-        System.out.println("contadorAcciones: " + this.contadorAcciones);
-        System.out.println("ContadorObservers: " + this.countObservers());
-        
+    
         if (this.contadorAcciones == this.countObservers()) {
             
             if(accionApostar) {
@@ -273,11 +274,6 @@ public class PartidaPoker extends Observable implements IPartida {
             contadorAcciones = 0;
         }
 
-    }
-
-    @Override
-    public IMano evaluarGanador(ArrayList<IMano> colManos) {
-        return null;
     }
 
     @Override
