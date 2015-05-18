@@ -127,16 +127,23 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "REPARTIR":
-                if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
-                    System.out.println("Recibi mano");
-                    System.out.println(itp.getJugador().getNickName());
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    //Deshabilito los botones                    
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
+
+                    //Muestro la mano
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
-                    //TODO: Refrescar el saldo del jugador en pantalla
+                   
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-                //TODO: Refrescar el pozo total en pantalla
+                
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+                itp.habilitarBotonApostar(true);
+                itp.escribirLog("El jugador " + nickJugador + " recibio sus cartas.\n");
 
                 break;
 
