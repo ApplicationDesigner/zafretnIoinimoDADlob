@@ -110,14 +110,14 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(900, 500);
+        this.setSize(800, 500);
         this.setVisible(true);
         
         this.jptp = new JPTableroPoker();
         this.jptp.setJugador(jugador);
         this.jptp.setPartida(partida);
         
-        this.jptp.setSize(900, 500);
+        this.jptp.setSize(800, 500);
         this.getContentPane().removeAll();
         this.getContentPane().add(this.jptp);
         this.getContentPane().revalidate();
@@ -135,8 +135,8 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public void mostarSaldoJugador(IMano unaMano) {
-        this.jptp.mostarSaldoJugador(unaMano);
+    public void mostarSaldoJugador(String saldoJugador) {
+        this.jptp.mostarSaldoJugador(saldoJugador);
     }
 
     @Override
@@ -155,7 +155,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public void mostrarPozo(Float pozo) {
+    public void mostrarPozo(String pozo) {
         this.jptp.mostrarPozo(pozo);
     }
 

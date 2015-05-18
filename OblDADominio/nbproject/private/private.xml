@@ -3,8 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub/DDA/ObligatorioV2/zafretnIoinimoDADlob/OblDADominio/src/Interfaz/IPartida.java</file>
-            <file>file:/D:/GitHub/DDA/ObligatorioV2/zafretnIoinimoDADlob/OblDADominio/src/Dominio/PartidaPoker.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Figura.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/EvaluadorManos.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Configuraciones/enumFigura.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Mazo.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Mensaje.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Carta.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Factory/PartidaFactory.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Par.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Interfaz/IJuego.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/PartidaPoker.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Casino.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/JuegoPoker.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Mano.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Dominio/Escalera.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/zafretnIoinimoDADlob/OblDADominio/src/Interfaz/IJugador.java</file>
         </group>
     </open-files>
 </project-private>

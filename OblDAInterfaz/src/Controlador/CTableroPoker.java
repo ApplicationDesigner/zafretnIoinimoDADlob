@@ -88,8 +88,7 @@ public class CTableroPoker extends Controlador {
                 itp.getPartida().reponerCartas(unaMano, indices);
                 itp.mostrarMano(unaMano);
                 itp.habilitarBotonPedirCartas(false);
-                
-                
+
                 String log = itp.getJugador().getNickName() + " descarto " + indices.size() + " cartas \n";
                 itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 break;
@@ -105,8 +104,27 @@ public class CTableroPoker extends Controlador {
         System.out.println("Inicio Update");
 
         String accion = ((Mensaje) o1).getAccion();
+        String nickJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName());
+        float saldoJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
 
         switch (accion) {
+
+            case "APUESTABASE":
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    //Deshabilito los botones                    
+                    itp.habilitarBotonPagar(false);
+                    itp.habilitarBotonPedirCartas(false);
+                    itp.habilitarBotonRetirarme(false);
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                }
+
+                mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+                itp.habilitarBotonApostar(true);
+                itp.escribirLog("El jugador " + nickJugador + " pone la apuesta base.\n");
+
+                break;
 
             case "REPARTIR":
                 if (((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName()) == itp.getJugador().getNickName()) {
@@ -115,12 +133,10 @@ public class CTableroPoker extends Controlador {
                     IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
                     itp.mostrarMano(unaMano);
                     //TODO: Refrescar el saldo del jugador en pantalla
-                    itp.mostarSaldoJugador(unaMano);
-                    System.out.println((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
-
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
                 //TODO: Refrescar el pozo total en pantalla
-                itp.mostrarPozo(itp.getPartida().getPozo());
+                mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
 
                 break;
 
@@ -159,14 +175,22 @@ public class CTableroPoker extends Controlador {
             case "ABANDONARMESA":
                 //TODO No da el tiempo, quedara para el infinito......
                 break;
-                
+
             default:
                 itp.escribirLog(accion);
-            break;
+                break;
 
         }
 
 //
+    }
+
+    private void mostrarSaldoJugador(String saldoJugador) {
+        this.itp.mostarSaldoJugador(saldoJugador);
+    }
+
+    private void mostrarMontoPozo(String montoPozo) {
+        itp.mostrarPozo(montoPozo);
     }
 
 }

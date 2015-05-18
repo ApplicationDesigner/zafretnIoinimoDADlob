@@ -14,7 +14,7 @@ public class Constantes {
     private static int cantCartasEnMano             = 5;
     private static int cantCartasEnMazo             = 52;
     private static int cantMinimoJugadoresPorMesa   = 2;
-    private static int apuestaBase                  = 50;
+    private static float apuestaBase                  = 50f;
 
     public static int getCantCartasEnMano() {
         return cantCartasEnMano;
@@ -40,11 +40,11 @@ public class Constantes {
         Constantes.cantMinimoJugadoresPorMesa = cantMinimoJugadoresPorMesa;
     }
 
-    public static int getApuestaBase() {
+    public static float getApuestaBase() {
         return apuestaBase;
     }
 
-    public static void setApuestaBase(int apuestaBase) {
+    public static void setApuestaBase(float apuestaBase) {
         Constantes.apuestaBase = apuestaBase;
     }
     

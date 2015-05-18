@@ -25,7 +25,7 @@ public class PartidaPoker extends Observable implements IPartida {
     private float pozo;
     ArrayList<IMano> colManos;
     private Mazo mazo;
-    
+
     private int contadorAcciones;
 
     public PartidaPoker() {
@@ -109,11 +109,11 @@ public class PartidaPoker extends Observable implements IPartida {
     public enumFigura evaluarMano(IMano unaMano) {
         return EvaluadorManosContext.evaluarMano(unaMano);
     }
-    
+
     @Override
-    public IMano getManoGanadora() {       
-        
-        Collections.sort(this.colManos, new OrdenarManos());        
+    public IMano getManoGanadora() {
+
+        Collections.sort(this.colManos, new OrdenarManos());
         return this.colManos.get(this.colManos.size() - 1);
     }
 
@@ -147,7 +147,7 @@ public class PartidaPoker extends Observable implements IPartida {
             this.notificarAccion("REPARTIR", unaMano);
             System.out.println("Notificar Repartir");
             //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
-            this.accionJugador(unaMano.getUnJugador(), "APOSTAR", 50f);
+            this.accionJugador(unaMano.getUnJugador(), "APUESTABASE", Constantes.getApuestaBase());
         }
     }
 
@@ -189,13 +189,27 @@ public class PartidaPoker extends Observable implements IPartida {
         boolean accionApostar = false;
         contadorAcciones++;
         switch (accion) {
-            case "APOSTAR":
+            case "APUESTABASE":
                 
                 puedeApostar = unJugador.apostar(monto);
                 if (puedeApostar) {
                     this.modificarPozo(monto);
                     accionApostar = true;
-                    contadorAcciones = 1;        
+                    contadorAcciones = 1;
+                } else {
+                    accion = "NOPUEDEAPOSTAR";
+                }
+
+                this.notificarAccion(accion, m);
+
+                break;
+            case "APOSTAR":
+
+                puedeApostar = unJugador.apostar(monto);
+                if (puedeApostar) {
+                    this.modificarPozo(monto);
+                    accionApostar = true;
+                    contadorAcciones = 1;
                 } else {
                     accion = "NOPUEDEAPOSTAR";
                 }
@@ -228,22 +242,19 @@ public class PartidaPoker extends Observable implements IPartida {
 
             case "ABANDONARMESA":
                 //TODO No da el tiempo, quedara para el infinito......
-            break;
-                
-            
-
+                break;
 
             default:
                 this.notificarAccion(accion, m);
-            break;
+                break;
 
         }
-        
-        if(this.contadorAcciones == this.countObservers()){
+
+        if (this.contadorAcciones == this.countObservers()) {
             //TODO: Iniciar nueva ronda
-            
+
         }
-        
+
     }
 
     @Override
@@ -254,7 +265,7 @@ public class PartidaPoker extends Observable implements IPartida {
     @Override
     public ArrayList<String> getListaNombresJugadores() {
         ArrayList<String> listaNombres = new ArrayList<>();
-        for(IMano unaMano : this.getColManos()){
+        for (IMano unaMano : this.getColManos()) {
             listaNombres.add(unaMano.getUnJugador().getNickName());
         }
         return listaNombres;

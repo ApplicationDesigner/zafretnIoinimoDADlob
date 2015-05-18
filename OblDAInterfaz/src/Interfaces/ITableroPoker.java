@@ -20,9 +20,9 @@ public interface ITableroPoker extends IVentana {
     public abstract IPartida getPartida();
     public abstract void setPartida(IPartida partida);    
     public abstract void mostrarMano(IMano mano);
-    public abstract void mostarSaldoJugador(IMano unaMano);
+    public abstract void mostarSaldoJugador(String saldoJugador);
     public abstract float getMontoApostado();
-    public abstract void mostrarPozo(Float pozo);
+    public abstract void mostrarPozo(String montoPozo);
     public abstract ArrayList<String> getBotonesDeCartasSeleccionadas();
     public abstract void habilitarBotonPedirCartas(boolean estado);
     public abstract void habilitarBotonApostar(boolean estado);
