@@ -41,6 +41,7 @@ public class PartidaPoker extends Observable implements IPartida {
         this.pozo = pozo;
         this.colManos = new ArrayList<>();
         this.mazo = new Mazo();
+        this.contadorAcciones = 0;
     }
 
     @Override
@@ -187,15 +188,13 @@ public class PartidaPoker extends Observable implements IPartida {
         IMano m = this.buscarMano(unJugador);
         boolean puedeApostar;
         boolean accionApostar = false;
-        contadorAcciones++;
+        
         switch (accion) {
             case "APUESTABASE":
                 
                 puedeApostar = unJugador.apostar(monto);
                 if (puedeApostar) {
                     this.modificarPozo(monto);
-                    accionApostar = true;
-                    contadorAcciones = 1;
                 } else {
                     accion = "NOPUEDEAPOSTAR";
                 }
@@ -223,6 +222,7 @@ public class PartidaPoker extends Observable implements IPartida {
                 puedeApostar = unJugador.apostar(monto);
 
                 if (puedeApostar) {
+                    contadorAcciones++;
                     this.modificarPozo(monto);
                 } else {
                     accion = "NOPUEDEAPOSTAR";
@@ -233,10 +233,12 @@ public class PartidaPoker extends Observable implements IPartida {
                 break;
 
             case "PASAR":
+                contadorAcciones++;
                 this.notificarAccion(accion, m);
-                break;
+                break;           
 
             case "RETIRARSE":
+                contadorAcciones++;
                 this.notificarAccion(accion, m);
                 break;
 
@@ -250,9 +252,25 @@ public class PartidaPoker extends Observable implements IPartida {
 
         }
 
+        System.out.println("contadorAcciones: " + this.contadorAcciones);
+        System.out.println("ContadorObservers: " + this.countObservers());
+        
         if (this.contadorAcciones == this.countObservers()) {
-            //TODO: Iniciar nueva ronda
-
+            
+            if(accionApostar) {
+                //Inicio descartar
+            }
+            
+            IMano manoGanador = this.getManoGanadora();
+            
+            accion = "GANADOR";
+            //Gana el pozo. Le sumo el saldo del pozo al saldo del jugador ganador
+            manoGanador.getUnJugador().setSaldo(manoGanador.getUnJugador().getSaldo() + this.getPozo());
+            //Reinicio el pozo para la proxima ronda
+            this.pozo = 0;
+            this.notificarAccion(accion, manoGanador);
+            
+            contadorAcciones = 0;
         }
 
     }

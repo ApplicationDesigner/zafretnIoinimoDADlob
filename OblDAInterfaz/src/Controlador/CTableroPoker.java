@@ -125,7 +125,7 @@ public class CTableroPoker extends Controlador {
             case "APUESTABASE":
                 if (nickJugador == itp.getJugador().getNickName()) {
 
-                    //Deshabilito los botones                    
+                    //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
@@ -143,7 +143,7 @@ public class CTableroPoker extends Controlador {
             case "REPARTIR":
                 if (nickJugador == itp.getJugador().getNickName()) {
 
-                    //Deshabilito los botones                    
+                    //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
@@ -164,7 +164,7 @@ public class CTableroPoker extends Controlador {
             case "APOSTAR":
 
                 this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
-                
+
                 if (nickJugador == itp.getJugador().getNickName()) {
 
                     //Deshabilito los botones
@@ -185,7 +185,7 @@ public class CTableroPoker extends Controlador {
                 }
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
-                itp.escribirLog("El jugador " + nickJugador + " aposto: " + Float.toString(this.montoApostado) +"\n");
+                itp.escribirLog("El jugador " + nickJugador + " aposto: " + Float.toString(this.montoApostado) + "\n");
 
                 break;
 
@@ -207,13 +207,25 @@ public class CTableroPoker extends Controlador {
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
-
+                
                 itp.escribirLog("El jugador " + nickJugador + " pasa.\n");
 
                 break;
 
             case "RETIRARSE":
                 //TODO Deshabilitar Botones
+                break;
+
+            case "GANADOR":
+                if (nickJugador == itp.getJugador().getNickName()) {
+
+                    mostrarSaldoJugador(Float.toString(saldoJugador));
+                }
+                
+                mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+
+                itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) o1).getValor())) + "\n");
+
                 break;
 
             case "ABANDONARMESA":
