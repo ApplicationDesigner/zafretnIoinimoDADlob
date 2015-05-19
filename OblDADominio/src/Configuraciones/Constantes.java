@@ -14,7 +14,8 @@ public class Constantes {
     private static int cantCartasEnMano             = 5;
     private static int cantCartasEnMazo             = 52;
     private static int cantMinimoJugadoresPorMesa   = 2;
-    private static float apuestaBase                  = 50f;
+    private static float apuestaBase                = 50f;
+    private static float porcentajeGanancias        = 0.10f;
 
     public static int getCantCartasEnMano() {
         return cantCartasEnMano;
@@ -47,6 +48,16 @@ public class Constantes {
     public static void setApuestaBase(float apuestaBase) {
         Constantes.apuestaBase = apuestaBase;
     }
+
+    public static float getPorcentajeGanancias() {
+        return porcentajeGanancias;
+    }
+
+    public static void setPorcentajeGanancias(float porcentajeGanancias) {
+        Constantes.porcentajeGanancias = porcentajeGanancias;
+    }
+    
+    
     
     
     

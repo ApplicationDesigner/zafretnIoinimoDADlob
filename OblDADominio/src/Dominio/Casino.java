@@ -116,7 +116,7 @@ public class Casino implements ICasino {
             j.setNickName("n" + i);
             j.setNickName("n" + i);
             j.setPassword("p" + i);
-            j.setSaldo(500);
+            j.setSaldoInicial(500);
             Casino.colJugadores.add(j);
         }
 

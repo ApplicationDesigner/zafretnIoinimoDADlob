@@ -5,10 +5,13 @@
  */
 package Controlador;
 
+import Configuraciones.Constantes;
 import Dominio.Carta;
+import Dominio.JuegoPoker;
 import Dominio.Mano;
 import Dominio.Mensaje;
 import Interfaces.ITableroPoker;
+import Interfaz.IJuego;
 import Interfaz.IMano;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -97,21 +100,62 @@ public class CTableroPoker extends Controlador {
                 itp.mostrarMano(unaMano);
                 itp.habilitarBotonPedirCartas(false);
 
-                String log = itp.getJugador().getNickName() + " descarto " + indices.size() + "cartas\n";
+                String log = "Haz descartado " + indices.size() + " cartas\n";
                 itp.escribirLog(log);
                 itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
                 //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 break;
 
+            case "btnAbandonarPartidaSI":
+                
+                //itp.getPartida().accionJugador(itp.getJugador(), "ABANDONA", 0f);
+                float gananciasJugador = itp.getJugador().getSaldo() - itp.getJugador().getSaldoInicial();
+                 //10% de comision
+                float comision = 0;
+                
+                System.out.println("Las ganancias del jugador son: " + gananciasJugador);
+                System.out.println("La comision es: " + comision);
+                
+                if(gananciasJugador > 0) {
+                    IJuego ij = JuegoPoker.getInstance();                   
+                    comision = gananciasJugador * Constantes.getPorcentajeGanancias();
+                    ij.sumarGanancias(comision);
+                    
+                    System.out.println("Las ganancias del JuegoP");
+                    //saldoInicial = saldo - comision
+                    itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo() - comision);
+                } else {
+                    //saldoInicial = saldo
+                    itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
+                }
+                
+                System.out.println("El saldo del jugador es: " + itp.getJugador().getSaldoInicial());
+                
+                itp.habilitarBotonAbandonarPartidaNO(false);
+                itp.habilitarBotonAbandonarPartidaSI(false);
+                
+                
+                
+                
+                itp.getPartida().quitarObserver(this);
+            break;
+                
+            case "btnAbandonarPartidaNO":
+                itp.getPartida().ingresarJugador(itp.getJugador());                
+                itp.getPartida().accionJugador(itp.getJugador(), "CONTINUA", 0f);
+                
+                itp.habilitarBotonAbandonarPartidaNO(false);
+                itp.habilitarBotonAbandonarPartidaSI(false);
+            break;    
+                                
             default:
 
-                break;
+            break;
         }
     }
 
     @Override
-    public void update(Observable o, Object o1) {
-        System.out.println("Inicio Update");
+    public void update(Observable o, Object o1) {       
 
         String accion = ((Mensaje) o1).getAccion();
         String nickJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName());
@@ -131,6 +175,8 @@ public class CTableroPoker extends Controlador {
                 }
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
+                itp.habilitarBotonAbandonarPartidaNO(false);
+                itp.habilitarBotonAbandonarPartidaSI(false);
                 itp.habilitarBotonApostar(true);
                 itp.habilitarBotonPasar(true);
                 itp.escribirLog("El jugador " + nickJugador + " pone la apuesta base.\n");
@@ -268,13 +314,17 @@ public class CTableroPoker extends Controlador {
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
 
                 itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) o1).getValor())) + "\n");
-
+                itp.habilitarBotonAbandonarPartidaNO(true);
+                itp.habilitarBotonAbandonarPartidaSI(true);
                 break;
-
-            case "ABANDONARMESA":
-                //TODO No da el tiempo, quedara para el infinito......
+              
+            case "ABANDONA":
+                itp.escribirLog("Un jugador abandona la mesa.\n");
                 break;
-
+                
+            case "CONTINUA":
+                itp.escribirLog("El jugador " + nickJugador + " continua en la mesa.\n");
+                break;
             default:
                 itp.escribirLog(accion);
                 break;

@@ -9,7 +9,6 @@ import Interfaz.IJuego;
 import Interfaz.IJugador;
 import Interfaz.IPartida;
 import java.util.ArrayList;
-import java.util.Observable;
 
 /**
  *
@@ -23,11 +22,13 @@ public class JuegoPoker implements IJuego {
     
     private static String nombre;
     private static int numero;    
+    private static float ganancias;
     
     
     private JuegoPoker() {
         JuegoPoker.colPartidas      = new ArrayList<>();       
-        JuegoPoker.nombre           = "JuegoPoker";      
+        JuegoPoker.nombre           = "JuegoPoker"; 
+        JuegoPoker.ganancias        = 0;
     }
     
     public static JuegoPoker getInstance() {
@@ -67,6 +68,23 @@ public class JuegoPoker implements IJuego {
     public void setNumero(int numero) {
         JuegoPoker.numero = numero;
     }
+
+    @Override
+    public float getGanancias() {
+        return ganancias;
+    }
+
+    @Override
+    public void setGanancias(float ganancias) {
+        JuegoPoker.ganancias = ganancias;
+    }
+    
+    @Override
+    public void sumarGanancias(float monto) {        
+        this.setGanancias(this.getGanancias() + monto);
+        System.out.println("Las ganancias del JuegoPoker son: " + this.getGanancias());
+    }
+    
     
     @Override
     public void agregarPartida(IPartida p) {

@@ -29,6 +29,8 @@ public interface IPartida {
     public abstract void iniciarReparticion();
 
     public abstract void agregarObserver(Observer CTableroPoker);
+   
+    public abstract void quitarObserver(Observer CTableroPoker);
 
     public abstract void iniciarRonda();
 

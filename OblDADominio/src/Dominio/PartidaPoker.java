@@ -130,26 +130,38 @@ public class PartidaPoker extends Observable implements IPartida {
         IMano unaMano = new Mano();
         unaMano.setUnJugador(j);
         this.colManos.add(unaMano);
+        System.out.println("---Cant manos en partida " + this.colManos.size());
+        
+        if(this.colManos.size() == Constantes.getCantMinimoJugadoresPorMesa()) {
+            this.iniciarRonda();
+        }
     }
 
     @Override
     public void agregarObserver(Observer CTableroPoker) {
         this.addObserver(CTableroPoker);
-        System.out.println("Observer agregado...");
+        System.out.println("Observer agregado Count observers " + this.countObservers());
         if (this.countObservers() == Constantes.getCantMinimoJugadoresPorMesa()) {
-            System.out.println("Count observers " + this.countObservers());
-            this.iniciarRonda();
+            
+            //this.iniciarRonda();
         }
+    }
+
+    @Override
+    public void quitarObserver(Observer CTableroPoker) {
+        this.deleteObserver(CTableroPoker);
+        System.out.println("Observer quitado Count observers " + this.countObservers());
     }
 
     @Override
     public void iniciarRonda() {
         this.iniciarReparticion();
         for (IMano unaMano : this.colManos) {
-            System.out.println("Mano: " + unaMano.toString());
             this.notificarAccion("REPARTIR", unaMano);
             System.out.println("Notificar Repartir");
             //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
+            System.out.println("El jugador: " + unaMano.getUnJugador().getNickName() + " pone la apuesta base de: " + Constantes.getApuestaBase());
+            
             this.accionJugador(unaMano.getUnJugador(), "APUESTABASE", Constantes.getApuestaBase());
         }
     }
@@ -253,10 +265,14 @@ public class PartidaPoker extends Observable implements IPartida {
                 this.notificarAccion(accion, m);
                 break;
 
-            case "ABANDONARMESA":
-                //TODO No da el tiempo, quedara para el infinito......
+            case "ABANDONA":
+                this.notificarAccion(accion, m);
                 break;
-
+                
+            case "CONTINUA":
+                this.notificarAccion(accion, m);
+                break;
+                
             default:
                 this.notificarAccion(accion, m);
                 break;
@@ -303,6 +319,13 @@ public class PartidaPoker extends Observable implements IPartida {
         this.contarDescartes = 0;
 
         this.notificarAccion("GANADOR", manoGanador);
+        
+        //Reinicio todo        
+        this.pozo = 0;
+        this.colManos = new ArrayList<>();
+        this.mazo = new Mazo();
+        this.contadorAcciones = 0;
+        this.contarDescartes = 0;
     }
 
 }

@@ -26,6 +26,8 @@ public class Pierna implements Figura{
         }
 
         int cant = Collections.frequency(valores, valores.get(0));
+        
+        System.out.println("cantidad valores " + valores.size());
         if (cant == 3) {
             ret = enumFigura.PIERNA;
         } else {

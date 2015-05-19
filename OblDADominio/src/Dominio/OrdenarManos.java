@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import Configuraciones.Constantes;
-import java.util.Iterator;
 
 /**
  *
@@ -53,8 +52,11 @@ public class OrdenarManos implements Comparator<IMano> {
                 } else {
                     //Remuevo las cartas cuyo valor no se repite, ordeno
                     //y me quedo con la mayor.
-                    Carta mayor1 = getCartaMayor(o1.getColCartas());
-                    Carta mayor2 = getCartaMayor(o2.getColCartas());
+                    ArrayList<Carta> col1 = new ArrayList<>(o1.getColCartas());
+                    ArrayList<Carta> col2 = new ArrayList<>(o2.getColCartas());
+                    
+                    Carta mayor1 = getCartaMayor(col1);
+                    Carta mayor2 = getCartaMayor(col2);
                     ret = mayor1.compareTo(mayor2);
                 }
 
@@ -75,17 +77,34 @@ public class OrdenarManos implements Comparator<IMano> {
         }
 
         //Remuevo NO repetidas
+        ArrayList<Carta> cartasNORepetidas = new ArrayList<>();
+        
         for (int i = 0; i < valores.size(); i++) {
             cant = Collections.frequency(valores, valores.get(i));
 
             if (cant == 1) {
                 for(Carta c: colCartas) {
                     if(c.getValor() == valores.get(i)) {
-                        colCartas.remove(c);
+                        cartasNORepetidas.add(c);
                     }
                 } 
             }
         }
+        
+        //Remuevo todas las NO repetidas
+        colCartas.removeAll(cartasNORepetidas);
+        
+//        for (int i = 0; i < valores.size(); i++) {
+//            cant = Collections.frequency(valores, valores.get(i));
+//
+//            if (cant == 1) {
+//                for(Carta c: colCartas) {
+//                    if(c.getValor() == valores.get(i)) {
+//                        colCartas.remove(c);
+//                    }
+//                } 
+//            }
+//        }
 
 //        for (int i = 0; i < Constantes.getCantCartasEnMano() - 1; i++) {
 //            cant = Collections.frequency(valores, valores.get(i));

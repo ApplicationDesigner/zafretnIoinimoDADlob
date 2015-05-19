@@ -81,6 +81,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaLogs = new javax.swing.JTextArea();
         btnPasar = new javax.swing.JButton();
+        btnAbandonarPartidaSI = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnAbandonarPartidaNO = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 51, 0));
 
@@ -170,6 +173,14 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnPasar.setText("Pasar");
         btnPasar.setActionCommand("btnPasar");
 
+        btnAbandonarPartidaSI.setText("Si");
+        btnAbandonarPartidaSI.setActionCommand("btnAbandonarPartidaSI");
+
+        jLabel1.setText("¿Desea abandonar la partida?");
+
+        btnAbandonarPartidaNO.setText("No");
+        btnAbandonarPartidaNO.setActionCommand("btnAbandonarPartidaNO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,7 +237,13 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                             .addComponent(lblPozoReal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnAbandonarPartidaSI, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAbandonarPartidaNO, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
@@ -234,28 +251,6 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSaldoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNroJuego)
-                            .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPozo)
-                            .addComponent(lblPozoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addComponent(lblListaJugadores)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFigura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,10 +272,38 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnApostar))))
+                            .addComponent(btnApostar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNickName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSaldoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNroJuego)
+                            .addComponent(lblNroJuegoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPozo)
+                            .addComponent(lblPozoReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(lblListaJugadores)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)))
                 .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAbandonarPartidaSI)
+                        .addComponent(btnAbandonarPartidaNO)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,6 +344,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbandonarPartidaNO;
+    private javax.swing.JButton btnAbandonarPartidaSI;
     private javax.swing.JButton btnApostar;
     private javax.swing.JButton btnCarta1;
     private javax.swing.JButton btnCarta2;
@@ -331,6 +356,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnPedirCartas;
     private javax.swing.JButton btnRetirarme;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jtaLogs;
     private javax.swing.JLabel lblFigura;
@@ -356,6 +382,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.btnRetirarme.addActionListener(c);
         this.btnApostar.addActionListener(c);
         this.btnPedirCartas.addActionListener(c);
+        this.btnAbandonarPartidaNO.addActionListener(c);
+        this.btnAbandonarPartidaSI.addActionListener(c);
+
     }
 
     @Override
@@ -369,6 +398,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.habilitarBotonRetirarme(false);
         this.habilitarBotonApostar(false);
         this.habilitarBotonPasar(false);
+        this.habilitarBotonAbandonarPartidaNO(false);
+        this.habilitarBotonAbandonarPartidaSI(false);
     }
 
     @Override
@@ -418,20 +449,20 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public float getMontoApostado() {
-        
+
         float monto = 0f;
-        
-        if(this.txtMonto.getText().equals("")) {
+
+        if (this.txtMonto.getText().equals("")) {
             this.mostrarMensaje("El monto apostado no debe ser vacio.");
         } else {
             try {
-                monto = Float.parseFloat(this.txtMonto.getText());            
+                monto = Float.parseFloat(this.txtMonto.getText());
             } catch (Exception ex) {
                 this.mostrarMensaje("El monto es incorrecto.");
             }
         }
-        
-        return monto;        
+
+        return monto;
     }
 
     @Override
@@ -500,4 +531,13 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.jtaLogs.append(log);
     }
 
+    @Override
+    public void habilitarBotonAbandonarPartidaSI(boolean estado) {
+        this.btnAbandonarPartidaSI.setEnabled(estado);
+    }
+
+    @Override
+    public void habilitarBotonAbandonarPartidaNO(boolean estado) {
+        this.btnAbandonarPartidaNO.setEnabled(estado);
+    }
 }

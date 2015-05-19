@@ -96,8 +96,11 @@ public class Jugador implements IJugador {
             this.montoApostado = monto;
             retorno = true;
         }
+        
+        System.out.println(this.getNickName() + " aposte: " + this.montoApostado + " mi saldo es: " + this.getSaldo());
         return retorno;
     }
+
     
     
 }
