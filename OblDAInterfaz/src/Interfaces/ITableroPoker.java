@@ -51,5 +51,7 @@ public interface ITableroPoker extends IVentana {
     public abstract void habilitarBotonAbandonarPartidaNO(boolean estado);
 
     public abstract void escribirLog(String log);
+    
+    public abstract void limpiarApuesta();
 
 }

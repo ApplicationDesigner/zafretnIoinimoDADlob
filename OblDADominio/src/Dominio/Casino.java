@@ -45,6 +45,12 @@ public class Casino implements ICasino {
         return Casino.instance;
     }
 
+    public ArrayList<IPartida> getColPartidas() {
+        return colPartidas;
+    }
+    
+    
+
     @Override
     public IJuego agregarJuego(String tipoJuego) {
         IJuego ret = null;

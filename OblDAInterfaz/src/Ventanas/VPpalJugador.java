@@ -8,6 +8,9 @@ package Ventanas;
 import Controlador.Controlador;
 import Interfaces.IIngresarAPartida;
 import Interfaz.IJugador;
+import Interfaz.IPartida;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -15,6 +18,7 @@ import Interfaz.IJugador;
  */
 public final class VPpalJugador extends javax.swing.JFrame implements IIngresarAPartida {
     private IJugador jugador;
+    private ArrayList<IPartida> listaPartidas;
     /**
      * Creates new form VPpalJugador
      */
@@ -22,10 +26,16 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
         iniciarComponentes();        
     }
     
-    public VPpalJugador(IJugador j) {
-        
+//    public VPpalJugador(IJugador j) {
+//        this.jugador = j;
+//        iniciarComponentes();      
+//    }
+    
+    public VPpalJugador(IJugador j,ArrayList<IPartida> listaPartidas) {
         this.jugador = j;
-        iniciarComponentes();        
+        this.listaPartidas = listaPartidas;
+        iniciarComponentes();      
+        this.cargarComboPartidas(this.listaPartidas);
     }
 
     /**
@@ -38,11 +48,17 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     private void initComponents() {
 
         btnIngresarPartida = new javax.swing.JButton();
+        lblSeleccionarPartida = new javax.swing.JLabel();
+        jcbSeleccionarPartidas = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnIngresarPartida.setText("Ingresar a Partida");
         btnIngresarPartida.setActionCommand("IIngresarAPartida");
+
+        lblSeleccionarPartida.setText("Seleccionar partida:");
+
+        jcbSeleccionarPartidas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,11 +68,21 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
                 .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(btnIngresarPartida)
                 .addGap(156, 156, 156))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lblSeleccionarPartida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcbSeleccionarPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSeleccionarPartida)
+                    .addComponent(jcbSeleccionarPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(btnIngresarPartida)
                 .addContainerGap(181, Short.MAX_VALUE))
         );
@@ -101,6 +127,8 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresarPartida;
+    private javax.swing.JComboBox jcbSeleccionarPartidas;
+    private javax.swing.JLabel lblSeleccionarPartida;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -123,5 +151,13 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     @Override
     public IJugador getJugador() {
         return this.jugador;
+    }
+    
+    private void cargarComboPartidas(ArrayList<IPartida> listaPartidas){
+        jcbSeleccionarPartidas.setModel(new javax.swing.DefaultComboBoxModel(listaPartidas.toArray()));
+    }
+    
+    public int getPartidaSeleccionada(){
+        return this.jcbSeleccionarPartidas.getSelectedIndex() +1;
     }
 }

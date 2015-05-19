@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Dominio.Casino;
 import Dominio.JuegoPoker;
 import Interfaces.IIngresarAPartida;
 import Interfaces.ITableroPoker;
@@ -12,6 +13,7 @@ import Interfaz.IJuego;
 import Interfaz.IPartida;
 import Ventanas.VTableroPoker;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -24,6 +26,7 @@ public class CPpalJugador extends Controlador {
 
     public CPpalJugador(IIngresarAPartida iip) {
         this.iip = iip;
+
     }
 
     @Override
@@ -31,26 +34,30 @@ public class CPpalJugador extends Controlador {
 
         if (e.getActionCommand().equals("IIngresarAPartida")) {
 
-            IJuego ij = JuegoPoker.getInstance();
-            IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id 
-            
-            //Al iniciar saldo = saldo inicial            
-            this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
-            
-            ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
-            itp.setPartida(ip);
-            Controlador c = new CTableroPoker(itp);
-            itp.setControlador(c);
+            int opcion = iip.getPartidaSeleccionada();
+            if (opcion != 0) {
+                IJuego ij = JuegoPoker.getInstance();
+                IPartida ip = ij.buscarPartida(opcion);
 
-            ip.agregarObserver(c);
-            
-            ij.ingresarJugadorAPartida(1, this.iip.getJugador());
+                //Al iniciar saldo = saldo inicial            
+                this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
 
+                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
+                itp.setPartida(ip);
+                Controlador c = new CTableroPoker(itp);
+                itp.setControlador(c);
+
+                ip.agregarObserver(c);
+
+                ij.ingresarJugadorAPartida(1, this.iip.getJugador());
+
+            }
         }
     }
 
     @Override
-    public void update(Observable o, Object o1) {
+    public void update(Observable o, Object o1
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

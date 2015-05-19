@@ -50,6 +50,7 @@ public class CTableroPoker extends Controlador {
                         this.montoApostado = montoApostado;
                         itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
                         itp.habilitarBotonApostar(false);
+                        itp.limpiarApuesta();
 
                     } else {
                         itp.mostrarMensaje("El monto es incorrecto.");

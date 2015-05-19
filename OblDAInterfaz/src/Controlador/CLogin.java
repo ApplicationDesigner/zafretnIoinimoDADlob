@@ -10,8 +10,10 @@ import Interfaces.IIngresarAPartida;
 import Interfaces.ILogin;
 import Interfaz.ICasino;
 import Interfaz.IJugador;
+import Interfaz.IPartida;
 import Ventanas.VPpalJugador;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -39,9 +41,14 @@ public class CLogin extends Controlador {
 
                 if (j != null) {
                     System.out.println("Logueando a ventana principal del jugador...");
-                    IIngresarAPartida iip = new VPpalJugador(j);
-                    Controlador c = new CPpalJugador(iip);
-                    iip.setControlador(c);
+                    
+                    ArrayList<IPartida> listaPartidas = Casino.getInstance().getColPartidas();
+                    
+                    if(listaPartidas != null){
+                        IIngresarAPartida iip = new VPpalJugador(j, listaPartidas);
+                        Controlador c = new CPpalJugador(iip);
+                        iip.setControlador(c);
+                    }
                 }
             } else {
                 ilogin.setLblMensaje("Usuario y/o password incorrectos");

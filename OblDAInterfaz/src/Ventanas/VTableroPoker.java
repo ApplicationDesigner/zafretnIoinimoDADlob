@@ -213,4 +213,9 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     public void habilitarBotonAbandonarPartidaNO(boolean estado) {
         this.jptp.habilitarBotonAbandonarPartidaNO(estado);
     }
+
+    @Override
+    public void limpiarApuesta() {
+        this.jptp.limpiarApuesta();
+    }
 }

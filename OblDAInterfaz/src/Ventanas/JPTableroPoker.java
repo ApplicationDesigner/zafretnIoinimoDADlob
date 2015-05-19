@@ -311,6 +311,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         if (btnPedirCartas.isEnabled() == true) {
             btnCarta1.setEnabled(false);
             this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
+        }else{
+            //TODO: VER COMO HABILITAR LA CARTA SI ME EQUIVOCO ENL A SELECCION
+            btnCarta1.setEnabled(true);
         }
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
@@ -540,4 +543,10 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void habilitarBotonAbandonarPartidaNO(boolean estado) {
         this.btnAbandonarPartidaNO.setEnabled(estado);
     }
+
+    @Override
+    public void limpiarApuesta() {
+        this.txtMonto.setText("");
+    }
+    
 }
