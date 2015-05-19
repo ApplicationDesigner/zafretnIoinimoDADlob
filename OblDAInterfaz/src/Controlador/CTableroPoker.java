@@ -44,7 +44,7 @@ public class CTableroPoker extends Controlador {
                 float montoApostado = this.itp.getMontoApostado();
 
                 //Si montoApostado es 0 es porque hubo un error
-                if (montoApostado != 0) {
+                if (montoApostado > 0) {
 
                     if (saldoJugador > montoApostado) {                        
                         this.montoApostado = montoApostado;
@@ -55,6 +55,8 @@ public class CTableroPoker extends Controlador {
                     } else {
                         itp.mostrarMensaje("El monto es incorrecto.");
                     }
+                }else{
+                    itp.mostrarMensaje("El monto debe ser mayor que 0");
                 }
 
                 break;

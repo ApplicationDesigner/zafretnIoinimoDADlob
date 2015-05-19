@@ -13,7 +13,7 @@ public class Constantes {
     
     private static int cantCartasEnMano             = 5;
     private static int cantCartasEnMazo             = 52;
-    private static int cantMinimoJugadoresPorMesa   = 2;
+    private static int cantMinimoJugadoresPorMesa   = 3;
     private static float apuestaBase                = 50f;
     private static float porcentajeGanancias        = 0.10f;
 

@@ -13,6 +13,7 @@ import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -311,7 +312,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         if (btnPedirCartas.isEnabled() == true) {
             btnCarta1.setEnabled(false);
             this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
-        }else{
+        } else {
             //TODO: VER COMO HABILITAR LA CARTA SI ME EQUIVOCO ENL A SELECCION
             btnCarta1.setEnabled(true);
         }
@@ -452,19 +453,21 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public float getMontoApostado() {
-
         float monto = 0f;
-
-        if (this.txtMonto.getText().equals("")) {
-            this.mostrarMensaje("El monto apostado no debe ser vacio.");
-        } else {
-            try {
-                monto = Float.parseFloat(this.txtMonto.getText());
-            } catch (Exception ex) {
-                this.mostrarMensaje("El monto es incorrecto.");
+        String regex = "[0-9]*";
+        if (Pattern.matches(regex, this.txtMonto.getText())) {
+            if (this.txtMonto.getText().equals("")) {
+                this.mostrarMensaje("El monto apostado no debe ser vacio.");
+            } else {
+                try {
+                    monto = Float.parseFloat(this.txtMonto.getText());
+                } catch (Exception ex) {
+                    this.mostrarMensaje("El monto es incorrecto.");
+                }
             }
+        }else{
+            this.mostrarMensaje("El monto es incorrecto.");
         }
-
         return monto;
     }
 
@@ -531,7 +534,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public void escribirLog(String log) {
-        this.jtaLogs.append("> "+log);
+        this.jtaLogs.append("> " + log);
     }
 
     @Override
@@ -558,5 +561,5 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnCarta4.setEnabled(false);
         btnCarta5.setEnabled(false);
     }
-    
+
 }
