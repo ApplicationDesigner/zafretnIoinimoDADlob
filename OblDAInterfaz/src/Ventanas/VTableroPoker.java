@@ -215,7 +215,12 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public void limpiarApuesta() {
-        this.jptp.limpiarApuesta();
+    public void limpiarCampos() {
+        this.jptp.limpiarCampos();
+    }
+
+    @Override
+    public void deshabilitarPanel() {
+        this.jptp.deshabilitarPanel();
     }
 }

@@ -8,6 +8,7 @@ package Ventanas;
 import Interfaces.ILogin;
 import Controlador.Controlador;
 import Interfaces.IVentana;
+import javax.swing.JFrame;
 
 /**
  *

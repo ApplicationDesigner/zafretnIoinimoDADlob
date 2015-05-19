@@ -50,7 +50,7 @@ public class CTableroPoker extends Controlador {
                         this.montoApostado = montoApostado;
                         itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
                         itp.habilitarBotonApostar(false);
-                        itp.limpiarApuesta();
+                        itp.limpiarCampos();
 
                     } else {
                         itp.mostrarMensaje("El monto es incorrecto.");
@@ -77,6 +77,7 @@ public class CTableroPoker extends Controlador {
 
             case "btnRetirarme":
                 itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0f);
+                itp.deshabilitarPanel();
                 break;
 
             case "Pedir_Cartas":

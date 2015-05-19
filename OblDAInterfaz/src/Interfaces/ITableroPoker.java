@@ -52,6 +52,8 @@ public interface ITableroPoker extends IVentana {
 
     public abstract void escribirLog(String log);
     
-    public abstract void limpiarApuesta();
+    public abstract void limpiarCampos();
+    
+    public abstract void deshabilitarPanel();
 
 }

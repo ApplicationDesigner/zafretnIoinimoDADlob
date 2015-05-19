@@ -38,10 +38,8 @@ public class Casino implements ICasino {
 
         if (Casino.instance == null) {
             Casino.instance = new Casino();
+            datosPrecargados();
         }
-        
-        datosPrecargados();
-
         return Casino.instance;
     }
 
