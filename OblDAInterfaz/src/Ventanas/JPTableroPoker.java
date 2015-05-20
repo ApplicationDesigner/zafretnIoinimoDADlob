@@ -415,7 +415,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnCarta5.setActionCommand("btnCarta5");
 
         IJuego ij = JuegoPoker.getInstance();
-        IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id    
+        IPartida ip = ij.buscarPartida(this.partida.getNumero());
         this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
         this.lblNroJuegoReal.setText("" + this.partida.getNumero());
         this.lblListaJugadoresReal.setText(ip.getListaNombresJugadores().toString());

@@ -93,26 +93,6 @@ public class OrdenarManos implements Comparator<IMano> {
         
         //Remuevo todas las NO repetidas
         colCartas.removeAll(cartasNORepetidas);
-        
-//        for (int i = 0; i < valores.size(); i++) {
-//            cant = Collections.frequency(valores, valores.get(i));
-//
-//            if (cant == 1) {
-//                for(Carta c: colCartas) {
-//                    if(c.getValor() == valores.get(i)) {
-//                        colCartas.remove(c);
-//                    }
-//                } 
-//            }
-//        }
-
-//        for (int i = 0; i < Constantes.getCantCartasEnMano() - 1; i++) {
-//            cant = Collections.frequency(valores, valores.get(i));
-//
-//            if (cant == 1) {
-//                colCartas.remove(i);
-//            }
-//        }
         //Ordeno
         Collections.sort(colCartas);
         //Me quedo con la mayor

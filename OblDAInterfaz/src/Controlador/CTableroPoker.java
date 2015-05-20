@@ -66,7 +66,8 @@ public class CTableroPoker extends Controlador {
 
                     itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
                 } else {
-                    //TODO mensaje de error en lblMensaje
+                     itp.escribirLog("Sin saldo disponible.\n");
+                     itp.mostrarMensaje("Sin saldo disponible.");
                 }
                 break;
 
@@ -83,6 +84,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "Pedir_Cartas":
+                itp.limpiarCampos();
                 IMano unaMano = itp.getPartida().buscarMano(itp.getJugador());
                 ArrayList<String> ubicacionEnMesa = itp.getBotonesDeCartasSeleccionadas();
                 ArrayList indices = new ArrayList<>();
@@ -92,22 +94,27 @@ public class CTableroPoker extends Controlador {
                         indices.add(unaMano.getColCartas().indexOf(unaCarta));
                     }
                 }
-                Iterator<Carta> i = unaMano.getColCartas().iterator();
-                while (i.hasNext()) {
-                    Carta c = i.next();
-                    if (c.getActiva() == false) {
-                        i.remove();
+                if(indices.size() > 4){
+                    itp.mostrarMensaje("Puede cambiar hasta 4 cartas!");
+                }else{
+                
+                    Iterator<Carta> i = unaMano.getColCartas().iterator();
+                    while (i.hasNext()) {
+                        Carta c = i.next();
+                        if (c.getActiva() == false) {
+                            i.remove();
+                        }
                     }
+
+                    itp.getPartida().reponerCartas(unaMano, indices);
+                    itp.mostrarMano(unaMano);
+                    itp.habilitarBotonPedirCartas(false);
+
+                    String log = "Haz descartado " + indices.size() + " cartas\n";
+                    itp.escribirLog(log);
+                    itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
+                    //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 }
-
-                itp.getPartida().reponerCartas(unaMano, indices);
-                itp.mostrarMano(unaMano);
-                itp.habilitarBotonPedirCartas(false);
-
-                String log = "Haz descartado " + indices.size() + " cartas\n";
-                itp.escribirLog(log);
-                itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
-                //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
                 break;
 
             case "btnAbandonarPartidaSI":
