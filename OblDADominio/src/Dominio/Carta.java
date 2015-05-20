@@ -6,6 +6,7 @@
 package Dominio;
 
 import Interfaz.ICarta;
+import Configuraciones.Constantes;
 
 /**
  *
@@ -15,15 +16,14 @@ public final class Carta implements Comparable<Carta>, ICarta {
 
     private final Valor valor;
     private final Palo palo;
-    private final String pathImagen;
+    private String pathImagen;
     private boolean activa; 
-    private static final String pathBase = "/_img/";
 
     public Carta(Valor valor, Palo palo) {
         this.valor = valor;
         this.palo = palo;
         this.activa = true;
-        this.pathImagen = pathBase + valor.toString() + palo.toString()+ ".png";
+        this.pathImagen = Constantes.getPathBase() + valor.toString() + palo.toString()+ ".png";
     }
 
     
@@ -74,6 +74,11 @@ public final class Carta implements Comparable<Carta>, ICarta {
         
     public void setActiva(boolean estado){
         this.activa = estado;
+        if(estado == false){
+            this.pathImagen = Constantes.getPathBase() + "disable.png";
+        }else{
+            this.pathImagen = Constantes.getPathBase() + valor.toString() + palo.toString()+ ".png";
+        }
     }
     
     

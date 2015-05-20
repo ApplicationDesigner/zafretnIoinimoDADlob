@@ -16,6 +16,7 @@ public class Constantes {
     private static int cantMinimoJugadoresPorMesa   = 4;
     private static float apuestaBase                = 50f;
     private static float porcentajeGanancias        = 0.10f;
+    private static String pathBase                  = "/_img/";
 
     public static int getCantCartasEnMano() {
         return cantCartasEnMano;
@@ -55,6 +56,14 @@ public class Constantes {
 
     public static void setPorcentajeGanancias(float porcentajeGanancias) {
         Constantes.porcentajeGanancias = porcentajeGanancias;
+    }
+
+    public static String getPathBase() {
+        return pathBase;
+    }
+
+    public static void setPathBase(String pathBase) {
+        Constantes.pathBase = pathBase;
     }
     
     

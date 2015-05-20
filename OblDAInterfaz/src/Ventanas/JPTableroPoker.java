@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Controlador.Controlador;
+import Dominio.Carta;
 import Dominio.JuegoPoker;
 import Interfaces.ITableroPoker;
 import Interfaz.IJuego;
@@ -14,6 +15,7 @@ import Interfaz.IMano;
 import Interfaz.IPartida;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import javax.swing.JButton;
 
 /**
  *
@@ -310,40 +312,28 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
-        if (btnPedirCartas.isEnabled() == true) {
-            btnCarta1.setEnabled(false);
-            this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
-        } else {
-            
-        }
+        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
+        this.cambiarImagen(unaCarta, btnCarta1);
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
     private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
-        if (btnPedirCartas.isEnabled() == true) {
-            btnCarta2.setEnabled(false);
-            this.partida.buscarMano(jugador).getColCartas().get(1).setActiva(false);
-        }
+        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
+        this.cambiarImagen(unaCarta, btnCarta2);
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
-        if (btnPedirCartas.isEnabled() == true) {
-            btnCarta3.setEnabled(false);
-            this.partida.buscarMano(jugador).getColCartas().get(2).setActiva(false);
-        }
+        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(2);
+        this.cambiarImagen(unaCarta, btnCarta3);
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
-        if (btnPedirCartas.isEnabled() == true) {
-            btnCarta4.setEnabled(false);
-            this.partida.buscarMano(jugador).getColCartas().get(3).setActiva(false);
-        }
+        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(3);
+        this.cambiarImagen(unaCarta, btnCarta4);
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
-        if (btnPedirCartas.isEnabled() == true) {
-            btnCarta5.setEnabled(false);
-            this.partida.buscarMano(jugador).getColCartas().get(4).setActiva(false);
-        }
+        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(4);
+        this.cambiarImagen(unaCarta, btnCarta5);
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
 
@@ -459,14 +449,14 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         } else {
             try {
                 monto = Float.parseFloat(this.txtMonto.getText());
-                if(monto < 0){
+                if (monto < 0) {
                     this.mostrarMensaje("El monto debe ser mayor a 0.");
                 }
             } catch (Exception ex) {
                 this.mostrarMensaje("El monto es incorrecto.");
             }
         }
-        
+
         return monto;
     }
 
@@ -559,6 +549,17 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnCarta3.setEnabled(false);
         btnCarta4.setEnabled(false);
         btnCarta5.setEnabled(false);
+    }
+
+    private void cambiarImagen(Carta unaCarta, JButton btn) {
+        if (btnPedirCartas.isEnabled() == true) {
+            if (unaCarta.getActiva() == true) {
+                unaCarta.setActiva(false);
+            } else {
+                unaCarta.setActiva(true);
+            }
+            btn.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaCarta.getPathImagen())));
+        }
     }
 
 }
