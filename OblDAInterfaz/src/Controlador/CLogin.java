@@ -6,9 +6,11 @@
 package Controlador;
 
 import Dominio.Casino;
+import Dominio.JuegoPoker;
 import Interfaces.IIngresarAPartida;
 import Interfaces.ILogin;
 import Interfaz.ICasino;
+import Interfaz.IJuego;
 import Interfaz.IJugador;
 import Interfaz.IPartida;
 import Ventanas.VPpalJugador;
@@ -48,6 +50,13 @@ public class CLogin extends Controlador {
                         if(p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()){
                             partidasDisponibles.add(p);
                         }
+                    }
+                    //En caso de que esten todas las partidas ocupadas, creo una nueva y la agrego como disponible
+                    if(partidasDisponibles.size() < 1){
+                        IJuego unJuegoPoker = JuegoPoker.getInstance();
+                        IPartida nuevaPartida = Casino.getInstance().agregarPartida(unJuegoPoker, "POKER");
+                        unJuegoPoker.agregarPartida(nuevaPartida);
+                        partidasDisponibles.add(nuevaPartida);
                     }
                     
                     

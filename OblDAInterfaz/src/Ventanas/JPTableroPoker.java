@@ -14,7 +14,6 @@ import Interfaz.IJugador;
 import Interfaz.IMano;
 import Interfaz.IPartida;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import javax.swing.JButton;
 
 /**
@@ -401,33 +400,19 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
         btnCarta1.setActionCommand("btnCarta1");
-        if (this.btnCarta1.isEnabled() == false) {
-            btnCarta1.setEnabled(true);
-        }
+        btnCarta1.setBorder(null);
 
         btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(1).getPathImagen())));
         btnCarta2.setActionCommand("btnCarta2");
-        if (this.btnCarta2.isEnabled() == false) {
-            btnCarta2.setEnabled(true);
-        }
 
         btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(2).getPathImagen())));
         btnCarta3.setActionCommand("btnCarta3");
-        if (this.btnCarta3.isEnabled() == false) {
-            btnCarta3.setEnabled(true);
-        }
 
         btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(3).getPathImagen())));
         btnCarta4.setActionCommand("btnCarta4");
-        if (this.btnCarta4.isEnabled() == false) {
-            btnCarta4.setEnabled(true);
-        }
 
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
         btnCarta5.setActionCommand("btnCarta5");
-        if (this.btnCarta5.isEnabled() == false) {
-            btnCarta5.setEnabled(true);
-        }
 
         IJuego ij = JuegoPoker.getInstance();
         IPartida ip = ij.buscarPartida(1); //TODO Hacer combo y obtener el id    
