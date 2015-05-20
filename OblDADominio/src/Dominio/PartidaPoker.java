@@ -66,18 +66,22 @@ public class PartidaPoker extends Observable implements IPartida {
         this.pozo = pozo;
     }
 
+    @Override
     public ArrayList<IMano> getColManos() {
         return colManos;
     }
 
+    @Override
     public void setColManos(ArrayList<IMano> colManos) {
         this.colManos = colManos;
     }
 
+    @Override
     public Mazo getMazo() {
         return mazo;
     }
 
+    @Override
     public void setMazo(Mazo mazo) {
         this.mazo = mazo;
     }
@@ -131,8 +135,8 @@ public class PartidaPoker extends Observable implements IPartida {
         unaMano.setUnJugador(j);
         this.colManos.add(unaMano);
         System.out.println("---Cant manos en partida " + this.colManos.size());
-        
-        if(this.colManos.size() == Constantes.getCantMinimoJugadoresPorMesa()) {
+
+        if (this.colManos.size() == Constantes.getCantMinimoJugadoresPorMesa()) {
             this.iniciarRonda();
         }
     }
@@ -142,7 +146,7 @@ public class PartidaPoker extends Observable implements IPartida {
         this.addObserver(CTableroPoker);
         System.out.println("Observer agregado Count observers " + this.countObservers());
         if (this.countObservers() == Constantes.getCantMinimoJugadoresPorMesa()) {
-            
+
             //this.iniciarRonda();
         }
     }
@@ -161,7 +165,7 @@ public class PartidaPoker extends Observable implements IPartida {
             System.out.println("Notificar Repartir");
             //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
             System.out.println("El jugador: " + unaMano.getUnJugador().getNickName() + " pone la apuesta base de: " + Constantes.getApuestaBase());
-            
+
             this.accionJugador(unaMano.getUnJugador(), "APUESTABASE", Constantes.getApuestaBase());
         }
     }
@@ -208,7 +212,11 @@ public class PartidaPoker extends Observable implements IPartida {
 
                 puedeApostar = unJugador.apostar(monto);
                 if (puedeApostar) {
-                    this.modificarPozo(monto);
+                    if(this.validarMontoApuesta(m, monto)){
+                        this.modificarPozo(monto);
+                    }else{
+                        this.notificarAccion("SINSALDO", m);
+                    }
                 } else {
                     accion = "NOPUEDEAPOSTAR";
                 }
@@ -220,9 +228,14 @@ public class PartidaPoker extends Observable implements IPartida {
 
                 puedeApostar = unJugador.apostar(monto);
                 if (puedeApostar) {
-                    this.modificarPozo(monto);
-                    accionApostar = true;
-                    contadorAcciones = 1;
+
+                    if (validarMontoApuesta(m, monto) == true) {
+                        this.modificarPozo(monto);
+                        accionApostar = true;
+                        contadorAcciones = 1;
+                    } else {
+                        accion = "NOPUEDEAPOSTAR";
+                    }
                 } else {
                     accion = "NOPUEDEAPOSTAR";
                 }
@@ -268,11 +281,11 @@ public class PartidaPoker extends Observable implements IPartida {
             case "ABANDONA":
                 this.notificarAccion(accion, m);
                 break;
-                
+
             case "CONTINUA":
                 this.notificarAccion(accion, m);
                 break;
-                
+
             default:
                 this.notificarAccion(accion, m);
                 break;
@@ -319,13 +332,24 @@ public class PartidaPoker extends Observable implements IPartida {
         this.contarDescartes = 0;
 
         this.notificarAccion("GANADOR", manoGanador);
-        
+
         //Reinicio todo        
         this.pozo = 0;
         this.colManos = new ArrayList<>();
         this.mazo = new Mazo();
         this.contadorAcciones = 0;
         this.contarDescartes = 0;
+    }
+
+    private boolean validarMontoApuesta(IMano m, Float monto) {
+        for (IMano unaMano : this.colManos) {
+            if (unaMano.getUnJugador() != m.getUnJugador()) {
+                if (unaMano.getUnJugador().getSaldo() < monto) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

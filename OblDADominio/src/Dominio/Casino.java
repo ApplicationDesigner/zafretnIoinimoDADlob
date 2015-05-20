@@ -133,6 +133,12 @@ public class Casino implements ICasino {
         System.out.println(p1.toString());
 
         j1.agregarPartida(p1);
+        
+        IPartida p2;
+        p2 = Casino.instance.agregarPartida(j1, "POKER");
+        System.out.println(p2.toString());
+
+        j1.agregarPartida(p2);
     }
 
 }

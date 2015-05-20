@@ -40,13 +40,13 @@ public class CTableroPoker extends Controlador {
         System.out.println("Hubo una accion " + opcion);
         switch (opcion) {
             case "btnApostar":
-          
+
                 float montoApostado = this.itp.getMontoApostado();
 
                 //Si montoApostado es 0 es porque hubo un error
                 if (montoApostado > 0) {
 
-                    if (saldoJugador > montoApostado) {                        
+                    if (saldoJugador > montoApostado) {
                         this.montoApostado = montoApostado;
                         itp.getPartida().accionJugador(itp.getJugador(), "APOSTAR", montoApostado);
                         itp.habilitarBotonApostar(false);
@@ -55,7 +55,7 @@ public class CTableroPoker extends Controlador {
                     } else {
                         itp.mostrarMensaje("El monto es incorrecto.");
                     }
-                }else{
+                } else {
                     itp.mostrarMensaje("El monto debe ser mayor que 0");
                 }
 
@@ -111,20 +111,20 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "btnAbandonarPartidaSI":
-                
+
                 //itp.getPartida().accionJugador(itp.getJugador(), "ABANDONA", 0f);
                 float gananciasJugador = itp.getJugador().getSaldo() - itp.getJugador().getSaldoInicial();
-                 //10% de comision
+                //10% de comision
                 float comision = 0;
-                
+
                 System.out.println("Las ganancias del jugador son: " + gananciasJugador);
                 System.out.println("La comision es: " + comision);
-                
-                if(gananciasJugador > 0) {
-                    IJuego ij = JuegoPoker.getInstance();                   
+
+                if (gananciasJugador > 0) {
+                    IJuego ij = JuegoPoker.getInstance();
                     comision = gananciasJugador * Constantes.getPorcentajeGanancias();
                     ij.sumarGanancias(comision);
-                    
+
                     System.out.println("Las ganancias del JuegoP");
                     //saldoInicial = saldo - comision
                     itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo() - comision);
@@ -132,34 +132,31 @@ public class CTableroPoker extends Controlador {
                     //saldoInicial = saldo
                     itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
                 }
-                
+
                 System.out.println("El saldo del jugador es: " + itp.getJugador().getSaldoInicial());
-                
+
                 itp.habilitarBotonAbandonarPartidaNO(false);
                 itp.habilitarBotonAbandonarPartidaSI(false);
-                
-                
-                
-                
+
                 itp.getPartida().quitarObserver(this);
-            break;
-                
+                break;
+
             case "btnAbandonarPartidaNO":
-                itp.getPartida().ingresarJugador(itp.getJugador());                
+                itp.getPartida().ingresarJugador(itp.getJugador());
                 itp.getPartida().accionJugador(itp.getJugador(), "CONTINUA", 0f);
-                
+
                 itp.habilitarBotonAbandonarPartidaNO(false);
                 itp.habilitarBotonAbandonarPartidaSI(false);
-            break;    
-                                
+                break;
+
             default:
 
-            break;
+                break;
         }
     }
 
     @Override
-    public void update(Observable o, Object o1) {       
+    public void update(Observable o, Object o1) {
 
         String accion = ((Mensaje) o1).getAccion();
         String nickJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName());
@@ -292,22 +289,22 @@ public class CTableroPoker extends Controlador {
                 break;
             case "DESCARTAR":
                 if (nickJugador == itp.getJugador().getNickName()) {
-                    
+
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(true);
                     itp.habilitarBotonRetirarme(false);
                     itp.habilitarBotonApostar(false);
                     itp.habilitarBotonPasar(false);
-                    
+
                     itp.escribirLog("Puedes descartar.\n");
                 }
 
                 break;
-                
-            case "DESCARTO":               
+
+            case "DESCARTO":
                 itp.escribirLog("El jugador: " + nickJugador + " descarto.\n");
 
-                break;                
+                break;
 
             case "GANADOR":
                 if (nickJugador == itp.getJugador().getNickName()) {
@@ -321,13 +318,34 @@ public class CTableroPoker extends Controlador {
                 itp.habilitarBotonAbandonarPartidaNO(true);
                 itp.habilitarBotonAbandonarPartidaSI(true);
                 break;
-              
+
             case "ABANDONA":
                 itp.escribirLog("Un jugador abandona la mesa.\n");
                 break;
-                
+            case "SINSALDO":
+
+                if (nickJugador == itp.getJugador().getNickName()) {
+                    itp.escribirLog("Sin saldo disponible.\n");
+                    itp.mostrarMensaje("Sin saldo disponible.");
+
+                    itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
+                    itp.habilitarBotonAbandonarPartidaNO(false);
+                    itp.habilitarBotonAbandonarPartidaSI(false);
+
+                    itp.getPartida().quitarObserver(this);
+                }
+
+                break;
+
             case "CONTINUA":
                 itp.escribirLog("El jugador " + nickJugador + " continua en la mesa.\n");
+                break;
+
+            case "NOPUEDEAPOSTAR":
+                if (nickJugador == itp.getJugador().getNickName()) {
+                    itp.escribirLog("El monto de su apuesta no es valido.\n");
+                    itp.mostrarMensaje("El monto de su apuesta no es valido.");
+                }
                 break;
             default:
                 itp.escribirLog(accion);

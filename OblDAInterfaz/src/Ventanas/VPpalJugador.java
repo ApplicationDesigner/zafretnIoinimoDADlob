@@ -58,8 +58,6 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
 
         lblSeleccionarPartida.setText("Seleccionar partida:");
 
-        jcbSeleccionarPartidas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,7 +69,7 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
                 .addComponent(jcbSeleccionarPartidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btnIngresarPartida)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,10 +149,16 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     }
     
     private void cargarComboPartidas(ArrayList<IPartida> listaPartidas){
-        jcbSeleccionarPartidas.setModel(new javax.swing.DefaultComboBoxModel(listaPartidas.toArray()));
+        for(IPartida p : listaPartidas){
+            jcbSeleccionarPartidas.addItem(new JPTableroPokerComboItem("Partida " + p.getNumero(), p.getNumero()));
+        }
+        
+        //jcbSeleccionarPartidas.setModel(new javax.swing.DefaultComboBoxModel(listaPartidas.toArray()));
     }
     
+    @Override
     public int getPartidaSeleccionada(){
-        return this.jcbSeleccionarPartidas.getSelectedIndex() +1;
+        Object item = jcbSeleccionarPartidas.getSelectedItem();
+        return ((JPTableroPokerComboItem)item).getValue();
     }
 }

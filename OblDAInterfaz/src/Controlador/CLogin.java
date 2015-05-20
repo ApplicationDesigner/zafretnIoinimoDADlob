@@ -42,10 +42,17 @@ public class CLogin extends Controlador {
                 if (j != null) {
                     System.out.println("Logueando a ventana principal del jugador...");
                     
-                    ArrayList<IPartida> listaPartidas = Casino.getInstance().getColPartidas();
+                    ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
+                    //Muestro solo las partidas que no estan completas
+                    for(IPartida p : Casino.getInstance().getColPartidas()){
+                        if(p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()){
+                            partidasDisponibles.add(p);
+                        }
+                    }
                     
-                    if(listaPartidas != null){
-                        IIngresarAPartida iip = new VPpalJugador(j, listaPartidas);
+                    
+                    if(partidasDisponibles != null){
+                        IIngresarAPartida iip = new VPpalJugador(j, partidasDisponibles);
                         Controlador c = new CPpalJugador(iip);
                         iip.setControlador(c);
                     }

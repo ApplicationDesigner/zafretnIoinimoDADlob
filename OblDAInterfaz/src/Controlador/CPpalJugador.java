@@ -38,18 +38,20 @@ public class CPpalJugador extends Controlador {
             if (opcion != 0) {
                 IJuego ij = JuegoPoker.getInstance();
                 IPartida ip = ij.buscarPartida(opcion);
+                
+                if(ip != null){
+                    //Al iniciar saldo = saldo inicial            
+                    this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
 
-                //Al iniciar saldo = saldo inicial            
-                this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
+                    ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
+                    itp.setPartida(ip);
+                    Controlador c = new CTableroPoker(itp);
+                    itp.setControlador(c);
 
-                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
-                itp.setPartida(ip);
-                Controlador c = new CTableroPoker(itp);
-                itp.setControlador(c);
+                    ip.agregarObserver(c);
 
-                ip.agregarObserver(c);
-
-                ij.ingresarJugadorAPartida(1, this.iip.getJugador());
+                    ij.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
+                }
 
             }
         }

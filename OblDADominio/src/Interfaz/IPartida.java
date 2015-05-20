@@ -1,9 +1,9 @@
 package Interfaz;
 
-import Dominio.Mano;
 import java.util.ArrayList;
 import java.util.Observer;
 import Configuraciones.enumFigura;
+import Dominio.Mazo;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,6 +23,14 @@ public interface IPartida {
     public abstract float getPozo();
 
     public abstract void setPozo(float pozo);
+    
+    public abstract ArrayList<IMano> getColManos();
+             
+    public abstract void setColManos(ArrayList<IMano> colManos);
+
+    public abstract Mazo getMazo();
+
+    public abstract void setMazo(Mazo mazo);
 
     public abstract void ingresarJugador(IJugador j);
 

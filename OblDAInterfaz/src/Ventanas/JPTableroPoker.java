@@ -177,6 +177,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnAbandonarPartidaSI.setText("Si");
         btnAbandonarPartidaSI.setActionCommand("btnAbandonarPartidaSI");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¿Desea abandonar la partida?");
 
         btnAbandonarPartidaNO.setText("No");
@@ -313,8 +314,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
             btnCarta1.setEnabled(false);
             this.partida.buscarMano(jugador).getColCartas().get(0).setActiva(false);
         } else {
-            //TODO: VER COMO HABILITAR LA CARTA SI ME EQUIVOCO ENL A SELECCION
-            btnCarta1.setEnabled(true);
+            
         }
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
@@ -454,20 +454,19 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     @Override
     public float getMontoApostado() {
         float monto = 0f;
-        String regex = "[0-9]*";
-        if (Pattern.matches(regex, this.txtMonto.getText())) {
-            if (this.txtMonto.getText().equals("")) {
-                this.mostrarMensaje("El monto apostado no debe ser vacio.");
-            } else {
-                try {
-                    monto = Float.parseFloat(this.txtMonto.getText());
-                } catch (Exception ex) {
-                    this.mostrarMensaje("El monto es incorrecto.");
+        if (this.txtMonto.getText().equals("")) {
+            this.mostrarMensaje("El monto apostado no debe ser vacio.");
+        } else {
+            try {
+                monto = Float.parseFloat(this.txtMonto.getText());
+                if(monto < 0){
+                    this.mostrarMensaje("El monto debe ser mayor a 0.");
                 }
+            } catch (Exception ex) {
+                this.mostrarMensaje("El monto es incorrecto.");
             }
-        }else{
-            this.mostrarMensaje("El monto es incorrecto.");
         }
+        
         return monto;
     }
 
