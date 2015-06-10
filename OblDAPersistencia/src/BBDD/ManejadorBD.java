@@ -5,12 +5,8 @@
  */
 package BBDD;
 
-import Interfaz.Persistencia;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Interfaz.Persistente;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -67,82 +63,51 @@ public class ManejadorBD {
         return rs;
     }
 
-    public int proximoOid() {
-        int oid = -1;
-        try {
-            String sql = "SELECT valor FROM Parametros WHERE nombre='oid'";
-            ResultSet rs = this.obtenerResultSet(sql);
-            if (rs.next()) {
-                oid = rs.getInt("valor");
-            }
-            rs.close();
-            oid++;
-            this.ejecutarConsulta("UPDATE Parametros set valor=" + oid + " WHERE nombre='oid'");
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el proximo oid." + e.getMessage());
-        }
-        return oid;
+    public void agregar(Persistente p) {
+        String sql = p.getInsertSql();
+        this.ejecutarConsulta(sql);
+
     }
 
-    public void agregar(Persistencia p) {
-        int oid = this.proximoOid();
-        p.setOid(oid);
-        ArrayList<String> l = p.getInsertSql();
-        for (String sql : l) {
-            this.ejecutarConsulta(sql);
-        }
-    }
-
-    public void modificar(Persistencia p) {
+    public void modificar(Persistente p) {
         String sql = p.getUpdateSql();
         this.ejecutarConsulta(sql);
     }
 
-    public void eliminar(Persistencia p) {
+    public void eliminar(Persistente p) {
         String sql = p.getDeleteSql();
-        p.setOid(0);
         this.ejecutarConsulta(sql);
     }
 
-    public void leerPersistente(Persistencia p) {
+    public void leerPersistente(Persistente p) {
         try {
             String sql = p.getSelectSql();
             ResultSet rs = this.obtenerResultSet(sql);
-            p.limpiar();
             while (rs.next()) {
                 p.leer(rs);
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error al obtener usuario.\n" + e.getMessage());
+            System.out.println("Error al obtener jugador.\n" + e.getMessage());
         }
     }
 
-    public ArrayList obtenerTodos(Persistencia p) {
+    public ArrayList obtenerTodos(Persistente p) {
         ArrayList ret = new ArrayList();
         try {
             String sql = p.getSelectSql();
             System.out.println(sql);
             ResultSet rs = this.obtenerResultSet(sql);
-            int oidAnt = -1;
-            int oid;
-            Persistencia nuevo = null;
+            Persistente nuevo = null;
             while (rs.next()) {
-                oid = rs.getInt("oid");
-                if (oid != oidAnt) {
-                    oidAnt = oid;
-                    if (nuevo != null) {
-                        ret.add(nuevo.getObjeto());
-                    }
-                    nuevo = p.crearNuevo();
-                    nuevo.limpiar();
-                    nuevo.setOid(rs.getInt("oid"));
-                }
+//                if (nuevo != null) {
+//                    ret.add(nuevo.getObjeto());
+//                }
                 nuevo.leer(rs);
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error al obtener usuarios.\n" + e.getMessage());
+            System.out.println("Error al obtener jugadores.\n" + e.getMessage());
         }
         return ret;
     }

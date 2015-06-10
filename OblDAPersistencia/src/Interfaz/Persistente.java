@@ -13,11 +13,9 @@ import java.util.ArrayList;
  *
  * @author miriarte
  */
-public interface Persistencia {
-
-    public ArrayList<String> getInsertSql();
-
-    public void setOid(int oid);
+public interface Persistente {
+    
+    public String getInsertSql();
 
     public String getUpdateSql();
 
@@ -26,12 +24,12 @@ public interface Persistencia {
     public String getSelectSql();
 
     public int getOid();
+    
+    public void setOid(int oid);
 
-    public void leer(ResultSet rs) throws SQLException;
+    public void leer(ResultSet rs);
 
-    public Persistencia crearNuevo();
+    public Persistente getNuevo();
 
     public Object getObjeto();
-
-    public void limpiar();
 }
