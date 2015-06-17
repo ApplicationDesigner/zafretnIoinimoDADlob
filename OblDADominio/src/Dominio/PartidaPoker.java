@@ -25,6 +25,7 @@ public class PartidaPoker extends Observable implements IPartida {
     private float pozo;
     ArrayList<IMano> colManos;
     private Mazo mazo;
+    private int duracion;
 
     private int contadorAcciones;
     private int contarDescartes;
@@ -36,6 +37,7 @@ public class PartidaPoker extends Observable implements IPartida {
         this.mazo = new Mazo();
         this.contadorAcciones = 0;
         this.contarDescartes = 0;
+        this.duracion = 0;
     }
 
     public PartidaPoker(int numero, float pozo) {
@@ -44,6 +46,7 @@ public class PartidaPoker extends Observable implements IPartida {
         this.colManos = new ArrayList<>();
         this.mazo = new Mazo();
         this.contadorAcciones = 0;
+        this.duracion = 0;
     }
 
     @Override
@@ -85,6 +88,15 @@ public class PartidaPoker extends Observable implements IPartida {
     public void setMazo(Mazo mazo) {
         this.mazo = mazo;
     }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+    
 
     @Override
     public void repartirCartas(IMano mano) {

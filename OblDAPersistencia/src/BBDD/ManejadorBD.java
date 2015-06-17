@@ -5,7 +5,7 @@
  */
 package BBDD;
 
-import Interfaz.Persistente;
+import Interfaz.IPersistente;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -63,23 +63,23 @@ public class ManejadorBD {
         return rs;
     }
 
-    public void agregar(Persistente p) {
+    public void agregar(IPersistente p) {
         String sql = p.getInsertSql();
         this.ejecutarConsulta(sql);
 
     }
 
-    public void modificar(Persistente p) {
+    public void modificar(IPersistente p) {
         String sql = p.getUpdateSql();
         this.ejecutarConsulta(sql);
     }
 
-    public void eliminar(Persistente p) {
+    public void eliminar(IPersistente p) {
         String sql = p.getDeleteSql();
         this.ejecutarConsulta(sql);
     }
 
-    public void leerPersistente(Persistente p) {
+    public void leerPersistente(IPersistente p) {
         try {
             String sql = p.getSelectSql();
             ResultSet rs = this.obtenerResultSet(sql);
@@ -92,18 +92,17 @@ public class ManejadorBD {
         }
     }
 
-    public ArrayList obtenerTodos(Persistente p) {
+    public ArrayList obtenerTodos(IPersistente p) {
         ArrayList ret = new ArrayList();
         try {
             String sql = p.getSelectSql();
             System.out.println(sql);
             ResultSet rs = this.obtenerResultSet(sql);
-            Persistente nuevo = null;
+            
             while (rs.next()) {
-//                if (nuevo != null) {
-//                    ret.add(nuevo.getObjeto());
-//                }
-                nuevo.leer(rs);
+                Object nuevo = p.crearNuevo();
+                p.leer(rs);
+                ret.add(nuevo);
             }
             rs.close();
         } catch (SQLException e) {

@@ -101,6 +101,9 @@ public class Jugador implements IJugador {
         return retorno;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Jugador: " + "nickName=" + nickName + ", nombre=" + nombre + ", password=" + password + ", saldoInicial=" + saldoInicial + ", saldo=" + saldo + ", montoApostado=" + montoApostado;
+    }
+
 }

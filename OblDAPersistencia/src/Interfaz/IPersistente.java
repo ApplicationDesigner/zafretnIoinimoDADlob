@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author miriarte
  */
-public interface Persistente {
+public interface IPersistente {
     
     public String getInsertSql();
 
@@ -23,13 +23,9 @@ public interface Persistente {
 
     public String getSelectSql();
 
-    public int getOid();
-    
-    public void setOid(int oid);
-
     public void leer(ResultSet rs);
 
-    public Persistente getNuevo();
+    public Object crearNuevo();
 
-    public Object getObjeto();
+    
 }

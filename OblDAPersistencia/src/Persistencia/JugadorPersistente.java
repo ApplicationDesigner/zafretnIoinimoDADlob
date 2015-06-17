@@ -6,7 +6,7 @@
 package Persistencia;
 
 import Dominio.Jugador;
-import Interfaz.Persistente;
+import Interfaz.IPersistente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -14,14 +14,14 @@ import java.sql.SQLException;
  *
  * @author miriarte
  */
-public class JugadorPersistente implements Persistente {
+public class JugadorPersistente implements IPersistente {
 
     private Jugador jugador;
 
     public JugadorPersistente(Jugador unJugador) {
         this.jugador = unJugador;
     }
-    
+
     public Jugador getJugador() {
         return this.jugador;
     }
@@ -40,27 +40,26 @@ public class JugadorPersistente implements Persistente {
 
     @Override
     public String getUpdateSql() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "UPDATE jugador SET nombre='" + this.jugador.getNombre()
+                + "',password='" + this.jugador.getPassword()
+                + "',saldoInicial=" + this.jugador.getSaldoInicial() + ""
+                + ",saldo=" + this.jugador.getSaldo() + ""
+                + " WHERE nickName='" + this.jugador.getNickName() + "'";
     }
 
     @Override
     public String getDeleteSql() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "DELETE FROM jugador WHERE nickName='" + this.jugador.getNickName() + "'";
     }
 
     @Override
     public String getSelectSql() {
-        return "SELECT * FROM jugador";
-    }
+        String sql = "SELECT * FROM jugador";
+        if (this.jugador != null) {
+            sql += " WHERE nickName=" + this.jugador.getNickName();
+        }
+        return sql;
 
-    @Override
-    public int getOid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setOid(int oid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -77,12 +76,8 @@ public class JugadorPersistente implements Persistente {
     }
 
     @Override
-    public Persistente getNuevo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object getObjeto() {
+    public Object crearNuevo() {
+        this.jugador = new Jugador();
         return this.jugador;
     }
 
