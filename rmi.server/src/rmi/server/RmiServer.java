@@ -5,6 +5,7 @@
  */
 package rmi.server;
 
+import Dominio.Casino;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
@@ -21,26 +22,39 @@ public class RmiServer {
      */
     public static void main(String[] args) {
         
-        System.out.print("Inicializando servidor...");
-         
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new RMISecurityManager());
-        }
-               
-        String name = "//127.0.0.1/StringServer";
         
-        try {
-        	
+        try{
+            if(System.getSecurityManager()==null){
+                System.setSecurityManager(new RMISecurityManager());
+            }
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            //IStringUtils server = new StringUtilsImpl();
-            //Naming.rebind(name, server);
-            System.out.println("OK");
+            Naming.rebind("CasinoServer", Casino.getInstance());
+            System.out.println("levantado .. esperando por peticiones");
             
-        } catch (Exception e) {
-            System.err.println("Server Exception: " +  e.getMessage());
-            e.printStackTrace();
-            
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
         }
+//        
+//        System.out.print("Inicializando servidor...");
+//         
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new RMISecurityManager());
+//        }
+//               
+//        String name = "//127.0.0.1/StringServer";
+//        
+//        try {
+//        	
+//            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+//            //IStringUtils server = new StringUtilsImpl();
+//            //Naming.rebind(name, server);
+//            System.out.println("OK");
+//            
+//        } catch (Exception e) {
+//            System.err.println("Server Exception: " +  e.getMessage());
+//            e.printStackTrace();
+//            
+//        }
     }
     
 }

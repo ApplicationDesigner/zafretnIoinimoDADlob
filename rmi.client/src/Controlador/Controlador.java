@@ -3,79 +3,89 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Controlador;
+
+
+import InterfacesVentana.IVentana;
+import Interfaz.IObserver;
+import Interfaz.IPartida;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Observable;
-
-import java.util.Observer;
-
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Sebastian
+ * @author santiagoa
  */
-public class Controlador extends UnicastRemoteObject 
-                                   implements ObservadorRemoto, Observer, ActionListener{
-    
-    private ObservableRemoto observable;
-    private ObservableLocal observableLocal = new ObservableLocal();
+public class Controlador extends UnicastRemoteObject implements ActionListener, IObserver{
 
-    public Controlador() throws RemoteException {
+    IVentana ventanaActual;
+    private IPartida observable;
+    
+    public Controlador() throws RemoteException
+    {
+        
     }
     
-    public void registrar(String url){
-        if(System.getSecurityManager()==null){
-            System.setSecurityManager(new SecurityManager());
+    public void SetVentana (IVentana v)
+    {
+        this.ventanaActual = v;
+    }
+    
+//    public  boolean conectar(){
+//         if(System.getSecurityManager()==null){
+//                System.setSecurityManager(new RMISecurityManager());
+//         }
+//        try {
+//            observable = (IPartida) Naming.lookup("ChatServer");
+//            observable.Add(this);
+//        }catch (Exception ex) {
+//            return false;
+//        }
+//        return true;
+//    }
+    public boolean desconectar(){
+        if(observable!=null){
+            try {
+                observable.Remove(this);
+                return true;
+            } catch (RemoteException ex) {
+                
+            }
         }
-        try {
-            observable =(ObservableRemoto) Naming.lookup(url);
-            observable.agregar(this);
-        } catch (Exception ex) {
-            System.out.println("Error: " +ex);
-        }
-    }
-
-    public ObservableRemoto getObservable() {
-        return observable;
+        return false;
     }
     
-    public void desregistrar(){
-        try {
-            observable.quitar(this);
-        } catch (RemoteException ex) {
-           
-        }
-    }
-
-    
-    @Override
-    public void actualizar(ObservableRemoto origen, Object param) throws RemoteException {
-        observableLocal.avisar(param);
-    }
-
-    public void addObserver(Observer o) {
-        observableLocal.addObserver(o);
-    }
-
-    public void deleteObserver(Observer o) {
-        observableLocal.deleteObserver(o);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (e.getActionCommand().equals("ENVIARMENSAJE")) {
+            
+            String mensaje = this.ventanaActual.getMensaje();
+            try {
+                this.observable.SendMessage(mensaje);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+                
     }
-    
-    
+
+    @Override
+    public void Update(Serializable obj) throws RemoteException {
+        
+        ArrayList<String> aux = (ArrayList<String>)obj;
+        
+        this.ventanaActual.RecibirMensaje(aux);
+    }
     
 }

@@ -7,6 +7,7 @@ package Ventanas;
 
 import InterfacesVentana.ILogin;
 import Controlador.Controlador;
+import java.util.ArrayList;
 
 
 /**
@@ -120,6 +121,21 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
     @Override
     public void setLblMensaje(String mensaje) {
         this.lblMensaje.setText(mensaje);
+    }
+
+    @Override
+    public String getMensaje() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void RecibirMensaje(ArrayList<String> mensaje) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void SetControlador(Controlador controller) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

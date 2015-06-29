@@ -5,7 +5,7 @@
  */
 package persistencia;
 
-import objetos.PartidaPoker;
+import Dominio.PartidaPoker;
 import persistencia.IPersistente;
 import java.sql.ResultSet;
 import java.sql.SQLException;

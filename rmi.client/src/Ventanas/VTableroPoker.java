@@ -5,8 +5,11 @@
  */
 package Ventanas;
 
-import InterfacesVentana.ILogin;
 import Controlador.Controlador;
+import InterfacesVentana.ITableroPoker;
+import Interfaz.IJugador;
+import Interfaz.IMano;
+import Interfaz.IPartida;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -14,14 +17,22 @@ import javax.swing.JFrame;
  *
  * @author Sebastian
  */
-public final class VLogin extends javax.swing.JFrame implements ILogin {
-    private JPLogin jpl;
+public final class VTableroPoker extends javax.swing.JFrame implements ITableroPoker{
+    private JPTableroPoker jptp;
+    private IJugador jugador;
+    private IPartida partida;
 
     /**
-     * Creates new form VLogin
+     * Creates new form VPartida
      */
-    public VLogin() {
+    public VTableroPoker() {
+        iniciarComponentes();
+    }
+    
+    public VTableroPoker(IJugador j) {
+        this.jugador = j;
         
+        System.out.println("NickJugador en TableroPoker: " + j.getNickName());
         iniciarComponentes();
     }
 
@@ -40,7 +51,7 @@ public final class VLogin extends javax.swing.JFrame implements ILogin {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,21 +78,23 @@ public final class VLogin extends javax.swing.JFrame implements ILogin {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTableroPoker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTableroPoker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTableroPoker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTableroPoker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VLogin().setVisible(true);
+                new VTableroPoker().setVisible(true);
             }
         });
     }
@@ -89,43 +102,128 @@ public final class VLogin extends javax.swing.JFrame implements ILogin {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-
+    @Override
     public void setControlador(Controlador c) {
-        this.jpl.setControlador(c);
+        this.jptp.setControlador(c);
     }
 
     @Override
     public void iniciarComponentes() {
-        
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(500, 500);
+        this.setSize(800, 500);
         this.setVisible(true);
         
-        this.jpl = new JPLogin();
-        this.jpl.setSize(500, 500);
+        this.jptp = new JPTableroPoker();
+        this.jptp.setJugador(jugador);
+        this.jptp.setPartida(partida);
+        
+        this.jptp.setSize(800, 500);
         this.getContentPane().removeAll();
-        this.getContentPane().add(this.jpl);
+        this.getContentPane().add(this.jptp);
         this.getContentPane().revalidate();
         this.getContentPane().repaint();
     }
 
     @Override
-    public String getNickName() {
-        
-        return this.jpl.getNickName();
-        
+    public IJugador getJugador() {
+        return this.jptp.getJugador();
     }
 
     @Override
-    public String getPass() {
-        return this.jpl.getPass();
+    public void mostrarMano(IMano unaMano) {
+        this.jptp.mostrarMano(unaMano);
     }
 
     @Override
-    public void setLblMensaje(String mensaje) {
-        this.jpl.setLblMensaje(mensaje);
+    public void mostarSaldoJugador(String saldoJugador) {
+        this.jptp.mostarSaldoJugador(saldoJugador);
+    }
+
+    @Override
+    public IPartida getPartida() {
+        return this.jptp.getPartida();
+    }
+
+    @Override
+    public void setPartida(IPartida partida) {
+        this.jptp.setPartida(partida);
+    }
+
+    @Override
+    public float getMontoApostado() {
+        return this.jptp.getMontoApostado();
+    }
+
+    @Override
+    public void mostrarPozo(String pozo) {
+        this.jptp.mostrarPozo(pozo);
+    }
+
+    @Override
+    public ArrayList<String> getBotonesDeCartasSeleccionadas() {
+        return this.jptp.getBotonesDeCartasSeleccionadas();
+    }
+
+    @Override
+    public void habilitarBotonApostar(boolean estado) {
+        this.jptp.habilitarBotonApostar(estado);
+    }
+
+    @Override
+    public void habilitarBotonPedirCartas(boolean estado) {
+        this.jptp.habilitarBotonPedirCartas(estado);
+    }
+
+    @Override
+    public void habilitarBotonPagar(boolean estado) {
+        this.jptp.habilitarBotonPagar(estado);
+    }
+    
+    @Override
+    public void habilitarBotonPasar(boolean estado) {
+        this.jptp.habilitarBotonPasar(estado);
+    }
+
+    @Override
+    public void habilitarBotonRetirarme(boolean estado) {
+        this.jptp.habilitarBotonRetirarme(estado);
+    }
+
+    @Override
+    public void escribirLog(String log) {
+        this.jptp.escribirLog(log);
+    }
+
+    @Override
+    public void mostrarNickName() {
+        this.jptp.mostrarNickName();
+    }
+
+    @Override
+    public void mostrarMensaje(String texto) {
+        this.jptp.mostrarMensaje(texto);
+    }
+
+    @Override
+    public void habilitarBotonAbandonarPartidaSI(boolean estado) {
+        this.jptp.habilitarBotonAbandonarPartidaSI(estado);
+    }
+
+    @Override
+    public void habilitarBotonAbandonarPartidaNO(boolean estado) {
+        this.jptp.habilitarBotonAbandonarPartidaNO(estado);
+    }
+
+    @Override
+    public void limpiarCampos() {
+        this.jptp.limpiarCampos();
+    }
+
+    @Override
+    public void deshabilitarPanel() {
+        this.jptp.deshabilitarPanel();
     }
 
     @Override

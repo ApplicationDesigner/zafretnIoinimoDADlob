@@ -8,7 +8,7 @@ package persistencia;
 import persistencia.IPersistente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import objetos.Jugador;
+import Dominio.Jugador;
 
 /**
  *

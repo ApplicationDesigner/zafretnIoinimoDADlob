@@ -9,10 +9,10 @@ import Controlador.CLogin;
 import Controlador.Controlador;
 import InterfacesVentana.ILogin;
 //import Controlador.CNuevoJugador;
-import objetos.Casino;
+import Dominio.Casino;
 import InterfacesVentana.INuevoJugador;
 import Ventanas.VLogin;
-import interfaces.ICasino;
+import Interfaz.ICasino;
 import java.rmi.RemoteException;
 
 //import Ventanas.VNuevoJugador;
