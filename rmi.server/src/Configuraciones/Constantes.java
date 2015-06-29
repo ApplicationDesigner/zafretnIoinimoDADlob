@@ -17,6 +17,7 @@ public class Constantes {
     private static float apuestaBase                = 50f;
     private static float porcentajeGanancias        = 0.10f;
     private static String pathBase                  = "/_img/";
+    private static int timeOut                      = 8000; /*expresado en segundos*/
 
     public static int getCantCartasEnMano() {
         return cantCartasEnMano;
@@ -65,9 +66,13 @@ public class Constantes {
     public static void setPathBase(String pathBase) {
         Constantes.pathBase = pathBase;
     }
-    
-    
-    
-    
+
+    public static int getTimeOut() {
+        return timeOut;
+    }
+
+    public static void setTimeOut(int timeOut) {
+        Constantes.timeOut = timeOut;
+    }
     
 }

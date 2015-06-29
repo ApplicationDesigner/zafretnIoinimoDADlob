@@ -22,6 +22,7 @@ public interface ICasino extends IObservable {
     public abstract IPartida agregarPartida(IJuego j, String tipoPartida);
     public abstract IJugador buscarJugador(String nick);
     public abstract ArrayList<IPartida> getColPartidas();
+    public float getGanancias();
     
     @Override
     public abstract String toString();

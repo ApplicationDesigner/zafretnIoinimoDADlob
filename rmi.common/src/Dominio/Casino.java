@@ -55,6 +55,11 @@ public class Casino implements ICasino {
         return colPartidas;
     }
 
+    public static ArrayList<IJuego> getColJuegos() {
+        return colJuegos;
+    }
+    
+
     public IJuego agregarJuego(String tipoJuego) {
         IJuego ret = null;
 
@@ -87,6 +92,17 @@ public class Casino implements ICasino {
 
         }
         return ret;
+    }
+    
+    
+    public float getGanancias(){
+        float total = 0;
+        for(IJuego j:Casino.getInstance().getColJuegos()){
+            if(j != null){
+                total+=j.getGanancias();
+            }
+        }
+        return total;
     }
 
     @Override
