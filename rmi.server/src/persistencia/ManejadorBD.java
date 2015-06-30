@@ -5,7 +5,6 @@
  */
 package persistencia;
 
-import persistencia.IPersistente;
 import java.sql.*;
 import java.util.ArrayList;
 

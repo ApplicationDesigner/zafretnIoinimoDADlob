@@ -18,6 +18,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import persistencia.JugadorPersistente;
+import persistencia.ManejadorBD;
 
 /**
  *
@@ -131,12 +133,16 @@ public class Casino implements ICasino {
 
     @Override
     public IJugador buscarJugador(String nick) {
-        for (IJugador j : Casino.colJugadores) {
-            if (j.getNickName().equals(nick)) {
-                return j;
-            }
-        }
-        return null;
+        
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        
+        IJugador j = null;
+        j.setNickName(nick);
+        System.out.println(bd.obtenerTodos(new JugadorPersistente(null)));
+        
+        return j;
+
     }
 
     private static void datosPrecargados() {
@@ -170,7 +176,7 @@ public class Casino implements ICasino {
     @Override
     public void notificarAccion(String accion, Object obj) throws RemoteException {
         
-        IMensaje unMensaje = new Mensaje();
+        IMensaje unMensaje = (IMensaje) new Mensaje();
         unMensaje.setAccion(accion);
         unMensaje.setValor(obj);
 //        this.setChanged();

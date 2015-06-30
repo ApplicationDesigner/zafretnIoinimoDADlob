@@ -18,6 +18,7 @@ public class Constantes {
     private static float porcentajeGanancias        = 0.10f;
     private static String pathBase                  = "/_img/";
     private static int timeOut                      = 8000; /*expresado en segundos*/
+    private static String cadenaConexion            = "jdbc:mysql://localhost/dda?user=root&password=1234567.";
 
     public static int getCantCartasEnMano() {
         return cantCartasEnMano;
@@ -74,5 +75,15 @@ public class Constantes {
     public static void setTimeOut(int timeOut) {
         Constantes.timeOut = timeOut;
     }
+
+    public static String getCadenaConexion() {
+        return cadenaConexion;
+    }
+
+    public static void setCadenaConexion(String cadenaConexion) {
+        Constantes.cadenaConexion = cadenaConexion;
+    }
+    
+    
     
 }
