@@ -6,14 +6,17 @@
 package Ventanas;
 
 import Controlador.Controlador;
-import Dominio.Carta;
-import Dominio.JuegoPoker;
+import DominioCommon.Carta;
+import DominioCommon.JuegoPoker;
 import InterfacesVentana.ITableroPoker;
-import Interfaz.IJuego;
-import Interfaz.IJugador;
-import Interfaz.IMano;
-import Interfaz.IPartida;
+import InterfazCommon.IJuego;
+import InterfazCommon.IJugador;
+import InterfazCommon.IMano;
+import InterfazCommon.IPartida;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -311,27 +314,47 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
-        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
-        this.cambiarImagen(unaCarta, btnCarta1);
+//        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
+//        this.cambiarImagen(unaCarta, btnCarta1);
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
     private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
-        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
+        Carta unaCarta = null;
+        try {
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.cambiarImagen(unaCarta, btnCarta2);
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
-        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(2);
+        Carta unaCarta = null;
+        try {
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(2);
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.cambiarImagen(unaCarta, btnCarta3);
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
-        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(3);
+        Carta unaCarta = null;
+        try {
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(3);
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.cambiarImagen(unaCarta, btnCarta4);
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
-        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(4);
+        Carta unaCarta = null;
+        try {
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(4);
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.cambiarImagen(unaCarta, btnCarta5);
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
@@ -415,10 +438,27 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnCarta5.setActionCommand("btnCarta5");
 
         IJuego ij = JuegoPoker.getInstance();
-        IPartida ip = ij.buscarPartida(this.partida.getNumero());
-        this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
-        this.lblNroJuegoReal.setText("" + this.partida.getNumero());
-        this.lblListaJugadoresReal.setText(ip.getListaNombresJugadores().toString());
+        IPartida ip = null;
+        try {
+            ip = ij.buscarPartida(this.partida.getNumero());
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.lblNroJuegoReal.setText("" + this.partida.getNumero());
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.lblListaJugadoresReal.setText(ip.getListaNombresJugadores().toString());
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

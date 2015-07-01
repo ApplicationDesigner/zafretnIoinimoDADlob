@@ -5,9 +5,9 @@
  */
 package Factory;
 
-import Dominio.JuegoPoker;
-import Interfaz.IJuego;
-import Interfaz.IPartida;
+import DominioCommon.JuegoPoker;
+import InterfazCommon.IJuego;
+import InterfazCommon.IPartida;
 
 /**
  *

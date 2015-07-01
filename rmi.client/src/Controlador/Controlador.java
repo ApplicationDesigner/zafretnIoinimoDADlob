@@ -8,8 +8,8 @@ package Controlador;
 
 
 import InterfacesVentana.IVentana;
-import Interfaz.IObserver;
-import Interfaz.IPartida;
+import InterfazCommon.IObserver;
+import InterfazCommon.IPartida;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

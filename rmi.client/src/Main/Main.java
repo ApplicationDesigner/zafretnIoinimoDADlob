@@ -9,10 +9,9 @@ import Controlador.CLogin;
 import Controlador.Controlador;
 import InterfacesVentana.ILogin;
 //import Controlador.CNuevoJugador;
-import Dominio.Casino;
 import InterfacesVentana.INuevoJugador;
 import Ventanas.VLogin;
-import Interfaz.ICasino;
+import InterfazCommon.ICasino;
 import java.rmi.RemoteException;
 
 //import Ventanas.VNuevoJugador;
@@ -28,7 +27,7 @@ public class Main {
      */
     public static void main(String[] args) throws RemoteException {  
         
-        ICasino instanceCasino = Casino.getInstance();
+        //ICasino instanceCasino = Casino.getInstance();
         
         ILogin l = new VLogin();
         Controlador c = new CLogin(l);

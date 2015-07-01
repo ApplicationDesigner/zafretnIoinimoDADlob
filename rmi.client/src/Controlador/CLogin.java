@@ -10,15 +10,14 @@ import InterfacesVentana.ILogin;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Observable;
-import Interfaz.IJugador;
-import Interfaz.ICasino;
+import InterfazCommon.IJugador;
+import InterfazCommon.ICasino;
 import java.rmi.RemoteException;
-import Dominio.Casino;
-import Dominio.JuegoPoker;
+import DominioCommon.JuegoPoker;
 import InterfacesVentana.IIngresarAPartida;
-import Interfaz.IJuego;
-import Interfaz.IMensaje;
-import Interfaz.IPartida;
+import InterfazCommon.IJuego;
+import InterfazCommon.IMensaje;
+import InterfazCommon.IPartida;
 import Ventanas.VPpalJugador;
 import java.io.Serializable;
 import java.rmi.Naming;
@@ -39,17 +38,21 @@ public class CLogin extends Controlador {
     public CLogin(ILogin ilogin) throws RemoteException {
         this.ilogin = ilogin;
         this.nickIngresado = "";
+        this.conectar();
     }
     
     public  boolean conectar(){
          if(System.getSecurityManager()==null){
-                System.setSecurityManager(new RMISecurityManager());
+                System.setSecurityManager(new SecurityManager());
          }
         try {
             observable = (ICasino) Naming.lookup("CasinoServer");
             observable.Add(this);
+            System.out.println("Me conecte...");
         }catch (Exception ex) {
+            System.out.println("No me conecte...");
             return false;
+            
         }
         return true;
     }
@@ -57,14 +60,15 @@ public class CLogin extends Controlador {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        ICasino instanceCasino = Casino.getInstance();
+        ICasino instanceCasino = observable;
 
         if (e.getActionCommand().equals("LoginAceptar")) {
             System.out.println("NickName: " + ilogin.getNickName() + " Pass: " + ilogin.getPass());
 
             this.nickIngresado = ilogin.getNickName();
-            this.observable.validarLogin(ilogin.getNickName(), ilogin.getPass());
-            
+            try {
+                this.observable.validarLogin(ilogin.getNickName(), ilogin.getPass());
+                
 //            if (instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {
 //                IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());
 //
@@ -85,7 +89,7 @@ public class CLogin extends Controlador {
 //                        unJuegoPoker.agregarPartida(nuevaPartida);
 //                        partidasDisponibles.add(nuevaPartida);
 //                    }
-//                    
+//
 //                    
 //                    if(partidasDisponibles != null){
 //                        IIngresarAPartida iip = new VPpalJugador(j, partidasDisponibles);
@@ -101,6 +105,9 @@ public class CLogin extends Controlador {
 //            } else {
 //                ilogin.setLblMensaje("Usuario y/o password incorrectos");
 //            }
+            } catch (RemoteException ex) {
+                Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
     }

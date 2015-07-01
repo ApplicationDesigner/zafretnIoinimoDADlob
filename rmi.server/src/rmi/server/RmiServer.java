@@ -6,6 +6,7 @@
 package rmi.server;
 
 import Dominio.Casino;
+import InterfazCommon.ICasino;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
@@ -25,10 +26,12 @@ public class RmiServer {
         
         try{
             if(System.getSecurityManager()==null){
-                System.setSecurityManager(new RMISecurityManager());
+                System.setSecurityManager(new SecurityManager());
             }
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            Naming.rebind("CasinoServer", Casino.getInstance());
+            
+            Casino casino = Casino.getInstance();
+            Naming.rebind("CasinoServer", casino);
             System.out.println("levantado .. esperando por peticiones");
             
         }catch(Exception e){

@@ -6,8 +6,11 @@
 package Factory;
 
 import Dominio.PartidaPoker;
-import Interfaz.IJuego;
-import Interfaz.IPartida;
+import InterfazCommon.IJuego;
+import InterfazCommon.IPartida;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +27,11 @@ public class PartidaFactory extends AbstractFactory {
     public IPartida getIPartida(String tipoPartida) {
         
         if(tipoPartida.equals("POKER")){
-            return new PartidaPoker();
+            try {
+                return (IPartida) new PartidaPoker();
+            } catch (RemoteException ex) {
+                Logger.getLogger(PartidaFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return null;

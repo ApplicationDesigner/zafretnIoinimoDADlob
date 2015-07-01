@@ -5,12 +5,12 @@
  */
 package Controlador;
 
-import Dominio.Casino;
-import Dominio.JuegoPoker;
+
+import DominioCommon.JuegoPoker;
 import InterfacesVentana.IIngresarAPartida;
 import InterfacesVentana.ITableroPoker;
-import Interfaz.IJuego;
-import Interfaz.IPartida;
+import InterfazCommon.IJuego;
+import InterfazCommon.IPartida;
 import Ventanas.VTableroPoker;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
@@ -57,9 +57,14 @@ public class CPpalJugador extends Controlador {
                     }
                     itp.setControlador(c);
 
-                    ip.agregarObserver((Observer) c);
+                    try {
+                        //TODO cambiar por el nuevo metodo
+                        // ip.agregarObserver((Observer) c);
 
-                    ij.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
+                        ij.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CPpalJugador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
             }

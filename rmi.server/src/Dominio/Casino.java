@@ -5,16 +5,19 @@
  */
 package Dominio;
 
+import DominioCommon.Jugador;
+import DominioCommon.Mensaje;
 import Factory.AbstractFactory;
 import Factory.FactoryProducer;
-import Interfaz.ICasino;
-import Interfaz.IJuego;
-import Interfaz.IJugador;
-import Interfaz.IMensaje;
-import Interfaz.IObserver;
-import Interfaz.IPartida;
+import InterfazCommon.ICasino;
+import InterfazCommon.IJuego;
+import InterfazCommon.IJugador;
+import InterfazCommon.IMensaje;
+import InterfazCommon.IObserver;
+import InterfazCommon.IPartida;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +28,7 @@ import persistencia.ManejadorBD;
  *
  * @author Sebastian
  */
-public class Casino implements ICasino {
+public class Casino extends UnicastRemoteObject implements ICasino {
 
     private static String nombre;
     private static Casino instance = null;
@@ -34,7 +37,7 @@ public class Casino implements ICasino {
     private static ArrayList<IJugador> colJugadores;
     private static ArrayList<IObserver> observadores;
 
-    public Casino() {
+    public Casino() throws RemoteException {
 
         Casino.nombre = "CASINOOBLDA";
         Casino.colJuegos = new ArrayList<>();
@@ -44,25 +47,27 @@ public class Casino implements ICasino {
 
     }
 
-    public static Casino getInstance() {
+    public static Casino getInstance() throws RemoteException {
 
         if (Casino.instance == null) {
             Casino.instance = new Casino();
-            datosPrecargados();
+            //datosPrecargados();
         }
         return Casino.instance;
     }
 
-    public ArrayList<IPartida> getColPartidas() {
+    @Override
+    public ArrayList<IPartida> getColPartidas()  throws RemoteException{
         return colPartidas;
     }
 
-    public static ArrayList<IJuego> getColJuegos() {
+    public static ArrayList<IJuego> getColJuegos()  throws RemoteException{
         return colJuegos;
     }
     
 
-    public IJuego agregarJuego(String tipoJuego) {
+    @Override
+    public IJuego agregarJuego(String tipoJuego) throws RemoteException {
         IJuego ret = null;
 
         try {
@@ -80,7 +85,7 @@ public class Casino implements ICasino {
         return ret;
     }
 
-    public IPartida agregarPartida(IJuego j, String tipoPartida) {
+    public IPartida agregarPartida(IJuego j, String tipoPartida) throws RemoteException {
         IPartida ret = null;
 
         try {
@@ -97,23 +102,27 @@ public class Casino implements ICasino {
     }
     
     
-    public float getGanancias(){
+    public float getGanancias() throws RemoteException{
         float total = 0;
-        for(IJuego j:Casino.getInstance().getColJuegos()){
-            if(j != null){
-                total+=j.getGanancias();
+        try {
+            for(IJuego j:Casino.getInstance().getColJuegos()){
+                if(j != null){
+                    total+=j.getGanancias();
+                }
             }
+        } catch (RemoteException ex) {
+            Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);
         }
         return total;
     }
 
-    @Override
-    public String toString() {
-        return Casino.nombre;
-    }
+//    @Override
+//    public String toString() {
+//        return Casino.nombre;
+//    }
 
     @Override
-    public boolean validarLogin(String nick, String pass) {
+    public boolean validarLogin(String nick, String pass)  throws RemoteException{
         boolean retorno = false;
         IJugador unJugador = this.buscarJugador(nick);
         if (unJugador != null) {
@@ -132,7 +141,7 @@ public class Casino implements ICasino {
     }
 
     @Override
-    public IJugador buscarJugador(String nick) {
+    public IJugador buscarJugador(String nick) throws RemoteException {
         
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
@@ -145,7 +154,7 @@ public class Casino implements ICasino {
 
     }
 
-    private static void datosPrecargados() {
+    private static void datosPrecargados() throws RemoteException {
 
         for (int i = 0; i < 10; i++) {
             IJugador j = new Jugador();
@@ -207,7 +216,9 @@ public class Casino implements ICasino {
             }
         }
     }
-    
+
+
+
     
     
 

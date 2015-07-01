@@ -5,7 +5,7 @@
  */
 package InterfacesVentana;
 
-import Interfaz.IJugador;
+import InterfazCommon.IJugador;
 
 /**
  *

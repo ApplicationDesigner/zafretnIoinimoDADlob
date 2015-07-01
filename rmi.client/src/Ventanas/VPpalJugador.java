@@ -7,8 +7,9 @@ package Ventanas;
 
 import Controlador.Controlador;
 import InterfacesVentana.IIngresarAPartida;
-import Interfaz.IJugador;
-import Interfaz.IPartida;
+import InterfazCommon.IJugador;
+import InterfazCommon.IPartida;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 
@@ -31,7 +32,7 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
 //        iniciarComponentes();      
 //    }
     
-    public VPpalJugador(IJugador j,ArrayList<IPartida> listaPartidas) {
+    public VPpalJugador(IJugador j,ArrayList<IPartida> listaPartidas) throws RemoteException {
         this.jugador = j;
         this.listaPartidas = listaPartidas;
         iniciarComponentes();      
@@ -149,7 +150,7 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
         return this.jugador;
     }
     
-    private void cargarComboPartidas(ArrayList<IPartida> listaPartidas){
+    private void cargarComboPartidas(ArrayList<IPartida> listaPartidas) throws RemoteException{
         for(IPartida p : listaPartidas){
             jcbSeleccionarPartidas.addItem(new JPTableroPokerComboItem("Partida " + p.getNumero(), p.getNumero()));
         }

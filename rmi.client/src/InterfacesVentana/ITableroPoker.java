@@ -5,9 +5,9 @@
  */
 package InterfacesVentana;
 
-import Interfaz.IJugador;
-import Interfaz.IMano;
-import Interfaz.IPartida;
+import InterfazCommon.IJugador;
+import InterfazCommon.IMano;
+import InterfazCommon.IPartida;
 import java.util.ArrayList;
 
 /**

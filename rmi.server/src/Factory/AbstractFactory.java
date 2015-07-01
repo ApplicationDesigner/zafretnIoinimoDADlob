@@ -5,8 +5,8 @@
  */
 package Factory;
 
-import Interfaz.IJuego;
-import Interfaz.IPartida;
+import InterfazCommon.IJuego;
+import InterfazCommon.IPartida;
 
 /**
  *
