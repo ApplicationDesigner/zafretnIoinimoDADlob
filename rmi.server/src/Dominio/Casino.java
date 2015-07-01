@@ -51,20 +51,19 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 
         if (Casino.instance == null) {
             Casino.instance = new Casino();
-            //datosPrecargados();
+            datosPrecargados();
         }
         return Casino.instance;
     }
 
     @Override
-    public ArrayList<IPartida> getColPartidas()  throws RemoteException{
+    public ArrayList<IPartida> getColPartidas() throws RemoteException {
         return colPartidas;
     }
 
-    public static ArrayList<IJuego> getColJuegos()  throws RemoteException{
+    public static ArrayList<IJuego> getColJuegos() throws RemoteException {
         return colJuegos;
     }
-    
 
     @Override
     public IJuego agregarJuego(String tipoJuego) throws RemoteException {
@@ -100,14 +99,13 @@ public class Casino extends UnicastRemoteObject implements ICasino {
         }
         return ret;
     }
-    
-    
-    public float getGanancias() throws RemoteException{
+
+    public float getGanancias() throws RemoteException {
         float total = 0;
         try {
-            for(IJuego j:Casino.getInstance().getColJuegos()){
-                if(j != null){
-                    total+=j.getGanancias();
+            for (IJuego j : Casino.getInstance().getColJuegos()) {
+                if (j != null) {
+                    total += j.getGanancias();
                 }
             }
         } catch (RemoteException ex) {
@@ -120,21 +118,21 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 //    public String toString() {
 //        return Casino.nombre;
 //    }
-
     @Override
-    public boolean validarLogin(String nick, String pass)  throws RemoteException{
+    public boolean validarLogin(String nick, String pass) throws RemoteException {
         boolean retorno = false;
         IJugador unJugador = this.buscarJugador(nick);
         if (unJugador != null) {
             if (unJugador.getPassword().equals(pass)) {
-                
-                try {
-                    this.notificarAccion("LOGINOK", unJugador);
-                     retorno = true;
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);
-                    retorno = false;
-                }               
+
+                retorno = true;
+//                try {
+//                    this.notificarAccion("LOGINOK", unJugador);
+//                     retorno = true;
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);
+//                    retorno = false;
+//                }               
             }
         }
         return retorno;
@@ -142,15 +140,21 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 
     @Override
     public IJugador buscarJugador(String nick) throws RemoteException {
-        
-        ManejadorBD bd = ManejadorBD.getInstancia();
-        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        
-        IJugador j = null;
-        j.setNickName(nick);
-        System.out.println(bd.obtenerTodos(new JugadorPersistente(null)));
-        
-        return j;
+
+//        ManejadorBD bd = ManejadorBD.getInstancia();
+//        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+//        
+//        IJugador j = null;
+//        j.setNickName(nick);
+//        System.out.println(bd.obtenerTodos(new JugadorPersistente(null)));
+//        
+//        return j;
+        for (IJugador j : Casino.colJugadores) {
+            if (j.getNickName().equals(nick)) {
+                return j;
+            }
+        }
+        return null;
 
     }
 
@@ -184,16 +188,16 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 
     @Override
     public void notificarAccion(String accion, Object obj) throws RemoteException {
-        
+
         IMensaje unMensaje = (IMensaje) new Mensaje();
         unMensaje.setAccion(accion);
         unMensaje.setValor(obj);
 //        this.setChanged();
 //        this.notifyObservers(unMensaje);
-        
+
         this.Notify(unMensaje);
     }
-    
+
     @Override
     public void Add(IObserver obs) throws RemoteException {
         this.observadores.add(obs);
@@ -216,10 +220,5 @@ public class Casino extends UnicastRemoteObject implements ICasino {
             }
         }
     }
-
-
-
-    
-    
 
 }

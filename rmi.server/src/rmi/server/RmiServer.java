@@ -30,7 +30,7 @@ public class RmiServer {
             }
             LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             
-            Casino casino = Casino.getInstance();
+            ICasino casino = Casino.getInstance();
             Naming.rebind("CasinoServer", casino);
             System.out.println("levantado .. esperando por peticiones");
             
