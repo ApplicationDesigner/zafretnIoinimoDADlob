@@ -56,6 +56,11 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
 
         btnIngresarPartida.setText("Ingresar");
         btnIngresarPartida.setActionCommand("IIngresarAPartida");
+        btnIngresarPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarPartidaActionPerformed(evt);
+            }
+        });
 
         lblSeleccionarPartida.setText("Seleccionar partida:");
 
@@ -85,6 +90,10 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPartidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarPartidaActionPerformed
 
     /**
      * @param args the command line arguments

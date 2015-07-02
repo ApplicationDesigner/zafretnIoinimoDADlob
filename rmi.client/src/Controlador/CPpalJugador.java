@@ -13,6 +13,7 @@ import InterfazCommon.IJuego;
 import InterfazCommon.IPartida;
 import Ventanas.VTableroPoker;
 import java.awt.event.ActionEvent;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -27,6 +28,8 @@ import java.util.logging.Logger;
 public class CPpalJugador extends Controlador {
 
     private final IIngresarAPartida iip;
+    private IPartida observable;
+
 
     public CPpalJugador(IIngresarAPartida iip)  throws RemoteException {
         this.iip = iip;
@@ -44,6 +47,15 @@ public class CPpalJugador extends Controlador {
                 IPartida ip = ij.buscarPartida(opcion);
                 
                 if(ip != null){
+                    
+                    try {
+                        String partidaID = "Partida" + Integer.toString(ip.getNumero());
+                        
+                        this.conectar(partidaID);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CPpalJugador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     //Al iniciar saldo = saldo inicial            
                     this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
 
@@ -71,6 +83,23 @@ public class CPpalJugador extends Controlador {
         }
     }
 
+    public boolean conectar(String partidaID) {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            this.observable = (IPartida) Naming.lookup(partidaID);
+            this.observable.Add(this);
+            System.out.println("Me conecte...");
+        } catch (Exception ex) {
+            System.out.println("No me conecte...");
+            return false;
+
+        }
+        return true;
+    }
+    
+    
     public void update(Observable o, Object o1
     ) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

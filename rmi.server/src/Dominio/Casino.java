@@ -16,9 +16,13 @@ import InterfazCommon.IMensaje;
 import InterfazCommon.IObserver;
 import InterfazCommon.IPartida;
 import java.io.Serializable;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.JugadorPersistente;
@@ -94,6 +98,29 @@ public class Casino extends UnicastRemoteObject implements ICasino {
             Casino.colPartidas.add(p);
             j.agregarPartida(p);
             ret = p;
+
+            try {
+                if (System.getSecurityManager() == null) {
+                    System.setSecurityManager(new SecurityManager());
+                }
+                
+                 Random rand = new Random();
+
+                 // nextInt is normally exclusive of the top value,
+                // so add 1 to make it inclusive
+                int randomNum = rand.nextInt((15900 - 11900) + 1) + 11900;
+                
+                System.out.println("el puerto random es: " + randomNum);
+                LocateRegistry.createRegistry(randomNum);
+
+                String partidaID = "Partida" + Integer.toString(p.getNumero());
+                Naming.rebind(partidaID, p);
+                System.out.println("levantado partida " + partidaID + ".. esperando por peticiones");
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
         } catch (Exception e) {
 
         }
