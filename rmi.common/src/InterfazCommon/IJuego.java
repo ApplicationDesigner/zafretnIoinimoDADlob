@@ -1,6 +1,7 @@
 package InterfazCommon;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /*
@@ -12,32 +13,32 @@ import java.util.ArrayList;
  *
  * @author Sebastian
  */
-public interface IJuego  extends Serializable {
+public interface IJuego  extends IObservable {
 
-    public abstract ArrayList<IPartida> getColPartidas();
+    public abstract ArrayList<IPartida> getColPartidas()  throws RemoteException ;
 
-    public abstract void setColPartidas(ArrayList<IPartida> colPartidas);
+    public abstract void setColPartidas(ArrayList<IPartida> colPartidas)  throws RemoteException ;
 
-    public abstract String getNombre();
+    public abstract String getNombre()  throws RemoteException ;
 
-    public abstract void setNombre(String nombre);
+    public abstract void setNombre(String nombre)  throws RemoteException ;
 
-    public abstract int getNumero();
+    public abstract int getNumero()  throws RemoteException ;
 
-    public abstract void setNumero(int numero);
+    public abstract void setNumero(int numero) throws RemoteException ;
 
-    public abstract float getGanancias();
+    public abstract float getGanancias() throws RemoteException ;
 
-    public abstract void setGanancias(float ganancias);
+    public abstract void setGanancias(float ganancias) throws RemoteException ;
 
-    public abstract IPartida buscarPartida(int numero);
+    public abstract IPartida buscarPartida(int numero) throws RemoteException ;
 
-    public abstract void agregarPartida(IPartida p);
+    public abstract void agregarPartida(IPartida p) throws RemoteException ;
 
-    public abstract void ingresarJugadorAPartida(int nroPartida, IJugador j);
+    public abstract void ingresarJugadorAPartida(int nroPartida, IJugador j) throws RemoteException ;
 
-    public abstract void sumarGanancias(float monto);
+    public abstract void sumarGanancias(float monto) throws RemoteException ;
     
-    @Override
-    public abstract String toString();
+//    @Override
+//    public abstract String toString();
 }

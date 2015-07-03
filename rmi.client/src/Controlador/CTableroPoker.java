@@ -7,13 +7,13 @@ package Controlador;
 
 import Configuraciones.Constantes;
 import DominioCommon.Carta;
-import DominioCommon.JuegoPoker;
 import DominioCommon.Mano;
 import DominioCommon.Mensaje;
 import InterfacesVentana.ITableroPoker;
 import InterfazCommon.IJuego;
 import InterfazCommon.IMano;
 import java.awt.event.ActionEvent;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,8 +29,9 @@ public class CTableroPoker extends Controlador {
 
     private final ITableroPoker itp;
     private float montoApostado;
+    private IJuego juegoPoker;
 
-    CTableroPoker(ITableroPoker itp)  throws RemoteException {
+    CTableroPoker(ITableroPoker itp) throws RemoteException {
         this.itp = itp;
         this.montoApostado = 0;
     }
@@ -71,60 +72,59 @@ public class CTableroPoker extends Controlador {
 
                 if (saldoJugador > this.montoApostado) {
 
-            try {
-                itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        itp.getPartida().accionJugador(itp.getJugador(), "PAGAR", this.montoApostado);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
-                     itp.escribirLog("Sin saldo disponible.\n");
-                     itp.mostrarMensaje("Sin saldo disponible.");
+                    itp.escribirLog("Sin saldo disponible.\n");
+                    itp.mostrarMensaje("Sin saldo disponible.");
                 }
                 break;
 
             case "btnPasar":
 
                 System.out.println("El jugador " + itp.getJugador().getNickName() + " pasa");
-        {
-            try {
-                itp.getPartida().accionJugador(itp.getJugador(), "PASAR", 0f);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+                 {
+                    try {
+                        itp.getPartida().accionJugador(itp.getJugador(), "PASAR", 0f);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
                 break;
 
-            case "btnRetirarme":
-        {
-            try {
-                itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0f);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+            case "btnRetirarme": {
+                try {
+                    itp.getPartida().accionJugador(itp.getJugador(), "RETIRARSE", 0f);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-                itp.deshabilitarPanel();
-                break;
+            itp.deshabilitarPanel();
+            break;
 
             case "Pedir_Cartas":
                 itp.limpiarCampos();
                 IMano unaMano = null;
-        try {
-            unaMano = itp.getPartida().buscarMano(itp.getJugador());
-        } catch (RemoteException ex) {
-            Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                try {
+                    unaMano = itp.getPartida().buscarMano(itp.getJugador());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ArrayList<String> ubicacionEnMesa = itp.getBotonesDeCartasSeleccionadas();
                 ArrayList indices = new ArrayList<>();
 
                 unaMano.getColCartas().stream().filter((unaCarta) -> (unaCarta.getActiva() == false)).forEach((unaCarta) -> {
 //TODO descomentar y arreglar                 
-//  indices.add(unaMano.getColCartas().indexOf(unaCarta));
-        });
-                if(indices.size() > 4){
+  //indices.add(unaMano.getColCartas().indexOf(unaCarta));
+                });
+                if (indices.size() > 4) {
                     itp.mostrarMensaje("Puede cambiar hasta 4 cartas!");
-                }else{
-                
+                } else {
+
                     Iterator<Carta> i = unaMano.getColCartas().iterator();
                     while (i.hasNext()) {
                         Carta c = i.next();
@@ -133,22 +133,22 @@ public class CTableroPoker extends Controlador {
                         }
                     }
 
-            try {
-                itp.getPartida().reponerCartas(unaMano, indices);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        itp.getPartida().reponerCartas(unaMano, indices);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     itp.mostrarMano(unaMano);
                     itp.habilitarBotonPedirCartas(false);
 
                     String log = "Haz descartado " + indices.size() + " cartas\n";
                     itp.escribirLog(log);
-            try {
-                itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
-                //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        itp.getPartida().accionJugador(itp.getJugador(), "DESCARTO", 0f);
+                        //itp.getPartida().accionJugador(itp.getJugador(), log, 0F);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 break;
 
@@ -163,13 +163,19 @@ public class CTableroPoker extends Controlador {
                 System.out.println("La comision es: " + comision);
 
                 if (gananciasJugador > 0) {
-                    IJuego ij = JuegoPoker.getInstance();
-                    comision = gananciasJugador * Constantes.getPorcentajeGanancias();
-                    ij.sumarGanancias(comision);
+                    
+                    if(this.conectarJuegoPoker()) {
+                        comision = gananciasJugador * Constantes.getPorcentajeGanancias();
+                        try {
+                            this.juegoPoker.sumarGanancias(comision);
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
-                    System.out.println("Las ganancias del JuegoP");
-                    //saldoInicial = saldo - comision
-                    itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo() - comision);
+                        System.out.println("Las ganancias del JuegoP");
+                        //saldoInicial = saldo - comision
+                        itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo() - comision);
+                    }
                 } else {
                     //saldoInicial = saldo
                     itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
@@ -180,34 +186,33 @@ public class CTableroPoker extends Controlador {
                 itp.habilitarBotonAbandonarPartidaNO(false);
                 itp.habilitarBotonAbandonarPartidaSI(false);
 
-        {
-            try {
-                itp.getPartida().Remove(this);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+                 {
+                    try {
+                        itp.getPartida().Remove(this);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 break;
 
-            case "btnAbandonarPartidaNO":
-        {
-            try {
-                itp.getPartida().ingresarJugador(itp.getJugador());
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+            case "btnAbandonarPartidaNO": {
+                try {
+                    itp.getPartida().ingresarJugador(itp.getJugador());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        {
-            try {
-                itp.getPartida().accionJugador(itp.getJugador(), "CONTINUA", 0f);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+             {
+                try {
+                    itp.getPartida().accionJugador(itp.getJugador(), "CONTINUA", 0f);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
 
-                itp.habilitarBotonAbandonarPartidaNO(false);
-                itp.habilitarBotonAbandonarPartidaSI(false);
-                break;
+            itp.habilitarBotonAbandonarPartidaNO(false);
+            itp.habilitarBotonAbandonarPartidaSI(false);
+            break;
 
             default:
 
@@ -421,6 +426,22 @@ public class CTableroPoker extends Controlador {
 
     private void mostrarMontoPozo(String montoPozo) {
         itp.mostrarPozo(montoPozo);
+    }
+
+    public boolean conectarJuegoPoker() {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            this.juegoPoker = (IJuego) Naming.lookup("JuegoPokerServer");
+            this.juegoPoker.Add(this);
+            System.out.println("Me conecte al juego...");
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return false;
+
+        }
+        return true;
     }
 
 }

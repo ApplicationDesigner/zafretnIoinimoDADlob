@@ -10,6 +10,7 @@ import InterfacesVentana.ITableroPoker;
 import InterfazCommon.IJugador;
 import InterfazCommon.IMano;
 import InterfazCommon.IPartida;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -232,7 +233,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public void RecibirMensaje(ArrayList<String> mensaje) {
+    public void RecibirMensaje(Serializable mesaje) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

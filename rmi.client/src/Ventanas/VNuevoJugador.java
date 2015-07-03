@@ -7,6 +7,7 @@ package Ventanas;
 
 import Controlador.Controlador;
 import InterfacesVentana.INuevoJugador;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -126,7 +127,7 @@ public final class VNuevoJugador extends javax.swing.JFrame implements INuevoJug
     }
 
     @Override
-    public void RecibirMensaje(ArrayList<String> mensaje) {
+    public void RecibirMensaje(Serializable mesaje) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

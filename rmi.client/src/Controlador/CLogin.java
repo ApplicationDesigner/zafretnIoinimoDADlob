@@ -8,11 +8,9 @@ package Controlador;
 import InterfacesVentana.ILogin;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Observable;
 import InterfazCommon.IJugador;
 import InterfazCommon.ICasino;
 import java.rmi.RemoteException;
-import DominioCommon.JuegoPoker;
 import InterfacesVentana.IIngresarAPartida;
 import InterfazCommon.IJuego;
 import InterfazCommon.IMensaje;
@@ -20,7 +18,6 @@ import InterfazCommon.IPartida;
 import Ventanas.VPpalJugador;
 import java.io.Serializable;
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +29,7 @@ public class CLogin extends Controlador {
 
     private final ILogin ilogin;
     private ICasino observable;
+    private IJuego juegoPoker;
     private String nickIngresado;
 
     public CLogin(ILogin ilogin) throws RemoteException {
@@ -49,7 +47,23 @@ public class CLogin extends Controlador {
             this.observable.Add(this);
             System.out.println("Me conecte...");
         } catch (Exception ex) {
-            System.out.println("No me conecte...");
+            System.err.println(ex.getMessage());
+            return false;
+
+        }
+        return true;
+    }
+
+    public boolean conectarJuegoPoker() {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        try {
+            this.juegoPoker = (IJuego) Naming.lookup("JuegoPokerServer");
+            this.juegoPoker.Add(this);
+            System.out.println("Me conecte al juego...");
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
             return false;
 
         }
@@ -67,10 +81,10 @@ public class CLogin extends Controlador {
             try {
                 if (instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {
                     IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());
-                    
+
                     if (j != null) {
                         System.out.println("Logueando a ventana principal del jugador...");
-                        
+
                         ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
                         //Muestro solo las partidas que no estan completas
                         for (IPartida p : this.observable.getColPartidas()) {
@@ -80,38 +94,46 @@ public class CLogin extends Controlador {
                         }
                         //En caso de que esten todas las partidas ocupadas, creo una nueva y la agrego como disponible
                         if (partidasDisponibles.size() < 1) {
-                            IJuego unJuegoPoker = JuegoPoker.getInstance();
-                            IPartida nuevaPartida = null;
-                            try {
-                                nuevaPartida = this.observable.agregarPartida(unJuegoPoker, "POKER");
-                            } catch (RemoteException ex) {
-                                Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
+
+                            if (this.conectarJuegoPoker()) {
+                                IPartida nuevaPartida = null;
+                                try {
+                                    nuevaPartida = this.observable.agregarPartida(this.juegoPoker, "POKER");
+                                } catch (RemoteException ex) {
+                                    System.err.println(ex.getMessage());
+                                }
+                                this.juegoPoker.agregarPartida(nuevaPartida);
+                                partidasDisponibles.add(nuevaPartida);
+                            } else {
+                                System.out.println("No me pude conectar al JuegoPoker");
                             }
-                            unJuegoPoker.agregarPartida(nuevaPartida);
-                            partidasDisponibles.add(nuevaPartida);
+
                         }
-                        
+
                         if (partidasDisponibles != null) {
                             IIngresarAPartida iip = null;
                             try {
                                 iip = new VPpalJugador(j, partidasDisponibles);
+
+                                Controlador c = null;
+                                try {
+                                    c = new CPpalJugador(iip);
+                                    iip.setControlador(c);
+                                } catch (RemoteException ex) {
+                                    System.err.println(ex.getMessage());
+                                }
                             } catch (RemoteException ex) {
+                                System.err.println(ex.getMessage());
                                 Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            Controlador c = null;
-                            try {
-                                c = new CPpalJugador(iip);
-                            } catch (RemoteException ex) {
-                                Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            iip.setControlador(c);
+
                         }
                     }
                 } else {
                     ilogin.setLblMensaje("Usuario y/o password incorrectos");
                 }
             } catch (RemoteException ex) {
-                Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
             }
 
         }

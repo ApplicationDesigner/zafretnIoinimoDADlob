@@ -5,9 +5,12 @@
  */
 package Factory;
 
-import DominioCommon.JuegoPoker;
+import Dominio.JuegoPoker;
 import InterfazCommon.IJuego;
 import InterfazCommon.IPartida;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +22,14 @@ public class JuegoFactory extends AbstractFactory{
     public IJuego getIJuego(String tipoJuego) {
         
         if(tipoJuego.equals("POKER")) {
-            return JuegoPoker.getInstance();
+            
+            IJuego j = null;
+            try {
+                j = JuegoPoker.getInstance();
+            } catch (RemoteException ex) {
+                Logger.getLogger(JuegoFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return j;
         }
         
         return null;

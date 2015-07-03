@@ -9,6 +9,7 @@ import Controlador.Controlador;
 import InterfacesVentana.IIngresarAPartida;
 import InterfazCommon.IJugador;
 import InterfazCommon.IPartida;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -179,7 +180,7 @@ public final class VPpalJugador extends javax.swing.JFrame implements IIngresarA
     }
 
     @Override
-    public void RecibirMensaje(ArrayList<String> mensaje) {
+    public void RecibirMensaje(Serializable mesaje) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

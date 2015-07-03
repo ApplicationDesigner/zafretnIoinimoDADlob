@@ -62,7 +62,7 @@ public interface IPartida extends IObservable {
     //@Override
    // public abstract String toString() throws RemoteException ;
 
-    public void SendMessage(String mensaje) throws RemoteException;
+//    public void SendMessage(Object obj) throws RemoteException;
 
     
 

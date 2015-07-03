@@ -5,11 +5,13 @@
  */
 package DominioCommon;
 
+import InterfazCommon.IMensaje;
+
 /**
  *
  * @author Marcelo
  */
-public class Mensaje {
+public class Mensaje implements IMensaje {
     private String accion;
     private Object valor;
 

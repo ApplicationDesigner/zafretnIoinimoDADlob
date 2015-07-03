@@ -7,6 +7,7 @@
 package InterfacesVentana;
 
 import Controlador.Controlador;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public interface IVentana {
     
     public String getMensaje();
-    public void RecibirMensaje(ArrayList<String> mensaje);
+    public void RecibirMensaje(Serializable mesaje);
     
     public void SetControlador(Controlador controller);
     public void iniciarComponentes();

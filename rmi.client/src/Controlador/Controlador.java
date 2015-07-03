@@ -8,6 +8,7 @@ package Controlador;
 
 
 import InterfacesVentana.IVentana;
+import InterfazCommon.IMensaje;
 import InterfazCommon.IObserver;
 import InterfazCommon.IPartida;
 
@@ -71,11 +72,11 @@ public class Controlador extends UnicastRemoteObject implements ActionListener, 
         if (e.getActionCommand().equals("ENVIARMENSAJE")) {
             
             String mensaje = this.ventanaActual.getMensaje();
-            try {
-                this.observable.SendMessage(mensaje);
-            } catch (RemoteException ex) {
-                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                this.observable.SendMessage(mensaje);
+//            } catch (RemoteException ex) {
+//                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
                 
     }
@@ -83,9 +84,10 @@ public class Controlador extends UnicastRemoteObject implements ActionListener, 
     @Override
     public void Update(Serializable obj) throws RemoteException {
         
-        ArrayList<String> aux = (ArrayList<String>)obj;
+       // ArrayList<String> aux = (ArrayList<String>)obj;
         
-        this.ventanaActual.RecibirMensaje(aux);
+        
+        this.ventanaActual.RecibirMensaje(obj);
     }
     
 }

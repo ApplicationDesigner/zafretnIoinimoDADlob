@@ -27,10 +27,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.JugadorPersistente;
 import persistencia.ManejadorBD;
-import persistencia.PartidaPersistente;
 
 /**
- *
+ 
  * @author Sebastian
  */
 public class Casino extends UnicastRemoteObject implements ICasino {
@@ -82,6 +81,29 @@ public class Casino extends UnicastRemoteObject implements ICasino {
             j.setNumero(Casino.colJuegos.size() + 1);
             Casino.colJuegos.add(j);
             ret = j;
+
+            try {
+                if (System.getSecurityManager() == null) {
+                    System.setSecurityManager(new SecurityManager());
+                }
+                
+                Random rand = new Random();
+
+                // nextInt is normally exclusive of the top value,
+                // so add 1 to make it inclusive
+                int randomNum = rand.nextInt((15900 - 11900) + 1) + 11900;
+                
+                System.out.println("Random port para JuegoPoker" + randomNum);
+                LocateRegistry.createRegistry(Registry.REGISTRY_PORT + 1);
+
+               
+                Naming.rebind("JuegoPokerServer", j);
+                System.out.println("levantado juego.. esperando por peticiones");
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
         } catch (Exception e) {
 
         }
@@ -104,18 +126,18 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                 if (System.getSecurityManager() == null) {
                     System.setSecurityManager(new SecurityManager());
                 }
-                
-                 Random rand = new Random();
 
-                 // nextInt is normally exclusive of the top value,
+                Random rand = new Random();
+
+                // nextInt is normally exclusive of the top value,
                 // so add 1 to make it inclusive
                 int randomNum = rand.nextInt((15900 - 11900) + 1) + 11900;
-                
+
                 System.out.println("el puerto random es: " + randomNum);
-                LocateRegistry.createRegistry(randomNum);
+                LocateRegistry.createRegistry(Registry.REGISTRY_PORT + 5);
 
                 String partidaID = "Partida" + Integer.toString(p.getNumero());
-                Naming.rebind(partidaID, p);
+                Naming.rebind("PARTIDA1", p);
                 System.out.println("levantado partida " + partidaID + ".. esperando por peticiones");
 
             } catch (Exception e) {
@@ -207,11 +229,11 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 
         j1.agregarPartida(p1);
 
-        IPartida p2;
-        p2 = Casino.instance.agregarPartida(j1, "POKER");
-        System.out.println(p2.toString());
-
-        j1.agregarPartida(p2);
+//        IPartida p2;
+//        p2 = Casino.instance.agregarPartida(j1, "POKER");
+//        System.out.println(p2.toString());
+//
+//        j1.agregarPartida(p2);
     }
 
     @Override
@@ -249,20 +271,4 @@ public class Casino extends UnicastRemoteObject implements ICasino {
         }
     }
 
-    @Override
-    public ArrayList<IPartida> getHistoricoPartidas() throws RemoteException {
-        
-        ManejadorBD bd = ManejadorBD.getInstancia();
-        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        return bd.obtenerTodos(new PartidaPersistente(null));
-    }
-
-    @Override
-    public float getHistoricoGanancias() throws RemoteException {
-        ManejadorBD bd = ManejadorBD.getInstancia();
-        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        bd.obtenerResultSet("SELECT SUM(total_apostado) FROM partida");
-        //TODO: hacer consulta para obtener los montos de las partidas SUM(total_apostado)
-        return 0;
-    }
 }

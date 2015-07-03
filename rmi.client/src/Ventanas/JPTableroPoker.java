@@ -7,12 +7,12 @@ package Ventanas;
 
 import Controlador.Controlador;
 import DominioCommon.Carta;
-import DominioCommon.JuegoPoker;
 import InterfacesVentana.ITableroPoker;
 import InterfazCommon.IJuego;
 import InterfazCommon.IJugador;
 import InterfazCommon.IMano;
 import InterfazCommon.IPartida;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -437,13 +437,16 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
         btnCarta5.setActionCommand("btnCarta5");
 
-        IJuego ij = JuegoPoker.getInstance();
+        //TODO implementar con conectarJuegoPoker o sino cambiar por otro metodo
+        //IJuego ij = JuegoPoker.getInstance();
         IPartida ip = null;
-        try {
-            ip = ij.buscarPartida(this.partida.getNumero());
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        //TODO implementar con conectarJuegoPoker o sino cambiar por otro metodo
+//        try {
+//            //ip = ij.buscarPartida(this.partida.getNumero());
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
             this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
         } catch (RemoteException ex) {
@@ -593,7 +596,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }
 
     @Override
-    public void RecibirMensaje(ArrayList<String> mensaje) {
+    public void RecibirMensaje(Serializable mesaje) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

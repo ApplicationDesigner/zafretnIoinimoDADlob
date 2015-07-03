@@ -19,6 +19,7 @@ import DominioCommon.Mano;
 import DominioCommon.Mazo;
 import DominioCommon.Mensaje;
 import DominioCommon.OrdenarManos;
+import InterfazCommon.IMensaje;
 import InterfazCommon.IObserver;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -38,6 +39,8 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
     private int contadorAcciones;
     private int contarDescartes;
+    
+    ArrayList<IObserver> observadores;
 
     public PartidaPoker() throws RemoteException {
         this.numero = 0;
@@ -47,6 +50,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         this.contadorAcciones = 0;
         this.contarDescartes = 0;
         this.duracion = 0;
+        this.observadores = new ArrayList<>();
     }
 
     public PartidaPoker(int numero, float pozo)  throws RemoteException{
@@ -175,13 +179,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         }
     }
 
-    private void notificarAccion(String accion, Object obj)  throws RemoteException {
-        Mensaje unMensaje = new Mensaje();
-        unMensaje.setAccion(accion);
-        unMensaje.setValor(obj);
-//        this.setChanged();
-//        this.notifyObservers(unMensaje);
-    }
+
 
     @Override
     public void jugadorAposto(IJugador unJugador)  throws RemoteException {
@@ -297,8 +295,8 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
         }
 
-        //TODO Cambiar por lo que usamosa ahora
-       // if (this.contadorAcciones == this.countObservers()) {
+        
+       if (this.contadorAcciones == observadores.size()) {
 
             if (this.colManos.size() != 1) {
 
@@ -314,6 +312,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                 mostrarGanador();
             }
         }
+    }
 
     private void mostrarGanador() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -328,24 +327,47 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void SendMessage(String mensaje) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public void SendMessage(Object obj) throws RemoteException {
+//        IMensaje unMensaje = (IMensaje) new Mensaje();
+//        unMensaje.setAccion(accion);
+//        unMensaje.setValor(obj);
+//        
+//        this.Notify(unMensaje);
+//    }
 
+    private void notificarAccion(String accion, Object obj)  throws RemoteException {
+        IMensaje unMensaje = new Mensaje();
+        unMensaje.setAccion(accion);
+        unMensaje.setValor(obj);
+        
+        this.Notify(unMensaje);
+//        this.setChanged();
+//        this.notifyObservers(unMensaje);
+    }
+        
     @Override
     public void Add(IObserver obs) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.observadores.add(obs);
+        System.out.println("Cantidad de observadores: " + this.observadores.size());
     }
 
     @Override
     public void Remove(IObserver obs) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.observadores.remove(obs);
     }
 
     @Override
     public void Notify(Serializable param) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IObserver> tmp = new ArrayList(observadores);
+        for(IObserver obs:tmp){
+            try {
+                obs.Update(param);
+            } catch (RemoteException ex) {
+                //perdi la conexion
+                observadores.remove(obs);
+            }
+        }
     }
 
  

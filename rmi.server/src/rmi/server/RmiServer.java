@@ -32,32 +32,10 @@ public class RmiServer {
             
             ICasino casino = Casino.getInstance();
             Naming.rebind("CasinoServer", casino);
-            System.out.println("levantado .. esperando por peticiones");
+            System.out.println("levantado Casino.. esperando por peticiones");
             
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
         }
-//        
-//        System.out.print("Inicializando servidor...");
-//         
-//        if (System.getSecurityManager() == null) {
-//            System.setSecurityManager(new RMISecurityManager());
-//        }
-//               
-//        String name = "//127.0.0.1/StringServer";
-//        
-//        try {
-//        	
-//            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-//            //IStringUtils server = new StringUtilsImpl();
-//            //Naming.rebind(name, server);
-//            System.out.println("OK");
-//            
-//        } catch (Exception e) {
-//            System.err.println("Server Exception: " +  e.getMessage());
-//            e.printStackTrace();
-//            
-//        }
     }
-    
 }

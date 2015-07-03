@@ -7,6 +7,7 @@ package Ventanas;
 
 import InterfacesVentana.ILogin;
 import Controlador.Controlador;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -129,7 +130,7 @@ public final class JPLogin extends javax.swing.JPanel implements ILogin {
     }
 
     @Override
-    public void RecibirMensaje(ArrayList<String> mensaje) {
+    public void RecibirMensaje(Serializable mesaje) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
