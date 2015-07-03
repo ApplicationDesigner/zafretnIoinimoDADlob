@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.JugadorPersistente;
 import persistencia.ManejadorBD;
+import persistencia.PartidaPersistente;
 
 /**
  
@@ -269,6 +270,23 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                 observadores.remove(obs);
             }
         }
+    }
+    
+    @Override
+    public ArrayList<IPartida> getHistoricoPartidas() throws RemoteException {
+        
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        return bd.obtenerTodos(new PartidaPersistente(null));
+    }
+    
+    @Override
+    public float getHistoricoGanancias() throws RemoteException {
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        bd.obtenerResultSet("SELECT SUM(total_apostado) FROM partida");
+        //TODO: hacer consulta para obtener los montos de las partidas SUM(total_apostado)
+        return 0;
     }
 
 }

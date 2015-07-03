@@ -27,5 +27,8 @@ public interface ICasino extends IObservable {
     //@Override
     //public abstract String toString();
     public void notificarAccion(String accion, Object obj) throws RemoteException;
-            
+    
+    
+    public ArrayList<IPartida> getHistoricoPartidas() throws RemoteException;
+    public float getHistoricoGanancias() throws RemoteException;
 }
