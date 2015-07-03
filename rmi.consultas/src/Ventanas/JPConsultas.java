@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author Sebastian
@@ -24,7 +23,7 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
      * Creates new form JPLogin
      */
     public JPConsultas() {
-        
+
         iniciarComponentes();
     }
 
@@ -42,7 +41,7 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
         lblGanancias = new javax.swing.JLabel();
         btnHistoricoPartidas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtaHistoricoPartidas = new javax.swing.JTextArea();
+        jtaHistorial = new javax.swing.JTextArea();
 
         btnGanancias.setText("Ver Ganancias");
         btnGanancias.setActionCommand("VerGanancias");
@@ -57,9 +56,9 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
         btnHistoricoPartidas.setText("Historico Partidas");
         btnHistoricoPartidas.setActionCommand("HistoricoPartidas");
 
-        jtaHistoricoPartidas.setColumns(20);
-        jtaHistoricoPartidas.setRows(5);
-        jScrollPane1.setViewportView(jtaHistoricoPartidas);
+        jtaHistorial.setColumns(20);
+        jtaHistorial.setRows(5);
+        jScrollPane1.setViewportView(jtaHistorial);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -68,15 +67,16 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnHistoricoPartidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGanancias, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblGanancias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(lblGanancias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,11 +104,10 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
     private javax.swing.JButton btnGanancias;
     private javax.swing.JButton btnHistoricoPartidas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jtaHistoricoPartidas;
+    private javax.swing.JTextArea jtaHistorial;
     private javax.swing.JLabel lblGanancias;
     private javax.swing.JLabel lblMensaje;
     // End of variables declaration//GEN-END:variables
-
 
     @Override
     public void setControlador(Controlador c) {
@@ -118,7 +117,7 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
 
     @Override
     public void iniciarComponentes() {
-                
+
         this.setVisible(true);
         this.setSize(500, 500);
         initComponents();
@@ -135,18 +134,16 @@ public final class JPConsultas extends javax.swing.JPanel implements IConsultas 
     }
 
     @Override
-    public void setHistoricoPartidas(ArrayList<IPartida> listaPartidas) {
-       //this.jtaHistoricoPartidas.setText(listaPartidas.toString());
-        String cadena = "";
-        for(IPartida ip : listaPartidas){
-            try {
-                cadena = "Partida Nro: " + ip.getNumero() + ", Pozo: " + ip.getPozo();
-                this.jtaHistoricoPartidas.append(cadena);
-            } catch (RemoteException ex) {
-                Logger.getLogger(JPConsultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public void setHistoricoPartidas(ArrayList<String> listaPartidas) {
+        for(int i = 0; i < listaPartidas.size(); i++){
+            System.out.println(listaPartidas.get(i));
+            this.jtaHistorial.append(listaPartidas.get(i) + "\r\n");
         }
-    
+    }
+
+    @Override
+    public void limpiarCampos() {
+        this.jtaHistorial.setText("");
     }
 
 }

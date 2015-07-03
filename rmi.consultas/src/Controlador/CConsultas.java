@@ -63,8 +63,9 @@ public class CConsultas extends Controlador {
         
         
         if(e.getActionCommand().equals("HistoricoPartidas")){
+            iConsultas.limpiarCampos();
             try {
-                ArrayList<IPartida> listaPartidas = instanceCasino.getHistoricoPartidas();
+                ArrayList<String> listaPartidas = instanceCasino.getHistoricoPartidas();
                 iConsultas.setHistoricoPartidas(listaPartidas);
             } catch (RemoteException ex) {
                 Logger.getLogger(CConsultas.class.getName()).log(Level.SEVERE, null, ex);

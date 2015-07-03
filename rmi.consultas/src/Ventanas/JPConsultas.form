@@ -19,8 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblMensaje" min="-2" pref="154" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="262" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="360" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnHistoricoPartidas" max="32767" attributes="0"/>
@@ -28,9 +27,11 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblGanancias" min="-2" pref="195" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="lblMensaje" min="-2" pref="154" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="97" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,7 +86,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jtaHistoricoPartidas">
+        <Component class="javax.swing.JTextArea" name="jtaHistorial">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>

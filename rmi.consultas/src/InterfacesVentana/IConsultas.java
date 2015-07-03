@@ -16,6 +16,7 @@ public interface IConsultas extends IVentana {
 //    String getNickName();
 //    String getPass();
     void setGanancias(float ganancias);
-    void setHistoricoPartidas(ArrayList<IPartida> listaPartidas);
+    void setHistoricoPartidas(ArrayList<String> listaPartidas);
     public abstract void setLblMensaje(String mensaje);
+    public abstract void limpiarCampos();
 }

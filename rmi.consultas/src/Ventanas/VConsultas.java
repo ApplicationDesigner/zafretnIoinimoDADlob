@@ -152,7 +152,12 @@ public final class VConsultas extends javax.swing.JFrame implements IConsultas {
     }
 
     @Override
-    public void setHistoricoPartidas(ArrayList<IPartida> listaPartidas) {
+    public void setHistoricoPartidas(ArrayList<String> listaPartidas) {
         this.jpc.setHistoricoPartidas(listaPartidas);
+    }
+
+    @Override
+    public void limpiarCampos() {
+        this.jpc.limpiarCampos();
     }
 }

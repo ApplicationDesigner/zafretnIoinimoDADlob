@@ -37,7 +37,7 @@ public class PartidaPersistente implements IPersistente{
     public String getInsertSql() {
         String ret = "";
         try {
-            ret = "INSERT INTO partida (numero,duracion,total_apostado) VALUES ("
+            ret = "INSERT INTO partida (numero_partida,duracion,total_apostado) VALUES ("
                     + this.partida.getNumero() + "," + this.partida.getDuracion() + ","
                     + this.partida.getPozo() + ")";
         } catch (RemoteException ex) {
@@ -52,7 +52,7 @@ public class PartidaPersistente implements IPersistente{
         try {
             ret = "UPDATE partida SET duracion=" + this.partida.getDuracion()
                     + ",total_apostado=" + this.partida.getPozo()
-                    + " WHERE numero=" + this.partida.getNumero();
+                    + " WHERE numero_partida=" + this.partida.getNumero();
         } catch (RemoteException ex) {
             Logger.getLogger(PartidaPersistente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,7 +63,7 @@ public class PartidaPersistente implements IPersistente{
     public String getDeleteSql() {
         String ret = "";
         try {
-            ret = "DELETE FROM partida WHERE numero=" + this.partida.getNumero() + "";
+            ret = "DELETE FROM partida WHERE numero_partida=" + this.partida.getNumero() + "";
         } catch (RemoteException ex) {
             Logger.getLogger(PartidaPersistente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,7 +75,7 @@ public class PartidaPersistente implements IPersistente{
         String sql = "SELECT * FROM partida";
         if (this.partida != null) {
             try {
-                sql += " WHERE numero=" + this.partida.getNumero();
+                sql += " WHERE numero_partida=" + this.partida.getNumero();
             } catch (RemoteException ex) {
                 Logger.getLogger(PartidaPersistente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -87,7 +87,7 @@ public class PartidaPersistente implements IPersistente{
     public void leer(ResultSet rs) {
         try {
             try {
-                this.partida.setNumero(rs.getInt("numero"));
+                this.partida.setNumero(rs.getInt("numero_partida"));
                 this.partida.setDuracion(rs.getInt("duracion"));
                 this.partida.setPozo(rs.getInt("total_apostado"));
             } catch (RemoteException ex) {

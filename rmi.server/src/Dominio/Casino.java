@@ -21,6 +21,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -30,7 +32,7 @@ import persistencia.ManejadorBD;
 import persistencia.PartidaPersistente;
 
 /**
- 
+ *
  * @author Sebastian
  */
 public class Casino extends UnicastRemoteObject implements ICasino {
@@ -87,17 +89,16 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                 if (System.getSecurityManager() == null) {
                     System.setSecurityManager(new SecurityManager());
                 }
-                
+
                 Random rand = new Random();
 
                 // nextInt is normally exclusive of the top value,
                 // so add 1 to make it inclusive
                 int randomNum = rand.nextInt((15900 - 11900) + 1) + 11900;
-                
+
                 System.out.println("Random port para JuegoPoker" + randomNum);
                 LocateRegistry.createRegistry(Registry.REGISTRY_PORT + 1);
 
-               
                 Naming.rebind("JuegoPokerServer", j);
                 System.out.println("levantado juego.. esperando por peticiones");
 
@@ -271,22 +272,51 @@ public class Casino extends UnicastRemoteObject implements ICasino {
             }
         }
     }
-    
+
     @Override
-    public ArrayList<IPartida> getHistoricoPartidas() throws RemoteException {
-        
+    public ArrayList<String> getHistoricoPartidas() throws RemoteException {
+        ArrayList<String> retorno = new ArrayList<>();
+
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        return bd.obtenerTodos(new PartidaPersistente(null));
+        //return bd.obtenerTodos(new PartidaPersistente(null));
+
+        String sql = "SELECT * FROM partida AS P JOIN partida_jugador AS PJ ON PJ.numero_partida=P.numero_partida JOIN jugador AS J ON J.nickName=PJ.nickName";
+        ResultSet rs = bd.obtenerResultSet(sql);
+        String cadena = "";
+
+        try {
+            while (rs.next()) {
+                if (rs.getString("ganador").equalsIgnoreCase("T")) {
+                    cadena += "Nro Partida: " + rs.getInt("numero_partida");
+                    cadena += ", Duracion: " + rs.getInt("duracion");
+                    cadena += ", Total Apostado: " + rs.getInt("total_apostado");
+                    cadena += ", Jugador ganador: " + rs.getString("nickName");
+                    retorno.add(cadena);
+                    cadena = "";
+                } 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
-    
+
     @Override
     public float getHistoricoGanancias() throws RemoteException {
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        bd.obtenerResultSet("SELECT SUM(total_apostado) FROM partida");
-        //TODO: hacer consulta para obtener los montos de las partidas SUM(total_apostado)
-        return 0;
+        ResultSet rs = bd.obtenerResultSet("SELECT ganancias FROM casino");
+        float ganancias = 0;
+        try {
+            if (rs.next()) {
+                ganancias = rs.getFloat("ganancias");
+                rs.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ganancias;
     }
 
 }
