@@ -11,3 +11,5 @@
 /rmi.common/build/
 /rmi.server/build/
 /rmi.common/dist/
+/rmi.consultas/nbproject/private/
+/rmi.consultas/build/
