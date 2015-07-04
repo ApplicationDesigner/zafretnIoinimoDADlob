@@ -85,30 +85,31 @@ public class CLogin extends Controlador {
                     if (j != null) {
                         System.out.println("Logueando a ventana principal del jugador...");
 
-                        ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
+                        ArrayList<IPartida> partidasDisponibles = this.observable.getColPartidasDisponibles();
+//                        ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
                         //Muestro solo las partidas que no estan completas
-                        for (IPartida p : this.observable.getColPartidas()) {
-                            if (p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()) {
-                                partidasDisponibles.add(p);
-                            }
-                        }
+//                        for (IPartida p : this.observable.getColPartidas()) {
+//                            if (p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()) {
+//                                partidasDisponibles.add(p);
+//                            }
+//                        }
                         //En caso de que esten todas las partidas ocupadas, creo una nueva y la agrego como disponible
-                        if (partidasDisponibles.size() < 1) {
-
-                            if (this.conectarJuegoPoker()) {
-                                IPartida nuevaPartida = null;
-                                try {
-                                    nuevaPartida = this.observable.agregarPartida(this.juegoPoker, "POKER");
-                                } catch (RemoteException ex) {
-                                    System.err.println(ex.getMessage());
-                                }
-                                this.juegoPoker.agregarPartida(nuevaPartida);
-                                partidasDisponibles.add(nuevaPartida);
-                            } else {
-                                System.out.println("No me pude conectar al JuegoPoker");
-                            }
-
-                        }
+//                        if (partidasDisponibles.size() < 1) {
+//
+//                            if (this.conectarJuegoPoker()) {
+//                                IPartida nuevaPartida = null;
+//                                try {
+//                                    nuevaPartida = this.observable.agregarPartida(this.juegoPoker, "POKER");
+//                                } catch (RemoteException ex) {
+//                                    System.err.println(ex.getMessage());
+//                                }
+//                                this.juegoPoker.agregarPartida(nuevaPartida);
+//                                partidasDisponibles.add(nuevaPartida);
+//                            } else {
+//                                System.out.println("No me pude conectar al JuegoPoker");
+//                            }
+//
+//                        }
 
                         if (partidasDisponibles != null) {
                             IIngresarAPartida iip = null;

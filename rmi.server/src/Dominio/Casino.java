@@ -68,6 +68,29 @@ public class Casino extends UnicastRemoteObject implements ICasino {
         return colPartidas;
     }
 
+    @Override
+    public ArrayList<IPartida> getColPartidasDisponibles() throws RemoteException {
+
+        ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
+        //Muestro solo las partidas que no estan completas
+        for (IPartida p : this.getColPartidas()) {
+            if (p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()) {
+                partidasDisponibles.add(p);
+            }
+        }
+        
+        if(partidasDisponibles.size() == 0) {
+            //Solo voy a tener un nuego y va a ser JuegoPoker
+            IJuego j1 = Casino.colJuegos.get(0);
+            IPartida p1;
+            p1 = Casino.instance.agregarPartida(j1, "POKER");
+            System.out.println(p1.toString());
+
+            j1.agregarPartida(p1);
+        }
+        return partidasDisponibles;
+    }
+
     public static ArrayList<IJuego> getColJuegos() throws RemoteException {
         return colJuegos;
     }
@@ -196,21 +219,20 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        
+
         IJugador j = new Jugador();
         j.setNickName(nick);
         ArrayList resultado = bd.obtenerTodos(new JugadorPersistente((Jugador) j));
         j = (IJugador) resultado.get(0);
-        
+
         return j;
-        
+
 //        for (IJugador j : Casino.colJugadores) {
 //            if (j.getNickName().equals(nick)) {
 //                return j;
 //            }
 //        }
 //        return null;
-
     }
 
     private static void datosPrecargados() throws RemoteException {
@@ -297,7 +319,7 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                     cadena += ", Jugador ganador: " + rs.getString("nickName");
                     retorno.add(cadena);
                     cadena = "";
-                } 
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Casino.class.getName()).log(Level.SEVERE, null, ex);

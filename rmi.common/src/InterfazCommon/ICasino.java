@@ -22,6 +22,7 @@ public interface ICasino extends IObservable {
     public abstract IPartida agregarPartida(IJuego j, String tipoPartida)  throws RemoteException;
     public abstract IJugador buscarJugador(String nick)  throws RemoteException;
     public abstract ArrayList<IPartida> getColPartidas()  throws RemoteException;
+    public abstract ArrayList<IPartida> getColPartidasDisponibles()  throws RemoteException;
     public float getGanancias()  throws RemoteException;
     
     //@Override
