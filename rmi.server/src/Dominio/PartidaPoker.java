@@ -120,10 +120,19 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     public IMano reponerCartas(IMano mano, ArrayList indices) throws RemoteException {
 
         int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
-        System.out.println("Cartas Faltantes: " + cartasFaltantes);
+//        System.out.println("Cartas Faltantes: " + cartasFaltantes);
         for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir(), (int) indices.get(i));
         }
+        
+        for (IMano m : this.colManos) {
+//            System.out.println("jugador en mano: " + m.getUnJugador().getNickName());
+            if (m.getUnJugador().getNickName().equals(mano.getUnJugador().getNickName())) {
+                m.setColCartas(mano.getColCartas());
+            }
+        }
+        
+        
         return mano;
     }
 
@@ -225,14 +234,17 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     if (puedeApostar) {
                         if (this.validarMontoApuesta(m, monto)) {
                             this.modificarPozo(monto);
+                            m.setUnJugador(unJugador);
+                            this.notificarAccion(accion, m);
                         } else {
                             this.notificarAccion("SINSALDO", m);
                         }
                     } else {
                         accion = "NOPUEDEAPOSTAR";
+                        this.notificarAccion(accion, m);
                     }
 
-                    this.notificarAccion(accion, m);
+//                    this.notificarAccion(accion, m);
 
                     break;
                 case "APOSTAR":
@@ -240,22 +252,26 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     puedeApostar = unJugador.apostar(monto);
                     if (puedeApostar) {
 
-                        System.out.println("cartas en la mano ");
-                        m.mostrarMano();
-                        System.out.println("Jugador en la mano " + m.getUnJugador().getNickName());
+//                        System.out.println("cartas en la mano ");
+//                        m.mostrarMano();
+//                        System.out.println("Jugador en la mano " + m.getUnJugador().getNickName());
 
                         if (validarMontoApuesta(m, monto) == true) {
                             this.modificarPozo(monto);
                             accionApostar = true;
                             contadorAcciones = 1;
+                            m.setUnJugador(unJugador);
+                            this.notificarAccion(accion, m);
                         } else {
                             accion = "NOPUEDEAPOSTAR";
+                            this.notificarAccion(accion, m);
                         }
                     } else {
                         accion = "NOPUEDEAPOSTAR";
+                        this.notificarAccion(accion, m);
                     }
 
-                    this.notificarAccion(accion, m);
+//                    this.notificarAccion(accion, m);
 
                     break;
 
@@ -266,11 +282,14 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     if (puedeApostar) {
                         contadorAcciones++;
                         this.modificarPozo(monto);
+                         m.setUnJugador(unJugador);
+                         this.notificarAccion(accion, m);
                     } else {
                         accion = "NOPUEDEAPOSTAR";
+                        this.notificarAccion(accion, m);
                     }
 
-                    this.notificarAccion(accion, m);
+//                    this.notificarAccion(accion, m);
 
                     break;
 

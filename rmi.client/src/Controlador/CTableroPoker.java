@@ -246,7 +246,9 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
-
+                    
+                    itp.getJugador().setSaldo(saldoJugador);
+                    
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 } else {
                     System.out.println("los nicks no son iguales");
@@ -273,6 +275,7 @@ public class CTableroPoker extends Controlador {
                     itp.mostrarMano(unaMano);
                     itp.setManoActual(unaMano);
 
+                    
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
 
@@ -295,6 +298,8 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonRetirarme(false);
                     itp.habilitarBotonApostar(false);
                     itp.habilitarBotonPasar(false);
+                    
+                    itp.getJugador().setSaldo(saldoJugador);
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 } else {
@@ -322,6 +327,8 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonRetirarme(false);
                     itp.habilitarBotonApostar(false);
                     itp.habilitarBotonPasar(false);
+                    
+                    itp.getJugador().setSaldo(saldoJugador);
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
@@ -342,6 +349,7 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonApostar(false);
                     itp.habilitarBotonPasar(false);
 
+                    
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
 
@@ -359,6 +367,7 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonApostar(false);
                     itp.habilitarBotonPasar(false);
 
+                    
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
 
@@ -387,6 +396,7 @@ public class CTableroPoker extends Controlador {
             case "GANADOR":
                 if (nickJugador.equals(itp.getJugador().getNickName())) {
 
+                    itp.getJugador().setSaldo(saldoJugador);
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
 
@@ -435,7 +445,7 @@ public class CTableroPoker extends Controlador {
     }
 
     private void mostrarSaldoJugador(String saldoJugador) {
-        System.out.println("En CTableroPoker mostrarSaldoJugador = " + saldoJugador);
+//        System.out.println("En CTableroPoker mostrarSaldoJugador = " + saldoJugador);
         this.itp.mostarSaldoJugador(saldoJugador);
     }
 

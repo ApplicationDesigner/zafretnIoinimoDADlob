@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Mano implements IMano {
 
-    private final ArrayList<Carta> colCartas;
+    private ArrayList<Carta> colCartas;
     private IJugador unJugador;
 
     public Mano() {
@@ -36,6 +36,10 @@ public class Mano implements IMano {
     @Override
     public ArrayList<Carta> getColCartas() {
         return colCartas;
+    }
+    @Override
+    public void setColCartas(ArrayList<Carta> colCartas) {
+        this.colCartas = colCartas;
     }
 
     @Override

@@ -20,6 +20,7 @@ public interface IMano  extends Serializable {
     public abstract ArrayList<Carta> getColCartas();
     public abstract IJugador getUnJugador();
     public abstract void setUnJugador(IJugador unJugador);
+    public abstract void setColCartas(ArrayList<Carta> colCartas);
     public abstract void mostrarMano();
     
 }

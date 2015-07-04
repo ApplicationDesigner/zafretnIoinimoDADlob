@@ -154,7 +154,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
 
     @Override
     public void mostarSaldoJugador(String saldoJugador) {
-        System.out.println("En ITableroPoker mostrarSaldoJugador = " + saldoJugador);
+//        System.out.println("En ITableroPoker mostrarSaldoJugador = " + saldoJugador);
         this.jptp.mostarSaldoJugador(saldoJugador);
     }
 
