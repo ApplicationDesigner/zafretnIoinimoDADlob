@@ -13,6 +13,7 @@ import InterfacesVentana.ITableroPoker;
 import InterfazCommon.IJuego;
 import InterfazCommon.IMano;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -220,12 +221,16 @@ public class CTableroPoker extends Controlador {
         }
     }
 
-    public void update(Observable o, Object o1) throws RemoteException {
+    public void Update(Serializable obj) throws RemoteException {
 
-        String accion = ((Mensaje) o1).getAccion();
-        String nickJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getNickName());
-        float saldoJugador = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getSaldo());
+        System.out.println("Estoy en el update");
+        String accion = ((Mensaje) obj).getAccion();
+        String nickJugador = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getNickName());
+        float saldoJugador = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getSaldo());
 
+        System.out.println("accion = " + accion);
+        System.out.println("nickJugador = " + nickJugador);
+        
         switch (accion) {
 
             case "APUESTABASE":
@@ -256,7 +261,7 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonPedirCartas(false);
                     itp.habilitarBotonRetirarme(false);
 
-                    IMano unaMano = (((Mano) ((Mensaje) o1).getValor()));
+                    IMano unaMano = (((Mano) ((Mensaje) obj).getValor()));
                     itp.mostrarMano(unaMano);
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
@@ -271,7 +276,7 @@ public class CTableroPoker extends Controlador {
 
             case "APOSTAR":
 
-                this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
+                this.montoApostado = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getMontoApostado());
 
                 if (nickJugador == itp.getJugador().getNickName()) {
 
@@ -298,7 +303,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "PAGAR":
-                this.montoApostado = ((((IMano) ((Mensaje) o1).getValor())).getUnJugador().getMontoApostado());
+                this.montoApostado = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getMontoApostado());
 
                 if (nickJugador == itp.getJugador().getNickName()) {
 
@@ -378,7 +383,7 @@ public class CTableroPoker extends Controlador {
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
 
-                itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) o1).getValor())) + "\n");
+                itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) obj).getValor())) + "\n");
                 itp.habilitarBotonAbandonarPartidaNO(true);
                 itp.habilitarBotonAbandonarPartidaSI(true);
                 break;

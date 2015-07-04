@@ -39,76 +39,45 @@ public class CPpalJugador extends Controlador {
 
         if (e.getActionCommand().equals("IIngresarAPartida")) {
 
-            System.out.println("Click en boton ingresar a partida");
+            
             int opcion = iip.getPartidaSeleccionada();
-            if (opcion != 0) {
-                 
-                System.out.println("Opcion: " + opcion);
-                //if (this.conectarJuegoPoker()) {
-                this.conectarJuegoPoker();
-                    
-                    System.out.println("Me conecte al juegoPoker");
-                    IPartida ip = null;
-                    try {
-                        ip = this.juegoPoker.buscarPartida(opcion);
+            if (opcion != 0) {               
+                this.conectarJuegoPoker();               
+                IPartida ip = null;
+                try {
+                    ip = this.juegoPoker.buscarPartida(opcion);
 
-                        if (ip != null) {
-
-                            try {
-                                String partidaID = "Partida" + Integer.toString(ip.getNumero());
-
-                                System.out.println("Partida a conectar: " + partidaID);
-                                this.conectar(partidaID);
-                                System.out.println("Partida conectada....");
-
-                                //Al iniciar saldo = saldo inicial            
-                                this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
-
-                                ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
-                                itp.setPartida(ip);
-                                Controlador c = null;
-                                try {
-                                    c = new CTableroPoker(itp);
-                                } catch (RemoteException ex) {
-                                    System.err.println(ex.getMessage());
-                                }
-                                itp.setControlador(c);
-
-                                try {
-                                    ip.Add(c);    
-                                    System.out.println("jugador" + this.iip.getJugador().getNickName());
-
-                                    this.juegoPoker.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
-                                } catch (RemoteException ex) {
-                                    System.out.println("Hubo un error al ingresar observador");
-                                    System.err.println(ex.getMessage());
-                                }
-
-                            } catch (RemoteException ex) {
-                                System.err.println(ex.getMessage());
-                            }
-                        } else {
-                            System.out.println("partida es null.");
-                        }
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(CPpalJugador.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ip != null) {
+                        String partidaID = "Partida" + Integer.toString(ip.getNumero());
+                        this.conectarPartida(partidaID);
+                        //Al iniciar saldo = saldo inicial            
+                        this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
+                        ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
+                        itp.setPartida(ip);
+                        Controlador c = null;
+                        c = new CTableroPoker(itp);
+                        ip.Add(c);
+                        System.out.println("jugador" + this.iip.getJugador().getNickName());
+                        this.juegoPoker.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
+                        itp.setControlador(c);
+                    } else {
+                        System.out.println("partida es null.");
                     }
-//                } else {
-//                    System.err.println("No me concete al juegoPoker");
-//                }
-
+                } catch (RemoteException ex) {
+                    Logger.getLogger(CPpalJugador.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
 
-    public boolean conectar(String partidaID) {
+    public boolean conectarPartida(String partidaID) {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            this.observable = (IPartida) Naming.lookup("PARTIDA1");
-           //this.observable.Add(this);
-            System.out.println("Me conecte...");
+            //this.observable = (IPartida) Naming.lookup("PARTIDA1");
+            this.observable = (IPartida) Naming.lookup(partidaID);
+            System.out.println("Partida " + partidaID + " conectada....");
         } catch (Exception ex) {
             System.out.println("Hubo un error en partida");
             System.err.println(ex.getMessage());

@@ -11,23 +11,17 @@ import InterfacesVentana.IVentana;
 import InterfazCommon.IMensaje;
 import InterfazCommon.IObserver;
 import InterfazCommon.IPartida;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author santiagoa
  */
-public class Controlador extends UnicastRemoteObject implements ActionListener, IObserver{
+public abstract class Controlador extends UnicastRemoteObject implements ActionListener, IObserver{
 
     IVentana ventanaActual;
     private IPartida observable;
@@ -69,15 +63,15 @@ public class Controlador extends UnicastRemoteObject implements ActionListener, 
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getActionCommand().equals("ENVIARMENSAJE")) {
-            
-            String mensaje = this.ventanaActual.getMensaje();
-//            try {
-//                this.observable.SendMessage(mensaje);
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        }
+//        if (e.getActionCommand().equals("ENVIARMENSAJE")) {
+//            
+//            String mensaje = this.ventanaActual.getMensaje();
+////            try {
+////                this.observable.SendMessage(mensaje);
+////            } catch (RemoteException ex) {
+////                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+////            }
+//        }
                 
     }
 
@@ -87,7 +81,7 @@ public class Controlador extends UnicastRemoteObject implements ActionListener, 
        // ArrayList<String> aux = (ArrayList<String>)obj;
         
         
-        this.ventanaActual.RecibirMensaje(obj);
+        //this.ventanaActual.RecibirMensaje(obj);
     }
     
 }

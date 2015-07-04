@@ -5,14 +5,12 @@
  */
 package Dominio;
 
-
 import Configuraciones.enumFigura;
 import InterfazCommon.IJugador;
 import InterfazCommon.IMano;
 import InterfazCommon.IPartida;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Observer;
 import Configuraciones.Constantes;
 import DominioCommon.EvaluadorManosContext;
 import DominioCommon.Mano;
@@ -39,7 +37,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
     private int contadorAcciones;
     private int contarDescartes;
-    
+
     ArrayList<IObserver> observadores;
 
     public PartidaPoker() throws RemoteException {
@@ -53,64 +51,64 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         this.observadores = new ArrayList<>();
     }
 
-    public PartidaPoker(int numero, float pozo)  throws RemoteException{
+    public PartidaPoker(int numero, float pozo) throws RemoteException {
         this.numero = numero;
         this.pozo = pozo;
         this.colManos = new ArrayList<>();
         this.mazo = new Mazo();
         this.contadorAcciones = 0;
         this.duracion = 0;
+        this.observadores = new ArrayList<>();
     }
 
     @Override
-    public int getNumero()  throws RemoteException {
+    public int getNumero() throws RemoteException {
         return numero;
     }
 
     @Override
-    public void setNumero(int numero)  throws RemoteException {
+    public void setNumero(int numero) throws RemoteException {
         this.numero = numero;
     }
 
     @Override
-    public float getPozo() throws RemoteException  {
+    public float getPozo() throws RemoteException {
         return pozo;
     }
 
     @Override
-    public void setPozo(float pozo) throws RemoteException  {
+    public void setPozo(float pozo) throws RemoteException {
         this.pozo = pozo;
     }
 
     @Override
-    public ArrayList<IMano> getColManos()  throws RemoteException {
+    public ArrayList<IMano> getColManos() throws RemoteException {
         return colManos;
     }
 
     @Override
-    public void setColManos(ArrayList<IMano> colManos)  throws RemoteException {
+    public void setColManos(ArrayList<IMano> colManos) throws RemoteException {
         this.colManos = colManos;
     }
 
-    public Mazo getMazo()  throws RemoteException {
+    public Mazo getMazo() throws RemoteException {
         return mazo;
     }
 
     @Override
-    public void setMazo(Mazo mazo) throws RemoteException  {
+    public void setMazo(Mazo mazo) throws RemoteException {
         this.mazo = mazo;
     }
 
-    public int getDuracion()  throws RemoteException {
+    public int getDuracion() throws RemoteException {
         return duracion;
     }
 
-    public void setDuracion(int duracion)  throws RemoteException {
+    public void setDuracion(int duracion) throws RemoteException {
         this.duracion = duracion;
     }
-    
 
-    public void repartirCartas(IMano mano)  throws RemoteException {
+    public void repartirCartas(IMano mano) throws RemoteException {
 
         int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
         for (int i = 0; i < cartasFaltantes; i++) {
@@ -119,7 +117,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     }
 
     @Override
-    public void reponerCartas(IMano mano, ArrayList indices)  throws RemoteException {
+    public void reponerCartas(IMano mano, ArrayList indices) throws RemoteException {
 
         int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
         for (int i = 0; i < cartasFaltantes; i++) {
@@ -128,7 +126,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     }
 
     @Override
-    public void iniciarReparticion()  throws RemoteException {
+    public void iniciarReparticion() throws RemoteException {
         this.mazo.Barajar();
         for (IMano m : this.colManos) {
             this.repartirCartas(m);
@@ -136,12 +134,12 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     }
 
     @Override
-    public enumFigura evaluarMano(IMano unaMano)  throws RemoteException {
+    public enumFigura evaluarMano(IMano unaMano) throws RemoteException {
         return EvaluadorManosContext.evaluarMano(unaMano);
     }
 
     @Override
-    public IMano getManoGanadora() throws RemoteException  {
+    public IMano getManoGanadora() throws RemoteException {
 
         Collections.sort(this.colManos, new OrdenarManos());
         return this.colManos.get(this.colManos.size() - 1);
@@ -151,44 +149,46 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 //    public String toString()  throws RemoteException {
 //        return ("PartidaPoker numero: " + this.getNumero());
 //    }
-
     @Override
-    public void ingresarJugador(IJugador j) throws RemoteException  {
+    public void ingresarJugador(IJugador j) throws RemoteException {
         IMano unaMano = new Mano();
         unaMano.setUnJugador(j);
         this.colManos.add(unaMano);
         System.out.println("---Cant manos en partida " + this.colManos.size());
+        System.out.println("---Cant observers en partida " + this.observadores.size());
 
         if (this.colManos.size() == Constantes.getCantMinimoJugadoresPorMesa()) {
             this.iniciarRonda();
         }
     }
 
-
-
     @Override
-    public void iniciarRonda()  throws RemoteException {
+    public void iniciarRonda() throws RemoteException {
         this.iniciarReparticion();
         for (IMano unaMano : this.colManos) {
-            this.notificarAccion("REPARTIR", unaMano);
-            System.out.println("Notificar Repartir");
-            //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
-            System.out.println("El jugador: " + unaMano.getUnJugador().getNickName() + " pone la apuesta base de: " + Constantes.getApuestaBase());
+            try {
+                this.notificarAccion("REPARTIR", unaMano);
+                System.out.println("Notificar Repartir");
+                //Cuando se inicia la ronda de apuestas deben poner la ciega = 50
+                System.out.println("El jugador: " + unaMano.getUnJugador().getNickName() + " pone la apuesta base de: " + Constantes.getApuestaBase());
 
-            this.accionJugador(unaMano.getUnJugador(), "APUESTABASE", Constantes.getApuestaBase());
+                this.accionJugador(unaMano.getUnJugador(), "APUESTABASE", Constantes.getApuestaBase());
+            } catch (Exception ex) {
+                System.out.println("Error en iniciarRonda.");
+                System.err.println(ex.getMessage());
+            }
         }
     }
 
-
-
     @Override
-    public void jugadorAposto(IJugador unJugador)  throws RemoteException {
+    public void jugadorAposto(IJugador unJugador) throws RemoteException {
         IMano m = this.buscarMano(unJugador);
         this.notificarAccion("APOSTAR", m);
         System.out.println("Jugador Aposto");
     }
+
     @Override
-    public IMano buscarMano(IJugador unJugador)  throws RemoteException {
+    public IMano buscarMano(IJugador unJugador) throws RemoteException {
 
         for (IMano m : this.colManos) {
             if (m.getUnJugador().getNickName() == unJugador.getNickName()) {
@@ -199,13 +199,13 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     }
 
     @Override
-    public float modificarPozo(float monto) throws RemoteException  {
+    public float modificarPozo(float monto) throws RemoteException {
         this.pozo += monto;
         return this.pozo;
     }
 
     @Override
-    public void accionJugador(IJugador unJugador, String accion, Float monto)  throws RemoteException {
+    public void accionJugador(IJugador unJugador, String accion, Float monto) throws RemoteException {
         IMano m = this.buscarMano(unJugador);
         boolean puedeApostar;
         boolean accionApostar = false;
@@ -215,9 +215,9 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
                 puedeApostar = unJugador.apostar(monto);
                 if (puedeApostar) {
-                    if(this.validarMontoApuesta(m, monto)){
+                    if (this.validarMontoApuesta(m, monto)) {
                         this.modificarPozo(monto);
-                    }else{
+                    } else {
                         this.notificarAccion("SINSALDO", m);
                     }
                 } else {
@@ -295,8 +295,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
         }
 
-        
-       if (this.contadorAcciones == observadores.size()) {
+        if (this.contadorAcciones == observadores.size()) {
 
             if (this.colManos.size() != 1) {
 
@@ -314,17 +313,46 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         }
     }
 
-    private void mostrarGanador() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void mostrarGanador() throws RemoteException {
+        IMano manoGanador = this.getManoGanadora();
+
+        //Gana el pozo. Le sumo el saldo del pozo al saldo del jugador ganador
+        manoGanador.getUnJugador().setSaldo(manoGanador.getUnJugador().getSaldo() + this.getPozo());
+
+        //Reinicio el pozo para la proxima ronda
+        this.pozo = 0;
+        //Reinicio contadores
+        this.contadorAcciones = 0;
+        this.contarDescartes = 0;
+
+        this.notificarAccion("GANADOR", manoGanador);
+
+        //Reinicio todo        
+        this.pozo = 0;
+        this.colManos = new ArrayList<>();
+        this.mazo = new Mazo();
+        this.contadorAcciones = 0;
+        this.contarDescartes = 0;
     }
 
     private boolean validarMontoApuesta(IMano m, Float monto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (IMano unaMano : this.colManos) {
+            if (unaMano.getUnJugador() != m.getUnJugador()) {
+                if (unaMano.getUnJugador().getSaldo() < monto) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public ArrayList<String> getListaNombresJugadores() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> listaNombres = new ArrayList<>();
+        for (IMano unaMano : this.getColManos()) {
+            listaNombres.add(unaMano.getUnJugador().getNickName());
+        }
+        return listaNombres;
     }
 
 //    @Override
@@ -335,17 +363,17 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 //        
 //        this.Notify(unMensaje);
 //    }
-
-    private void notificarAccion(String accion, Object obj)  throws RemoteException {
+    private void notificarAccion(String accion, Object obj) throws RemoteException {
         IMensaje unMensaje = new Mensaje();
         unMensaje.setAccion(accion);
         unMensaje.setValor(obj);
-        
+
+        System.out.println("Notify accion = " + accion);
         this.Notify(unMensaje);
 //        this.setChanged();
 //        this.notifyObservers(unMensaje);
     }
-        
+
     @Override
     public void Add(IObserver obs) throws RemoteException {
         this.observadores.add(obs);
@@ -360,19 +388,15 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     @Override
     public void Notify(Serializable param) throws RemoteException {
         ArrayList<IObserver> tmp = new ArrayList(observadores);
-        for(IObserver obs:tmp){
+        for (IObserver obs : tmp) {
             try {
                 obs.Update(param);
             } catch (RemoteException ex) {
                 //perdi la conexion
+                System.out.println("Perdi la conexion. Remuevo el observador.");
                 observadores.remove(obs);
             }
         }
     }
-
- 
-
-    
-
 
 }

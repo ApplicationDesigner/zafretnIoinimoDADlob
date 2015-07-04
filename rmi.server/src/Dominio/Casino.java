@@ -139,7 +139,8 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                 LocateRegistry.createRegistry(Registry.REGISTRY_PORT + 5);
 
                 String partidaID = "Partida" + Integer.toString(p.getNumero());
-                Naming.rebind("PARTIDA1", p);
+                //Naming.rebind("PARTIDA1", p);
+                Naming.rebind(partidaID, p);
                 System.out.println("levantado partida " + partidaID + ".. esperando por peticiones");
 
             } catch (Exception e) {
