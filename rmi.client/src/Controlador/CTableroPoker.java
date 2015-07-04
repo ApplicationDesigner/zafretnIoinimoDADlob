@@ -118,10 +118,12 @@ public class CTableroPoker extends Controlador {
                 ArrayList<String> ubicacionEnMesa = itp.getBotonesDeCartasSeleccionadas();
                 ArrayList indices = new ArrayList<>();
 
-                unaMano.getColCartas().stream().filter((unaCarta) -> (unaCarta.getActiva() == false)).forEach((unaCarta) -> {
-//TODO descomentar y arreglar                 
-  //indices.add(unaMano.getColCartas().indexOf(unaCarta));
-                });
+                for (Carta unaCarta : unaMano.getColCartas()) {
+                    if (unaCarta.getActiva() == false) {
+                        indices.add(unaMano.getColCartas().indexOf(unaCarta));
+                    }
+                }
+
                 if (indices.size() > 4) {
                     itp.mostrarMensaje("Puede cambiar hasta 4 cartas!");
                 } else {
@@ -164,8 +166,8 @@ public class CTableroPoker extends Controlador {
                 System.out.println("La comision es: " + comision);
 
                 if (gananciasJugador > 0) {
-                    
-                    if(this.conectarJuegoPoker()) {
+
+                    if (this.conectarJuegoPoker()) {
                         comision = gananciasJugador * Constantes.getPorcentajeGanancias();
                         try {
                             this.juegoPoker.sumarGanancias(comision);
@@ -232,14 +234,14 @@ public class CTableroPoker extends Controlador {
         System.out.println("accion = " + accion);
         System.out.println("nickJugador = " + nickJugador);
         System.out.println("Saldo Jugador = " + Float.toString(saldoJugador));
-        
+
         switch (accion) {
 
             case "APUESTABASE":
-                System.out.println("nickJugador = " + nickJugador );
-                System.out.println("itp.jugador.nickname " + itp.getJugador().getNickName() );
+                System.out.println("nickJugador = " + nickJugador);
+                System.out.println("itp.jugador.nickname " + itp.getJugador().getNickName());
                 if (nickJugador.equals(itp.getJugador().getNickName())) {
-                    
+
                     System.out.println("Son iguales");
 
                     //Deshabilito los botones
@@ -262,7 +264,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "REPARTIR":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -286,7 +288,7 @@ public class CTableroPoker extends Controlador {
 
                 this.montoApostado = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getMontoApostado());
 
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -313,7 +315,7 @@ public class CTableroPoker extends Controlador {
             case "PAGAR":
                 this.montoApostado = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getMontoApostado());
 
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -332,7 +334,7 @@ public class CTableroPoker extends Controlador {
 
             case "PASAR":
 
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -349,7 +351,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "RETIRARSE":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -365,7 +367,7 @@ public class CTableroPoker extends Controlador {
 
                 break;
             case "DESCARTAR":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     itp.habilitarBotonPagar(false);
                     itp.habilitarBotonPedirCartas(true);
@@ -384,7 +386,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "GANADOR":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }
@@ -401,7 +403,7 @@ public class CTableroPoker extends Controlador {
                 break;
             case "SINSALDO":
 
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
                     itp.escribirLog("Sin saldo disponible.\n");
                     itp.mostrarMensaje("Sin saldo disponible.");
 
@@ -419,7 +421,7 @@ public class CTableroPoker extends Controlador {
                 break;
 
             case "NOPUEDEAPOSTAR":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
                     itp.escribirLog("El monto de su apuesta no es valido.\n");
                     itp.mostrarMensaje("El monto de su apuesta no es valido.");
                 }

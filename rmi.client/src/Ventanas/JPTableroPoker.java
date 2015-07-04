@@ -314,48 +314,73 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
-//        Carta unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
-//        this.cambiarImagen(unaCarta, btnCarta1);
-    }//GEN-LAST:event_btnCarta1ActionPerformed
-
-    private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
         Carta unaCarta = null;
         try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
+            if(unaCarta!=null){
+                this.cambiarImagen(unaCarta, btnCarta1);
+            }else{
+                System.out.println("No se encontro la carta...");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.cambiarImagen(unaCarta, btnCarta2);
+    }//GEN-LAST:event_btnCarta1ActionPerformed
+
+    private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
+         Carta unaCarta = null;
+        try {
+            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
+            if(unaCarta!=null){
+                this.cambiarImagen(unaCarta, btnCarta2);
+            }else{
+                System.out.println("No se encontro la carta...");
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
         Carta unaCarta = null;
         try {
             unaCarta = this.partida.buscarMano(jugador).getColCartas().get(2);
+            if(unaCarta!=null){
+                this.cambiarImagen(unaCarta, btnCarta3);
+            }else{
+                System.out.println("No se encontro la carta...");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.cambiarImagen(unaCarta, btnCarta3);
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
         Carta unaCarta = null;
         try {
             unaCarta = this.partida.buscarMano(jugador).getColCartas().get(3);
+            if(unaCarta!=null){
+                this.cambiarImagen(unaCarta, btnCarta4);
+            }else{
+                System.out.println("No se encontro la carta...");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.cambiarImagen(unaCarta, btnCarta4);
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
-        Carta unaCarta = null;
+       Carta unaCarta = null;
         try {
             unaCarta = this.partida.buscarMano(jugador).getColCartas().get(4);
+            if(unaCarta!=null){
+                this.cambiarImagen(unaCarta, btnCarta5);
+            }else{
+                System.out.println("No se encontro la carta...");
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.cambiarImagen(unaCarta, btnCarta5);
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
 
@@ -422,6 +447,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void mostrarMano(IMano unaMano) {
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
+        System.out.println(unaMano.getColCartas().get(0).getPathImagen());
         btnCarta1.setActionCommand("btnCarta1");
         btnCarta1.setBorder(null);
 
@@ -439,8 +465,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
         //TODO implementar con conectarJuegoPoker o sino cambiar por otro metodo
         //IJuego ij = JuegoPoker.getInstance();
-        IPartida ip = null;
-        
+        //IPartida ip = null;
         //TODO implementar con conectarJuegoPoker o sino cambiar por otro metodo
 //        try {
 //            //ip = ij.buscarPartida(this.partida.getNumero());
@@ -448,18 +473,12 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 //            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         try {
-            this.lblFiguraReal.setText(ip.evaluarMano(unaMano).toString());
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
+            this.lblFiguraReal.setText(partida.evaluarMano(unaMano).toString());
             this.lblNroJuegoReal.setText("" + this.partida.getNumero());
+            this.lblListaJugadoresReal.setText(partida.getListaNombresJugadores().toString());
+            System.out.println("Se muestra la mano");
         } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            this.lblListaJugadoresReal.setText(ip.getListaNombresJugadores().toString());
-        } catch (RemoteException ex) {
+            System.out.println("No se pudo mostrar la mano");
             Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
