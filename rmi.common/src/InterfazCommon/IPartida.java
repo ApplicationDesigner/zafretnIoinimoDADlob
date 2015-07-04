@@ -53,7 +53,7 @@ public interface IPartida extends IObservable {
 
     public abstract void repartirCartas(IMano mano) throws RemoteException;
 
-    public abstract void reponerCartas(IMano mano, ArrayList indices) throws RemoteException;    
+    public abstract IMano reponerCartas(IMano mano, ArrayList indices) throws RemoteException;    
 
     public abstract ArrayList<String> getListaNombresJugadores() throws RemoteException;
 

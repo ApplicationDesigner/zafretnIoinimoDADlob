@@ -27,6 +27,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     private IJugador jugador;
     private IPartida partida;
+    private IMano manoActual;
+    ArrayList<String> listaCartas = new ArrayList<>();
 
     /**
      * Creates new form JPPartida
@@ -49,6 +51,14 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     public void setPartida(IPartida partida) {
         this.partida = partida;
+    }
+
+    public IMano getManoActual() {
+        return manoActual;
+    }
+
+    public void setManoActual(IMano manoActual) {
+        this.manoActual = manoActual;
     }
 
     /**
@@ -314,72 +324,62 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta1ActionPerformed
-        Carta unaCarta = null;
-        try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(0);
-            if(unaCarta!=null){
+        if (this.btnPedirCartas.isEnabled() == true) {
+            Carta unaCarta = this.manoActual.getColCartas().get(0);
+            if (unaCarta != null) {
+                listaCartas.add(btnCarta1.getActionCommand());
                 this.cambiarImagen(unaCarta, btnCarta1);
-            }else{
+            } else {
                 System.out.println("No se encontro la carta...");
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCarta1ActionPerformed
 
     private void btnCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta2ActionPerformed
-         Carta unaCarta = null;
-        try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(1);
-            if(unaCarta!=null){
+        if (this.btnPedirCartas.isEnabled() == true) {
+            Carta unaCarta = this.manoActual.getColCartas().get(1);
+            if (unaCarta != null) {
+                listaCartas.add(btnCarta2.getActionCommand());
                 this.cambiarImagen(unaCarta, btnCarta2);
-            }else{
+            } else {
                 System.out.println("No se encontro la carta...");
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCarta2ActionPerformed
 
     private void btnCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta3ActionPerformed
-        Carta unaCarta = null;
-        try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(2);
-            if(unaCarta!=null){
+        if (this.btnPedirCartas.isEnabled() == true) {
+            Carta unaCarta = this.manoActual.getColCartas().get(2);
+            if (unaCarta != null) {
+                listaCartas.add(btnCarta3.getActionCommand());
                 this.cambiarImagen(unaCarta, btnCarta3);
-            }else{
+            } else {
                 System.out.println("No se encontro la carta...");
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCarta3ActionPerformed
 
     private void btnCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta4ActionPerformed
-        Carta unaCarta = null;
-        try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(3);
-            if(unaCarta!=null){
+        if (this.btnPedirCartas.isEnabled() == true) {
+            Carta unaCarta = this.manoActual.getColCartas().get(3);
+            if (unaCarta != null) {
+                listaCartas.add(btnCarta4.getActionCommand());
                 this.cambiarImagen(unaCarta, btnCarta4);
-            }else{
+            } else {
                 System.out.println("No se encontro la carta...");
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCarta4ActionPerformed
 
     private void btnCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarta5ActionPerformed
-       Carta unaCarta = null;
-        try {
-            unaCarta = this.partida.buscarMano(jugador).getColCartas().get(4);
-            if(unaCarta!=null){
+        if (this.btnPedirCartas.isEnabled() == true) {
+            Carta unaCarta = this.manoActual.getColCartas().get(4);
+            if (unaCarta != null) {
+                listaCartas.add(btnCarta5.getActionCommand());
                 this.cambiarImagen(unaCarta, btnCarta5);
-            }else{
+            } else {
                 System.out.println("No se encontro la carta...");
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(JPTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
@@ -447,21 +447,24 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     public void mostrarMano(IMano unaMano) {
         this.mostrarNickName();
         btnCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(0).getPathImagen())));
-        System.out.println(unaMano.getColCartas().get(0).getPathImagen());
         btnCarta1.setActionCommand("btnCarta1");
         btnCarta1.setBorder(null);
 
         btnCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(1).getPathImagen())));
         btnCarta2.setActionCommand("btnCarta2");
+        btnCarta2.setBorder(null);
 
         btnCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(2).getPathImagen())));
         btnCarta3.setActionCommand("btnCarta3");
+        btnCarta3.setBorder(null);
 
         btnCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(3).getPathImagen())));
         btnCarta4.setActionCommand("btnCarta4");
+        btnCarta4.setBorder(null);
 
         btnCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource(unaMano.getColCartas().get(4).getPathImagen())));
         btnCarta5.setActionCommand("btnCarta5");
+        btnCarta5.setBorder(null);
 
         //TODO implementar con conectarJuegoPoker o sino cambiar por otro metodo
         //IJuego ij = JuegoPoker.getInstance();
@@ -513,25 +516,29 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.lblPozoReal.setText(pozo);
     }
 
+//    @Override
+//    public ArrayList<String> getBotonesDeCartasSeleccionadas() {
+//        ArrayList<String> listaCartas = new ArrayList<>();
+//        if (this.btnCarta1.isEnabled() == false) {
+//            listaCartas.add(btnCarta1.getActionCommand());
+//        }
+//        if (this.btnCarta2.isEnabled() == false) {
+//            listaCartas.add(btnCarta2.getActionCommand());
+//        }
+//        if (this.btnCarta3.isEnabled() == false) {
+//            listaCartas.add(btnCarta3.getActionCommand());
+//        }
+//        if (this.btnCarta4.isEnabled() == false) {
+//            listaCartas.add(btnCarta4.getActionCommand());
+//        }
+//        if (this.btnCarta5.isEnabled() == false) {
+//            listaCartas.add(btnCarta5.getActionCommand());
+//        }
+//        return listaCartas;
+//    }
     @Override
     public ArrayList<String> getBotonesDeCartasSeleccionadas() {
-        ArrayList<String> listaCartas = new ArrayList<>();
-        if (this.btnCarta1.isEnabled() == false) {
-            listaCartas.add(btnCarta1.getActionCommand());
-        }
-        if (this.btnCarta2.isEnabled() == false) {
-            listaCartas.add(btnCarta2.getActionCommand());
-        }
-        if (this.btnCarta3.isEnabled() == false) {
-            listaCartas.add(btnCarta3.getActionCommand());
-        }
-        if (this.btnCarta4.isEnabled() == false) {
-            listaCartas.add(btnCarta4.getActionCommand());
-        }
-        if (this.btnCarta5.isEnabled() == false) {
-            listaCartas.add(btnCarta5.getActionCommand());
-        }
-        return listaCartas;
+        return this.listaCartas;
     }
 
     @Override

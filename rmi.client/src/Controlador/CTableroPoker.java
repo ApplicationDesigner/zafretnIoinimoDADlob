@@ -110,11 +110,9 @@ public class CTableroPoker extends Controlador {
             case "Pedir_Cartas":
                 itp.limpiarCampos();
                 IMano unaMano = null;
-                try {
-                    unaMano = itp.getPartida().buscarMano(itp.getJugador());
-                } catch (RemoteException ex) {
-                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                unaMano = itp.getManoActual();
+                
                 ArrayList<String> ubicacionEnMesa = itp.getBotonesDeCartasSeleccionadas();
                 ArrayList indices = new ArrayList<>();
 
@@ -137,7 +135,7 @@ public class CTableroPoker extends Controlador {
                     }
 
                     try {
-                        itp.getPartida().reponerCartas(unaMano, indices);
+                       unaMano = itp.getPartida().reponerCartas(unaMano, indices);
                     } catch (RemoteException ex) {
                         Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -273,6 +271,7 @@ public class CTableroPoker extends Controlador {
 
                     IMano unaMano = (((Mano) ((Mensaje) obj).getValor()));
                     itp.mostrarMano(unaMano);
+                    itp.setManoActual(unaMano);
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
                 }

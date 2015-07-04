@@ -117,12 +117,14 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     }
 
     @Override
-    public void reponerCartas(IMano mano, ArrayList indices) throws RemoteException {
+    public IMano reponerCartas(IMano mano, ArrayList indices) throws RemoteException {
 
         int cartasFaltantes = Constantes.getCantCartasEnMano() - mano.getColCartas().size();
+        System.out.println("Cartas Faltantes: " + cartasFaltantes);
         for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir(), (int) indices.get(i));
         }
+        return mano;
     }
 
     @Override

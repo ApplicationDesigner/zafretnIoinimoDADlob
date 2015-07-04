@@ -55,5 +55,9 @@ public interface ITableroPoker extends IVentana {
     public abstract void limpiarCampos();
     
     public abstract void deshabilitarPanel();
+    
+    public abstract void setManoActual(IMano unaMano);
+    
+    public abstract IMano getManoActual();
 
 }

@@ -257,4 +257,14 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     public void SetControlador(Controlador controller) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setManoActual(IMano unaMano) {
+        jptp.setManoActual(unaMano);
+    }
+
+    @Override
+    public IMano getManoActual() {
+        return jptp.getManoActual();
+    }
 }
