@@ -22,6 +22,8 @@ import InterfazCommon.IObserver;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import persistencia.ManejadorBD;
+import persistencia.PartidaPersistente;
 
 /**
  *
@@ -346,7 +348,7 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
             System.out.println("No se encontro la mano.");
         }
 
-    }
+      }
 
     private void mostrarGanador() throws RemoteException {
         IMano manoGanador = this.getManoGanadora();
@@ -354,6 +356,11 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         //Gana el pozo. Le sumo el saldo del pozo al saldo del jugador ganador
         manoGanador.getUnJugador().setSaldo(manoGanador.getUnJugador().getSaldo() + this.getPozo());
 
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        bd.agregar(new PartidaPersistente(this));
+        
+        
         //Reinicio el pozo para la proxima ronda
         this.pozo = 0;
         //Reinicio contadores

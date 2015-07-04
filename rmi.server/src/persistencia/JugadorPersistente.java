@@ -56,7 +56,7 @@ public class JugadorPersistente implements IPersistente {
     public String getSelectSql() {
         String sql = "SELECT * FROM jugador";
         if (this.jugador != null) {
-            sql += " WHERE nickName=" + this.jugador.getNickName();
+            sql += " WHERE nickName='" + this.jugador.getNickName() + "'";
         }
         return sql;
 

@@ -194,20 +194,22 @@ public class Casino extends UnicastRemoteObject implements ICasino {
     @Override
     public IJugador buscarJugador(String nick) throws RemoteException {
 
-//        ManejadorBD bd = ManejadorBD.getInstancia();
-//        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-//        
-//        IJugador j = null;
-//        j.setNickName(nick);
-//        System.out.println(bd.obtenerTodos(new JugadorPersistente(null)));
-//        
-//        return j;
-        for (IJugador j : Casino.colJugadores) {
-            if (j.getNickName().equals(nick)) {
-                return j;
-            }
-        }
-        return null;
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        
+        IJugador j = new Jugador();
+        j.setNickName(nick);
+        ArrayList resultado = bd.obtenerTodos(new JugadorPersistente((Jugador) j));
+        j = (IJugador) resultado.get(0);
+        
+        return j;
+        
+//        for (IJugador j : Casino.colJugadores) {
+//            if (j.getNickName().equals(nick)) {
+//                return j;
+//            }
+//        }
+//        return null;
 
     }
 
