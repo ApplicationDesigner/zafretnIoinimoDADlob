@@ -18,7 +18,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Observable;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -223,18 +223,24 @@ public class CTableroPoker extends Controlador {
 
     public void Update(Serializable obj) throws RemoteException {
 
-        System.out.println("Estoy en el update");
+//        System.out.println("Estoy en el update");
         String accion = ((Mensaje) obj).getAccion();
         String nickJugador = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getNickName());
         float saldoJugador = ((((IMano) ((Mensaje) obj).getValor())).getUnJugador().getSaldo());
 
+        System.out.println("*********************************************");
         System.out.println("accion = " + accion);
         System.out.println("nickJugador = " + nickJugador);
+        System.out.println("Saldo Jugador = " + Float.toString(saldoJugador));
         
         switch (accion) {
 
             case "APUESTABASE":
-                if (nickJugador == itp.getJugador().getNickName()) {
+                System.out.println("nickJugador = " + nickJugador );
+                System.out.println("itp.jugador.nickname " + itp.getJugador().getNickName() );
+                if (nickJugador.equals(itp.getJugador().getNickName())) {
+                    
+                    System.out.println("Son iguales");
 
                     //Deshabilito los botones
                     itp.habilitarBotonPagar(false);
@@ -242,6 +248,8 @@ public class CTableroPoker extends Controlador {
                     itp.habilitarBotonRetirarme(false);
 
                     mostrarSaldoJugador(Float.toString(saldoJugador));
+                } else {
+                    System.out.println("los nicks no son iguales");
                 }
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
@@ -426,6 +434,7 @@ public class CTableroPoker extends Controlador {
     }
 
     private void mostrarSaldoJugador(String saldoJugador) {
+        System.out.println("En CTableroPoker mostrarSaldoJugador = " + saldoJugador);
         this.itp.mostarSaldoJugador(saldoJugador);
     }
 

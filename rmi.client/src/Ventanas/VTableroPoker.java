@@ -11,7 +11,10 @@ import InterfazCommon.IJugador;
 import InterfazCommon.IMano;
 import InterfazCommon.IPartida;
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -31,12 +34,15 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
     
     public VTableroPoker(IJugador j) {
-        this.jugador = j;
-        
-        System.out.println("NickJugador en TableroPoker: " + j.getNickName());
+        this.jugador = j;       
         iniciarComponentes();
     }
 
+    public VTableroPoker(IJugador j, IPartida p) {
+        this.jugador = j;  
+        this.partida = p;
+        iniciarComponentes();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,6 +126,15 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
         this.jptp.setJugador(jugador);
         this.jptp.setPartida(partida);
         
+        System.out.println("------------------------");
+        System.out.println("En VTableroPoker");
+        System.out.println("jugador = " + jugador.getNickName());
+        try {
+            System.out.println("partida = Partida" + partida.getNumero());
+        } catch (RemoteException ex) {
+            Logger.getLogger(VTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.jptp.setSize(800, 500);
         this.getContentPane().removeAll();
         this.getContentPane().add(this.jptp);
@@ -139,6 +154,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
 
     @Override
     public void mostarSaldoJugador(String saldoJugador) {
+        System.out.println("En ITableroPoker mostrarSaldoJugador = " + saldoJugador);
         this.jptp.mostarSaldoJugador(saldoJugador);
     }
 
@@ -149,7 +165,7 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
 
     @Override
     public void setPartida(IPartida partida) {
-        this.jptp.setPartida(partida);
+        this.partida = partida;        
     }
 
     @Override

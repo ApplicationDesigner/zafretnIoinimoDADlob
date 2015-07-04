@@ -466,6 +466,7 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public void mostarSaldoJugador(String monto) {
+        System.out.println("En JPTableroPoker mostrarSaldoJugador = " + monto);
         this.lblSaldoReal.setText(monto);
     }
 

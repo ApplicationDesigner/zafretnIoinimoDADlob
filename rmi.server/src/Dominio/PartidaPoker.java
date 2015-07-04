@@ -191,7 +191,8 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
     public IMano buscarMano(IJugador unJugador) throws RemoteException {
 
         for (IMano m : this.colManos) {
-            if (m.getUnJugador().getNickName() == unJugador.getNickName()) {
+            System.out.println("jugador en mano: " + m.getUnJugador().getNickName());
+            if (m.getUnJugador().getNickName().equals(unJugador.getNickName())) {
                 return m;
             }
         }
@@ -206,111 +207,124 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
     @Override
     public void accionJugador(IJugador unJugador, String accion, Float monto) throws RemoteException {
+        System.out.println("*******************");
+        System.out.println("ACCIONJUGADOR");
+        System.out.println("Jugador " + unJugador.getNickName());
+
         IMano m = this.buscarMano(unJugador);
         boolean puedeApostar;
         boolean accionApostar = false;
 
-        switch (accion) {
-            case "APUESTABASE":
+        if (m != null) {
+            switch (accion) {
+                case "APUESTABASE":
 
-                puedeApostar = unJugador.apostar(monto);
-                if (puedeApostar) {
-                    if (this.validarMontoApuesta(m, monto)) {
-                        this.modificarPozo(monto);
-                    } else {
-                        this.notificarAccion("SINSALDO", m);
-                    }
-                } else {
-                    accion = "NOPUEDEAPOSTAR";
-                }
-
-                this.notificarAccion(accion, m);
-
-                break;
-            case "APOSTAR":
-
-                puedeApostar = unJugador.apostar(monto);
-                if (puedeApostar) {
-
-                    if (validarMontoApuesta(m, monto) == true) {
-                        this.modificarPozo(monto);
-                        accionApostar = true;
-                        contadorAcciones = 1;
+                    puedeApostar = unJugador.apostar(monto);
+                    if (puedeApostar) {
+                        if (this.validarMontoApuesta(m, monto)) {
+                            this.modificarPozo(monto);
+                        } else {
+                            this.notificarAccion("SINSALDO", m);
+                        }
                     } else {
                         accion = "NOPUEDEAPOSTAR";
                     }
-                } else {
-                    accion = "NOPUEDEAPOSTAR";
-                }
 
-                this.notificarAccion(accion, m);
+                    this.notificarAccion(accion, m);
 
-                break;
+                    break;
+                case "APOSTAR":
 
-            case "PAGAR":
+                    puedeApostar = unJugador.apostar(monto);
+                    if (puedeApostar) {
 
-                puedeApostar = unJugador.apostar(monto);
+                        System.out.println("cartas en la mano ");
+                        m.mostrarMano();
+                        System.out.println("Jugador en la mano " + m.getUnJugador().getNickName());
 
-                if (puedeApostar) {
-                    contadorAcciones++;
-                    this.modificarPozo(monto);
-                } else {
-                    accion = "NOPUEDEAPOSTAR";
-                }
-
-                this.notificarAccion(accion, m);
-
-                break;
-
-            case "PASAR":
-                contadorAcciones++;
-                this.notificarAccion(accion, m);
-                break;
-
-            case "DESCARTO":
-
-                this.notificarAccion(accion, m);
-                this.contarDescartes++;
-                break;
-
-            case "RETIRARSE":
-                contadorAcciones++;
-
-                this.colManos.remove(this.buscarMano(unJugador));
-
-                this.notificarAccion(accion, m);
-                break;
-
-            case "ABANDONA":
-                this.notificarAccion(accion, m);
-                break;
-
-            case "CONTINUA":
-                this.notificarAccion(accion, m);
-                break;
-
-            default:
-                this.notificarAccion(accion, m);
-                break;
-
-        }
-
-        if (this.contadorAcciones == observadores.size()) {
-
-            if (this.colManos.size() != 1) {
-
-                if (this.contarDescartes == 0) {
-                    for (IMano unaMano : this.colManos) {
-                        this.notificarAccion("DESCARTAR", unaMano);
+                        if (validarMontoApuesta(m, monto) == true) {
+                            this.modificarPozo(monto);
+                            accionApostar = true;
+                            contadorAcciones = 1;
+                        } else {
+                            accion = "NOPUEDEAPOSTAR";
+                        }
+                    } else {
+                        accion = "NOPUEDEAPOSTAR";
                     }
-                } else if (this.contarDescartes == (this.colManos.size())) {
+
+                    this.notificarAccion(accion, m);
+
+                    break;
+
+                case "PAGAR":
+
+                    puedeApostar = unJugador.apostar(monto);
+
+                    if (puedeApostar) {
+                        contadorAcciones++;
+                        this.modificarPozo(monto);
+                    } else {
+                        accion = "NOPUEDEAPOSTAR";
+                    }
+
+                    this.notificarAccion(accion, m);
+
+                    break;
+
+                case "PASAR":
+                    contadorAcciones++;
+                    this.notificarAccion(accion, m);
+                    break;
+
+                case "DESCARTO":
+
+                    this.notificarAccion(accion, m);
+                    this.contarDescartes++;
+                    break;
+
+                case "RETIRARSE":
+                    contadorAcciones++;
+
+                    this.colManos.remove(this.buscarMano(unJugador));
+
+                    this.notificarAccion(accion, m);
+                    break;
+
+                case "ABANDONA":
+                    this.notificarAccion(accion, m);
+                    break;
+
+                case "CONTINUA":
+                    this.notificarAccion(accion, m);
+                    break;
+
+                default:
+                    this.notificarAccion(accion, m);
+                    break;
+
+            }
+
+            if (this.contadorAcciones == observadores.size()) {
+
+                if (this.colManos.size() != 1) {
+
+                    if (this.contarDescartes == 0) {
+                        for (IMano unaMano : this.colManos) {
+                            this.notificarAccion("DESCARTAR", unaMano);
+                        }
+                    } else if (this.contarDescartes == (this.colManos.size())) {
+                        mostrarGanador();
+                    }
+
+                } else {
                     mostrarGanador();
                 }
-
-            } else {
-                mostrarGanador();
             }
+        } else {
+            System.out.println("No se encontro la mano.");
         }
+
     }
 
     private void mostrarGanador() throws RemoteException {

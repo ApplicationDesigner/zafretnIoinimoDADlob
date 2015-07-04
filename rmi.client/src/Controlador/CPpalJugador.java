@@ -52,12 +52,13 @@ public class CPpalJugador extends Controlador {
                         this.conectarPartida(partidaID);
                         //Al iniciar saldo = saldo inicial            
                         this.iip.getJugador().setSaldo(this.iip.getJugador().getSaldoInicial());
-                        ITableroPoker itp = new VTableroPoker(this.iip.getJugador());
-                        itp.setPartida(ip);
+                        ITableroPoker itp = new VTableroPoker(this.iip.getJugador(), ip);
+                       // itp.setPartida(ip);
+                       
                         Controlador c = null;
                         c = new CTableroPoker(itp);
                         ip.Add(c);
-                        System.out.println("jugador" + this.iip.getJugador().getNickName());
+//                        System.out.println("jugador" + this.iip.getJugador().getNickName());
                         this.juegoPoker.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
                         itp.setControlador(c);
                     } else {
@@ -95,7 +96,7 @@ public class CPpalJugador extends Controlador {
         try {
             this.juegoPoker = (IJuego) Naming.lookup("JuegoPokerServer");
             //this.juegoPoker.Add(this);
-            System.out.println("Me conecte al juego...");
+//            System.out.println("Me conecte al juego...");
         } catch (Exception ex) {
             System.out.println("Error al conectar JuegoPoker");
             System.err.println(ex.getMessage());

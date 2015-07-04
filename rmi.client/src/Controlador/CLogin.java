@@ -45,7 +45,7 @@ public class CLogin extends Controlador {
         try {
             this.observable = (ICasino) Naming.lookup("CasinoServer");
             this.observable.Add(this);
-            System.out.println("Me conecte...");
+//            System.out.println("Me conecte...");
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return false;
@@ -61,7 +61,7 @@ public class CLogin extends Controlador {
         try {
             this.juegoPoker = (IJuego) Naming.lookup("JuegoPokerServer");
             this.juegoPoker.Add(this);
-            System.out.println("Me conecte al juego...");
+//            System.out.println("Me conecte al juego...");
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return false;
@@ -113,15 +113,13 @@ public class CLogin extends Controlador {
                         if (partidasDisponibles != null) {
                             IIngresarAPartida iip = null;
                             try {
+//                                System.out.println("..................");
+//                                System.out.println("Jugador = " + j.getNickName());
                                 iip = new VPpalJugador(j, partidasDisponibles);
-
+//                                System.out.println("Jugador = " + iip.getJugador().getNickName());
                                 Controlador c = null;
-                                try {
-                                    c = new CPpalJugador(iip);
-                                    iip.setControlador(c);
-                                } catch (RemoteException ex) {
-                                    System.err.println(ex.getMessage());
-                                }
+                                c = new CPpalJugador(iip);
+                                iip.setControlador(c);
                             } catch (RemoteException ex) {
                                 System.err.println(ex.getMessage());
                                 Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,65 +135,6 @@ public class CLogin extends Controlador {
             }
 
         }
-
-//        if (e.getActionCommand().equals("LoginAceptar")) {
-//            System.out.println("NickName: " + ilogin.getNickName() + " Pass: " + ilogin.getPass());
-//
-//            this.nickIngresado = ilogin.getNickName();
-//            try {
-//
-//                if (this.observable != null) {
-//                    System.out.println("observable no es null");
-//                    if (this.observable.validarLogin(ilogin.getNickName(), ilogin.getPass())) {
-//                        System.out.println("User logueado");
-//                    } else {
-//                        System.out.println("no logueado");
-//                    }
-//                } else {
-//                    System.out.println("observable es null");
-//
-//                }
-//            if (instanceCasino.validarLogin(ilogin.getNickName(), ilogin.getPass())) {
-//                IJugador j = instanceCasino.buscarJugador(ilogin.getNickName());
-//
-//                if (j != null) {
-//                    System.out.println("Logueando a ventana principal del jugador...");
-//                    
-//                    ArrayList<IPartida> partidasDisponibles = new ArrayList<>();
-//                    //Muestro solo las partidas que no estan completas
-//                    for(IPartida p : Casino.getInstance().getColPartidas()){
-//                        if(p.getColManos().size() < Configuraciones.Constantes.getCantMinimoJugadoresPorMesa()){
-//                            partidasDisponibles.add(p);
-//                        }
-//                    }
-//                    //En caso de que esten todas las partidas ocupadas, creo una nueva y la agrego como disponible
-//                    if(partidasDisponibles.size() < 1){
-//                        IJuego unJuegoPoker = JuegoPoker.getInstance();
-//                        IPartida nuevaPartida = Casino.getInstance().agregarPartida(unJuegoPoker, "POKER");
-//                        unJuegoPoker.agregarPartida(nuevaPartida);
-//                        partidasDisponibles.add(nuevaPartida);
-//                    }
-//
-//                    
-//                    if(partidasDisponibles != null){
-//                        IIngresarAPartida iip = new VPpalJugador(j, partidasDisponibles);
-//                        Controlador c = null;
-//                        try {
-//                            c = new CPpalJugador(iip);
-//                        } catch (RemoteException ex) {
-//                            Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                        iip.setControlador(c);
-//                    }
-//                }
-//            } else {
-//                ilogin.setLblMensaje("Usuario y/o password incorrectos");
-//            }
-//            } catch (RemoteException ex) {
-//                Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        }
     }
 
     public void Update(Serializable obj) throws RemoteException {
