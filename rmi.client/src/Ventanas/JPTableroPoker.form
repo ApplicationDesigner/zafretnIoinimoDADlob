@@ -90,9 +90,9 @@
                   <Component id="lblMensaje" max="32767" attributes="0"/>
                   <Component id="lblListaJugadoresReal" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnAbandonarPartidaSI" min="-2" pref="67" max="-2" attributes="0"/>
+                      <Component id="btnSeguirJugandoSI" min="-2" pref="67" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnAbandonarPartidaNO" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="btnSeguirJugandoNO" min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -167,8 +167,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnAbandonarPartidaSI" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAbandonarPartidaNO" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSeguirJugandoSI" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSeguirJugandoNO" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -361,24 +361,27 @@
         <Property name="actionCommand" type="java.lang.String" value="btnPasar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAbandonarPartidaSI">
+    <Component class="javax.swing.JButton" name="btnSeguirJugandoSI">
       <Properties>
         <Property name="text" type="java.lang.String" value="Si"/>
-        <Property name="actionCommand" type="java.lang.String" value="btnAbandonarPartidaSI"/>
+        <Property name="actionCommand" type="java.lang.String" value="SeguirJugandoSI"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeguirJugandoSIActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#xbf;Desea abandonar la partida?"/>
+        <Property name="text" type="java.lang.String" value="&#xbf;Desea seguir jugando?"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAbandonarPartidaNO">
+    <Component class="javax.swing.JButton" name="btnSeguirJugandoNO">
       <Properties>
         <Property name="text" type="java.lang.String" value="No"/>
-        <Property name="actionCommand" type="java.lang.String" value="btnAbandonarPartidaNO"/>
+        <Property name="actionCommand" type="java.lang.String" value="SeguirJugandoNO"/>
       </Properties>
     </Component>
   </SubComponents>

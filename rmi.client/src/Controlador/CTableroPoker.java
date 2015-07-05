@@ -153,7 +153,7 @@ public class CTableroPoker extends Controlador {
                 }
                 break;
 
-            case "btnAbandonarPartidaSI":
+            case "SeguirJugandoNO":
 
                 //itp.getPartida().accionJugador(itp.getJugador(), "ABANDONA", 0f);
                 float gananciasJugador = itp.getJugador().getSaldo() - itp.getJugador().getSaldoInicial();
@@ -184,8 +184,8 @@ public class CTableroPoker extends Controlador {
 
                 System.out.println("El saldo del jugador es: " + itp.getJugador().getSaldoInicial());
 
-                itp.habilitarBotonAbandonarPartidaNO(false);
-                itp.habilitarBotonAbandonarPartidaSI(false);
+                itp.habilitarBotonSeguirJugandoSi(false);
+                itp.habilitarBotonSeguirJugandoNO(false);
 
                  {
                     try {
@@ -196,23 +196,17 @@ public class CTableroPoker extends Controlador {
                 }
                 break;
 
-            case "btnAbandonarPartidaNO": {
+            case "SeguirJugandoSI": {
                 try {
                     itp.getPartida().ingresarJugador(itp.getJugador());
-                } catch (RemoteException ex) {
-                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-             {
-                try {
                     itp.getPartida().accionJugador(itp.getJugador(), "CONTINUA", 0f);
                 } catch (RemoteException ex) {
-                    Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Hubo un error al seguir jugando...");                    
                 }
             }
 
-            itp.habilitarBotonAbandonarPartidaNO(false);
-            itp.habilitarBotonAbandonarPartidaSI(false);
+            itp.habilitarBotonSeguirJugandoSi(false);
+            itp.habilitarBotonSeguirJugandoNO(false);
             break;
 
             default:
@@ -255,8 +249,8 @@ public class CTableroPoker extends Controlador {
                 }
 
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
-                itp.habilitarBotonAbandonarPartidaNO(false);
-                itp.habilitarBotonAbandonarPartidaSI(false);
+                itp.habilitarBotonSeguirJugandoSi(false);
+                itp.habilitarBotonSeguirJugandoNO(false);
                 itp.habilitarBotonApostar(true);
                 itp.habilitarBotonPasar(true);
                 itp.escribirLog("El jugador " + nickJugador + " pone la apuesta base.\n");
@@ -403,8 +397,8 @@ public class CTableroPoker extends Controlador {
                 mostrarMontoPozo(Float.toString(itp.getPartida().getPozo()));
 
                 itp.escribirLog("El jugador ganador es: " + nickJugador + " con la figura: " + itp.getPartida().evaluarMano(((IMano) ((Mensaje) obj).getValor())) + "\n");
-                itp.habilitarBotonAbandonarPartidaNO(true);
-                itp.habilitarBotonAbandonarPartidaSI(true);
+                itp.habilitarBotonSeguirJugandoSi(true);
+                itp.habilitarBotonSeguirJugandoNO(true);
                 break;
 
             case "ABANDONA":
@@ -417,8 +411,8 @@ public class CTableroPoker extends Controlador {
                     itp.mostrarMensaje("Sin saldo disponible.");
 
                     itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
-                    itp.habilitarBotonAbandonarPartidaNO(false);
-                    itp.habilitarBotonAbandonarPartidaSI(false);
+                    itp.habilitarBotonSeguirJugandoSi(false);
+                    itp.habilitarBotonSeguirJugandoNO(false);
 
                     itp.getPartida().Remove(this);
                 }
