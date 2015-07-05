@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import Configuraciones.Constantes;
 import DominioCommon.EvaluadorManosContext;
+import DominioCommon.Jugador;
 import DominioCommon.Mano;
 import DominioCommon.Mazo;
 import DominioCommon.Mensaje;
@@ -22,6 +23,7 @@ import InterfazCommon.IObserver;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import persistencia.JugadorPersistente;
 import persistencia.ManejadorBD;
 import persistencia.PartidaPersistente;
 
@@ -360,6 +362,12 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
         bd.agregar(new PartidaPersistente(this));
         
+        String sql = "INSERT INTO partida_jugador (nickName,numero_partida,ganador) VALUES ('"
+                + manoGanador.getUnJugador().getNickName() + "'," + this.getNumero() + ",'T')";
+        bd.ejecutarConsulta(sql);
+        System.out.println(sql);
+        
+       
         
         //Reinicio el pozo para la proxima ronda
         this.pozo = 0;

@@ -15,99 +15,103 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import persistencia.CasinoPersistente;
+import persistencia.ManejadorBD;
 
 /**
  *
  * @author Sebastian
  */
 public class JuegoPoker extends UnicastRemoteObject implements IJuego {
-    
-    
+
     private static JuegoPoker instance = null;
     private static ArrayList<IPartida> colPartidas;
-    
-    private static String nombre;
-    private static int numero;    
-    private static float ganancias;
-    
-    
-    private JuegoPoker()  throws RemoteException {
-        JuegoPoker.colPartidas      = new ArrayList<>();       
-        JuegoPoker.nombre           = "JuegoPoker"; 
-        JuegoPoker.ganancias        = 0;
-    }
-    
-    public static JuegoPoker getInstance()  throws RemoteException {
-        if(JuegoPoker.instance == null) {
-            JuegoPoker.instance = new JuegoPoker();
-        }        
-        return JuegoPoker.instance;
-    }    
 
-    
+    private static String nombre;
+    private static int numero;
+    private static float ganancias;
+
+    private JuegoPoker() throws RemoteException {
+        JuegoPoker.colPartidas = new ArrayList<>();
+        JuegoPoker.nombre = "JuegoPoker";
+        JuegoPoker.ganancias = 0;
+    }
+
+    public static JuegoPoker getInstance() throws RemoteException {
+        if (JuegoPoker.instance == null) {
+            JuegoPoker.instance = new JuegoPoker();
+        }
+        return JuegoPoker.instance;
+    }
+
     @Override
-    public ArrayList<IPartida> getColPartidas()  throws RemoteException {
+    public ArrayList<IPartida> getColPartidas() throws RemoteException {
         return colPartidas;
     }
 
     @Override
-    public void setColPartidas(ArrayList<IPartida> colPartidas)  throws RemoteException {
+    public void setColPartidas(ArrayList<IPartida> colPartidas) throws RemoteException {
         JuegoPoker.colPartidas = colPartidas;
     }
 
     @Override
-    public String getNombre()  throws RemoteException {
+    public String getNombre() throws RemoteException {
         return nombre;
     }
 
     @Override
-    public void setNombre(String nombre)  throws RemoteException {
+    public void setNombre(String nombre) throws RemoteException {
         JuegoPoker.nombre = nombre;
     }
 
     @Override
-    public int getNumero()  throws RemoteException {
+    public int getNumero() throws RemoteException {
         return numero;
     }
 
     @Override
-    public void setNumero(int numero)  throws RemoteException {
+    public void setNumero(int numero) throws RemoteException {
         JuegoPoker.numero = numero;
     }
 
     @Override
-    public float getGanancias()  throws RemoteException {
+    public float getGanancias() throws RemoteException {
         return ganancias;
     }
 
     @Override
-    public void setGanancias(float ganancias)  throws RemoteException {
+    public void setGanancias(float ganancias) throws RemoteException {
         JuegoPoker.ganancias = ganancias;
     }
-    
+
     @Override
-    public void sumarGanancias(float monto)  throws RemoteException {        
+    public void sumarGanancias(float monto) throws RemoteException {
         this.setGanancias(this.getGanancias() + monto);
         System.out.println("Las ganancias del JuegoPoker son: " + this.getGanancias());
+
+        //REALIZAR EL UPDATE EN LA BBDD EN TABLA CASINO
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+        String sql = "UPDATE casino SET ganancias=" + this.getGanancias() + monto;
+        bd.ejecutarConsulta(sql);
+        System.out.println(sql);
     }
-    
-    
+
     @Override
-    public void agregarPartida(IPartida p)  throws RemoteException {
-        JuegoPoker.colPartidas.add(p);        
+    public void agregarPartida(IPartida p) throws RemoteException {
+        JuegoPoker.colPartidas.add(p);
     }
-    
+
 //    @Override
 //    public String toString()  throws RemoteException {
 //        return ("Nombre: " + JuegoPoker.nombre + " Numero: " + JuegoPoker.numero);
 //    }
-
     @Override
-    public IPartida buscarPartida(int numero)  throws RemoteException {
+    public IPartida buscarPartida(int numero) throws RemoteException {
         IPartida retorno = null;
-        for(IPartida unaPartida : this.getColPartidas()){
+        for (IPartida unaPartida : this.getColPartidas()) {
             try {
-                if(unaPartida.getNumero() == numero){
+                if (unaPartida.getNumero() == numero) {
                     retorno = unaPartida;
                 }
             } catch (RemoteException ex) {
@@ -118,9 +122,9 @@ public class JuegoPoker extends UnicastRemoteObject implements IJuego {
     }
 
     @Override
-    public void ingresarJugadorAPartida(int nroPartida, IJugador j)  throws RemoteException {
+    public void ingresarJugadorAPartida(int nroPartida, IJugador j) throws RemoteException {
         IPartida unaPartida = this.buscarPartida(nroPartida);
-        if(unaPartida != null){
+        if (unaPartida != null) {
             try {
                 unaPartida.ingresarJugador(j);
             } catch (RemoteException ex) {

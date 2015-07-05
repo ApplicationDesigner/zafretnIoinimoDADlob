@@ -262,6 +262,16 @@ public class Casino extends UnicastRemoteObject implements ICasino {
 //        System.out.println(p2.toString());
 //
 //        j1.agregarPartida(p2);
+        
+        
+//        ManejadorBD bd = ManejadorBD.getInstancia();
+//        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+//        String sql = "TRUNCATE TABLE partida";
+//        bd.ejecutarConsulta(sql);
+//        sql = "TRUNCATE TABLE partida_jugador";
+//        bd.ejecutarConsulta(sql);
+        
+        
     }
 
     @Override
