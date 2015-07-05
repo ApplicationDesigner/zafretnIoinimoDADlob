@@ -224,13 +224,13 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     }
 
     @Override
-    public void habilitarBotonAbandonarPartidaSI(boolean estado) {
-        this.jptp.habilitarBotonAbandonarPartidaSI(estado);
+    public void habilitarBotonSeguirJugandoNO(boolean estado) {
+        this.jptp.habilitarBotonSeguirJugandoNO(estado);
     }
 
     @Override
-    public void habilitarBotonAbandonarPartidaNO(boolean estado) {
-        this.jptp.habilitarBotonAbandonarPartidaNO(estado);
+    public void habilitarBotonSeguirJugandoSi(boolean estado) {
+        this.jptp.habilitarBotonSeguirJugandoSi(estado);
     }
 
     @Override
@@ -266,5 +266,10 @@ public final class VTableroPoker extends javax.swing.JFrame implements ITableroP
     @Override
     public IMano getManoActual() {
         return jptp.getManoActual();
+    }
+
+    @Override
+    public void cerrarVentana() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

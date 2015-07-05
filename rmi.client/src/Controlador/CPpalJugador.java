@@ -61,6 +61,7 @@ public class CPpalJugador extends Controlador {
 //                        System.out.println("jugador" + this.iip.getJugador().getNickName());
                         this.juegoPoker.ingresarJugadorAPartida(ip.getNumero(), this.iip.getJugador());
                         itp.setControlador(c);
+                        this.iip.cerrarVentana();
                     } else {
                         System.out.println("partida es null.");
                     }

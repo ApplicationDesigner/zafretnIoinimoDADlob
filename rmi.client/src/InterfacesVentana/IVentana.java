@@ -7,6 +7,7 @@
 package InterfacesVentana;
 
 import Controlador.Controlador;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,5 +23,6 @@ public interface IVentana {
     public void SetControlador(Controlador controller);
     public void iniciarComponentes();
     public void setControlador(Controlador c);
+    public void cerrarVentana();
     
 }

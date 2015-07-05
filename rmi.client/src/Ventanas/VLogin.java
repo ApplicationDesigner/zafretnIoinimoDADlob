@@ -143,4 +143,9 @@ public final class VLogin extends javax.swing.JFrame implements ILogin {
     public void SetControlador(Controlador controller) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void cerrarVentana() {
+        this.dispose();        
+    }
 }
