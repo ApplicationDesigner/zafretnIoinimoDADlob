@@ -114,8 +114,9 @@ public class CLogin extends Controlador {
                         if (partidasDisponibles != null) {
                             IIngresarAPartida iip = null;
                             try {
-//                                System.out.println("..................");
-//                                System.out.println("Jugador = " + j.getNickName());
+                                System.out.println("..................");
+                                System.out.println("Jugador = " + j.getNickName());
+                                System.out.println("Cant partidas disponibles = " +  partidasDisponibles.size());
                                 iip = new VPpalJugador(j, partidasDisponibles);
 //                                System.out.println("Jugador = " + iip.getJugador().getNickName());
                                 Controlador c = null;

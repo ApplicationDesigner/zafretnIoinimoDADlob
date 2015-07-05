@@ -87,6 +87,7 @@ public class Casino extends UnicastRemoteObject implements ICasino {
             System.out.println(p1.toString());
 
             j1.agregarPartida(p1);
+            partidasDisponibles.add(p1);
         }
         return partidasDisponibles;
     }
@@ -158,8 +159,8 @@ public class Casino extends UnicastRemoteObject implements ICasino {
                 // so add 1 to make it inclusive
                 int randomNum = rand.nextInt((15900 - 11900) + 1) + 11900;
 
-                System.out.println("el puerto random es: " + randomNum);
-                LocateRegistry.createRegistry(Registry.REGISTRY_PORT + 5);
+                //System.out.println("el puerto random es: " + randomNum);
+                LocateRegistry.createRegistry(randomNum);
 
                 String partidaID = "Partida" + Integer.toString(p.getNumero());
                 //Naming.rebind("PARTIDA1", p);
