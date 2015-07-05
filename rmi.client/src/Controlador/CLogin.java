@@ -122,6 +122,8 @@ public class CLogin extends Controlador {
                                 Controlador c = null;
                                 c = new CPpalJugador(iip);
                                 iip.setControlador(c);
+                                
+                                this.ilogin.cerrarVentana();
                             } catch (RemoteException ex) {
                                 System.err.println(ex.getMessage());
                                 Logger.getLogger(CLogin.class.getName()).log(Level.SEVERE, null, ex);

@@ -96,9 +96,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaLogs = new javax.swing.JTextArea();
         btnPasar = new javax.swing.JButton();
-        btnAbandonarPartidaSI = new javax.swing.JButton();
+        btnSeguirJugandoSI = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnAbandonarPartidaNO = new javax.swing.JButton();
+        btnSeguirJugandoNO = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 51, 0));
 
@@ -188,14 +188,19 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         btnPasar.setText("Pasar");
         btnPasar.setActionCommand("btnPasar");
 
-        btnAbandonarPartidaSI.setText("Si");
-        btnAbandonarPartidaSI.setActionCommand("btnAbandonarPartidaSI");
+        btnSeguirJugandoSI.setText("Si");
+        btnSeguirJugandoSI.setActionCommand("SeguirJugandoSI");
+        btnSeguirJugandoSI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeguirJugandoSIActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("¿Desea abandonar la partida?");
+        jLabel1.setText("¿Desea seguir jugando?");
 
-        btnAbandonarPartidaNO.setText("No");
-        btnAbandonarPartidaNO.setActionCommand("btnAbandonarPartidaNO");
+        btnSeguirJugandoNO.setText("No");
+        btnSeguirJugandoNO.setActionCommand("SeguirJugandoNO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -256,9 +261,9 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                     .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblListaJugadoresReal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAbandonarPartidaSI, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSeguirJugandoSI, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAbandonarPartidaNO, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSeguirJugandoNO, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(61, 61, 61))
         );
@@ -317,8 +322,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAbandonarPartidaSI)
-                        .addComponent(btnAbandonarPartidaNO)))
+                        .addComponent(btnSeguirJugandoSI)
+                        .addComponent(btnSeguirJugandoNO)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -383,10 +388,12 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         }
     }//GEN-LAST:event_btnCarta5ActionPerformed
 
+    private void btnSeguirJugandoSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguirJugandoSIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeguirJugandoSIActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAbandonarPartidaNO;
-    private javax.swing.JButton btnAbandonarPartidaSI;
     private javax.swing.JButton btnApostar;
     private javax.swing.JButton btnCarta1;
     private javax.swing.JButton btnCarta2;
@@ -397,6 +404,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnPedirCartas;
     private javax.swing.JButton btnRetirarme;
+    private javax.swing.JButton btnSeguirJugandoNO;
+    private javax.swing.JButton btnSeguirJugandoSI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jtaLogs;
@@ -423,8 +432,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.btnRetirarme.addActionListener(c);
         this.btnApostar.addActionListener(c);
         this.btnPedirCartas.addActionListener(c);
-        this.btnAbandonarPartidaNO.addActionListener(c);
-        this.btnAbandonarPartidaSI.addActionListener(c);
+        this.btnSeguirJugandoNO.addActionListener(c);
+        this.btnSeguirJugandoSI.addActionListener(c);
 
     }
 
@@ -439,8 +448,8 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
         this.habilitarBotonRetirarme(false);
         this.habilitarBotonApostar(false);
         this.habilitarBotonPasar(false);
-        this.habilitarBotonAbandonarPartidaNO(false);
-        this.habilitarBotonAbandonarPartidaSI(false);
+        this.habilitarBotonSeguirJugandoSi(false);
+        this.habilitarBotonSeguirJugandoNO(false);
     }
 
     @Override
@@ -582,13 +591,13 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
     }
 
     @Override
-    public void habilitarBotonAbandonarPartidaSI(boolean estado) {
-        this.btnAbandonarPartidaSI.setEnabled(estado);
+    public void habilitarBotonSeguirJugandoNO(boolean estado) {
+        this.btnSeguirJugandoSI.setEnabled(estado);
     }
 
     @Override
-    public void habilitarBotonAbandonarPartidaNO(boolean estado) {
-        this.btnAbandonarPartidaNO.setEnabled(estado);
+    public void habilitarBotonSeguirJugandoSi(boolean estado) {
+        this.btnSeguirJugandoNO.setEnabled(estado);
     }
 
     @Override
@@ -629,6 +638,11 @@ public final class JPTableroPoker extends javax.swing.JPanel implements ITablero
 
     @Override
     public void SetControlador(Controlador controller) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void cerrarVentana() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

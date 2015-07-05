@@ -9,7 +9,6 @@ import Controlador.CLogin;
 import Controlador.Controlador;
 import InterfacesVentana.ILogin;
 //import Controlador.CNuevoJugador;
-import InterfacesVentana.INuevoJugador;
 import Ventanas.VLogin;
 import InterfazCommon.ICasino;
 import java.rmi.RemoteException;
