@@ -161,22 +161,23 @@ public class CTableroPoker extends Controlador {
                 float comision = 0;
 
                 System.out.println("Las ganancias del jugador son: " + gananciasJugador);
-                System.out.println("La comision es: " + comision);
+                
 
                 if (gananciasJugador > 0) {
 
-                    if (this.conectarJuegoPoker()) {
+                    this.conectarJuegoPoker();
                         comision = gananciasJugador * Constantes.getPorcentajeGanancias();
+                        System.out.println("La comision es: " + comision);
                         try {
                             this.juegoPoker.sumarGanancias(comision);
                         } catch (RemoteException ex) {
                             Logger.getLogger(CTableroPoker.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        System.out.println("Las ganancias del JuegoP");
+                        
                         //saldoInicial = saldo - comision
                         itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo() - comision);
-                    }
+                    
                 } else {
                     //saldoInicial = saldo
                     itp.getJugador().setSaldoInicial(itp.getJugador().getSaldo());
@@ -232,6 +233,8 @@ public class CTableroPoker extends Controlador {
             case "APUESTABASE":
                 System.out.println("nickJugador = " + nickJugador);
                 System.out.println("itp.jugador.nickname " + itp.getJugador().getNickName());
+                System.out.println("Saldo jugador en tableroPoker = " + itp.getJugador().getSaldo());
+                System.out.println("SaldoInicial jugador en tableroPoker = " + itp.getJugador().getSaldoInicial());
                 if (nickJugador.equals(itp.getJugador().getNickName())) {
 
                     System.out.println("Son iguales");

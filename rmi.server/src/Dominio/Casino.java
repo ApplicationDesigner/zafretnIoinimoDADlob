@@ -241,12 +241,14 @@ public class Casino extends UnicastRemoteObject implements ICasino {
         for (int i = 0; i < 10; i++) {
             IJugador j = new Jugador();
             j.setNickName("n" + i);
-            j.setNickName("n" + i);
+            //j.setNickName("n" + i);
             j.setPassword("p" + i);
+            j.setSaldo(500);
             j.setSaldoInicial(500);
             Casino.colJugadores.add(j);
         }
 
+        System.out.println("");
         IJuego j1;
         j1 = Casino.instance.agregarJuego("POKER");
         System.out.println(j1.toString());

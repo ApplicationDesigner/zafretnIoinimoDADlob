@@ -23,6 +23,10 @@ import InterfazCommon.IObserver;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistencia.JugadorPersistente;
 import persistencia.ManejadorBD;
 import persistencia.PartidaPersistente;
@@ -128,15 +132,14 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
         for (int i = 0; i < cartasFaltantes; i++) {
             mano.agregarCarta(this.mazo.Repartir(), (int) indices.get(i));
         }
-        
+
         for (IMano m : this.colManos) {
 //            System.out.println("jugador en mano: " + m.getUnJugador().getNickName());
             if (m.getUnJugador().getNickName().equals(mano.getUnJugador().getNickName())) {
                 m.setColCartas(mano.getColCartas());
             }
         }
-        
-        
+
         return mano;
     }
 
@@ -216,7 +219,36 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
 
     @Override
     public float modificarPozo(float monto) throws RemoteException {
+
         this.pozo += monto;
+
+        //REALIZAR EL UPDATE EN LA BBDD EN TABLA CASINO
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+//      
+//        
+        String sql = "SELECT * FROM partida WHERE numero_partida = " + Integer.toString(this.getNumero());
+        ResultSet rs = bd.obtenerResultSet(sql);
+
+        float totalApostadoActual = 0f;
+
+        try {
+            if (rs.next()) {
+                totalApostadoActual = rs.getFloat("total_apostado");
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JuegoPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (totalApostadoActual > 0) {
+            System.out.println("totalApostadoActual = " + totalApostadoActual);
+            System.out.println("Voy a setear la montoPartida a " + Float.toString(monto + totalApostadoActual));
+            sql = "UPDATE partida SET total_apostado = " + Float.toString(monto + totalApostadoActual) + " WHERE numero_partida = " + Integer.toString(this.getNumero());
+            System.out.println(sql);
+            bd.ejecutarConsulta(sql);
+        }
+
         return this.pozo;
     }
 
@@ -234,11 +266,15 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
             switch (accion) {
                 case "APUESTABASE":
 
+                    System.out.println("El saldo del jugador es: " + unJugador.getSaldo());
                     puedeApostar = unJugador.apostar(monto);
                     if (puedeApostar) {
+
                         if (this.validarMontoApuesta(m, monto)) {
                             this.modificarPozo(monto);
                             m.setUnJugador(unJugador);
+                            this.updateSaldoJugador(unJugador);
+
                             this.notificarAccion(accion, m);
                         } else {
                             this.notificarAccion("SINSALDO", m);
@@ -249,19 +285,20 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     }
 
 //                    this.notificarAccion(accion, m);
-
                     break;
                 case "APOSTAR":
 
                     puedeApostar = unJugador.apostar(monto);
+
                     if (puedeApostar) {
 
 //                        System.out.println("cartas en la mano ");
 //                        m.mostrarMano();
 //                        System.out.println("Jugador en la mano " + m.getUnJugador().getNickName());
-
                         if (validarMontoApuesta(m, monto) == true) {
                             this.modificarPozo(monto);
+                            this.updateSaldoJugador(unJugador);
+
                             accionApostar = true;
                             contadorAcciones = 1;
                             m.setUnJugador(unJugador);
@@ -276,7 +313,6 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     }
 
 //                    this.notificarAccion(accion, m);
-
                     break;
 
                 case "PAGAR":
@@ -286,15 +322,16 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                     if (puedeApostar) {
                         contadorAcciones++;
                         this.modificarPozo(monto);
-                         m.setUnJugador(unJugador);
-                         this.notificarAccion(accion, m);
+                        m.setUnJugador(unJugador);
+                        this.updateSaldoJugador(unJugador);
+
+                        this.notificarAccion(accion, m);
                     } else {
                         accion = "NOPUEDEAPOSTAR";
                         this.notificarAccion(accion, m);
                     }
 
 //                    this.notificarAccion(accion, m);
-
                     break;
 
                 case "PASAR":
@@ -350,25 +387,31 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
             System.out.println("No se encontro la mano.");
         }
 
-      }
+    }
 
     private void mostrarGanador() throws RemoteException {
         IMano manoGanador = this.getManoGanadora();
 
         //Gana el pozo. Le sumo el saldo del pozo al saldo del jugador ganador
         manoGanador.getUnJugador().setSaldo(manoGanador.getUnJugador().getSaldo() + this.getPozo());
-
+        this.updateSaldoJugador(manoGanador.getUnJugador());
+        
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
         bd.agregar(new PartidaPersistente(this));
-        
-        String sql = "INSERT INTO partida_jugador (nickName,numero_partida,ganador) VALUES ('"
-                + manoGanador.getUnJugador().getNickName() + "'," + this.getNumero() + ",'T')";
-        bd.ejecutarConsulta(sql);
-        System.out.println(sql);
-        
-       
-        
+
+        for (IMano m : this.colManos) {
+            String ganador = "F";
+            if (m == manoGanador) {
+                ganador = "T";
+            }
+            bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+            String sql = "INSERT INTO partida_jugador (nickName,numero_partida,ganador) VALUES ('"
+                    + m.getUnJugador().getNickName() + "'," + this.getNumero() + ",'" + ganador + "')";
+            bd.ejecutarConsulta(sql);
+            System.out.println(sql);
+        }
+
         //Reinicio el pozo para la proxima ronda
         this.pozo = 0;
         //Reinicio contadores
@@ -447,6 +490,17 @@ public class PartidaPoker extends UnicastRemoteObject implements IPartida {
                 observadores.remove(obs);
             }
         }
+    }
+
+    private void updateSaldoJugador(IJugador unJugador) {
+
+        ManejadorBD bd = ManejadorBD.getInstancia();
+        bd.conectar(Configuraciones.Constantes.getCadenaConexion());
+
+        String sql;
+        sql = "UPDATE jugador SET saldo = " + Float.toString(unJugador.getSaldo()) + " WHERE nickName = '" + unJugador.getNickName() + "'";
+        System.out.println("UPDATE de saldoJugador = " + sql);
+        bd.ejecutarConsulta(sql);
     }
 
 }

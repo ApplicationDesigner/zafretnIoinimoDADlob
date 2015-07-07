@@ -12,10 +12,13 @@ import InterfazCommon.IPartida;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.CasinoPersistente;
+import persistencia.IPersistente;
 import persistencia.ManejadorBD;
 
 /**
@@ -92,9 +95,34 @@ public class JuegoPoker extends UnicastRemoteObject implements IJuego {
         //REALIZAR EL UPDATE EN LA BBDD EN TABLA CASINO
         ManejadorBD bd = ManejadorBD.getInstancia();
         bd.conectar(Configuraciones.Constantes.getCadenaConexion());
-        String sql = "UPDATE casino SET ganancias=" + this.getGanancias() + monto;
-        bd.ejecutarConsulta(sql);
-        System.out.println(sql);
+      
+        
+        String sql = "SELECT * FROM casino";
+        ResultSet rs = bd.obtenerResultSet(sql);
+       
+
+        float gananciaActual = 0f;
+ 
+        try {
+            if(rs.next()) {
+                gananciaActual =  rs.getFloat("ganancias");
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JuegoPoker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        gananciaActual += monto;
+        
+       System.out.println("Voy a setear la gananciaCasino a " + Float.toString(gananciaActual));
+       sql = "UPDATE casino SET ganancias=" + Float.toString(gananciaActual);
+       System.out.println(sql);
+       bd.ejecutarConsulta(sql);
+            
+            
+          
+
+            
     }
 
     @Override
